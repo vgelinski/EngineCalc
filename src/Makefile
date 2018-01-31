@@ -5,7 +5,10 @@ CC=g++
 CFLAGS=-std=c++11 -Wall
 DEPS=.
 
-SRCS=main.cc math/identity.cc
+SRCS=main.cc\
+math/identity.cc\
+math/integral.cc
+
 _OBJ=$(SRCS:.cc=.o)
 
 default: create_directories engineCalc
