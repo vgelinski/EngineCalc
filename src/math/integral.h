@@ -1,5 +1,5 @@
 #ifndef INTEGRAL_H
-#define INTEGRAL_G
+#define INTEGRAL_H
 
 #include <memory>
 
