@@ -7,11 +7,15 @@ CC=g++
 CFLAGS=-std=c++11 -Wall
 DEPS=.
 
-SRCS=main.cc\
-math/identity.cc\
+PROJECT_SRCS=math/identity.cc\
 math/integral.cc
 
-TEST_SRCS=test/test_runner.cc
+SRCS=$(PROJECT_SRCS)\
+main.cc
+
+TEST_SRCS=$(PROJECT_SRCS)\
+test/test_runner.cc\
+test/math/*_test.cc
 
 _OBJ=$(SRCS:.cc=.o)
 

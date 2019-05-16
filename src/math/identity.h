@@ -6,18 +6,16 @@
 #include <string>
 #include <map>
 
-namespace std{
 class Identity : public Function {
 private:
 
-    string paramName;
+    std::string paramName;
 
 public:
 
-    Identity(const string &paramName);
+    Identity(const std::string &paramName);
     virtual ~Identity();
-    virtual double value(const map<string, double> &params) const override;
+    virtual double value(const std::map<std::string, double> &params) const override;
 };
-}
 
 #endif
