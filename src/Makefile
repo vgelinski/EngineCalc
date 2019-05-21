@@ -14,8 +14,8 @@ SRCS=$(PROJECT_SRCS)\
 main.cc
 
 TEST_SRCS=$(PROJECT_SRCS)\
-src/test/test_runner.cc\
-src/test/math/*_test.cc
+test/test_runner.cc\
+test/math/*_test.cc
 
 _OBJ=$(SRCS:.cc=.o)
 
