@@ -31,5 +31,5 @@
 *.out
 *.app
 
-src/bin/
-src/coverage/
+bin/
+coverage/

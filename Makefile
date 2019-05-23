@@ -9,11 +9,11 @@ DEPS=.
 
 TEST_LDFLAGS=-lgcov
 
-PROJECT_SRCS=math/identity.cc\
-math/integral.cc
+PROJECT_SRCS=src/math/identity.cc\
+src/math/integral.cc
 
 SRCS=$(PROJECT_SRCS)\
-main.cc
+src/main.cc
 
 TEST_SRCS=$(PROJECT_SRCS)\
 test/test_runner.cc\
@@ -30,7 +30,7 @@ $(ODIR)/%.o: %.cc
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 create_dirs: 
-	@mkdir -p $(ODIR)/math
+	@mkdir -p $(ODIR)/src/math
 	@mkdir -p $(BIN)
 	@mkdir -p $(LIBDIR)
 

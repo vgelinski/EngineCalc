@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../../math/identity.h"
+#include "../../src/math/identity.h"
 
 using namespace std;
 
