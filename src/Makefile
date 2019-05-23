@@ -7,6 +7,8 @@ CC=g++
 CFLAGS=-std=c++11 -Wall
 DEPS=.
 
+TEST_LDFLAGS=-lgcov
+
 PROJECT_SRCS=math/identity.cc\
 math/integral.cc
 
@@ -42,7 +44,7 @@ gtest: $(GTESTDIR)/src/gtest-all.cc create_dirs
 
 
 test: gtest
-	g++ -isystem ${GTESTDIR}/include -pthread $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test
+	g++ -fprofile-arcs -ftest-coverage -isystem ${GTESTDIR}/include -pthread $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test $(TEST_LDFLAGS)
 
 clean:
 	rm -rf $(BIN) $(ODIR) $(LIBDIR)
