@@ -4,6 +4,11 @@
 #include <map>
 #include <string>
 
+/** \brief Клас, моделиращ математическа функция
+ *
+ * В математиката Функция е... 
+ * 
+ */
 class Function {
 
 public:
