@@ -22,7 +22,7 @@
 class Function {
 
 public:
-//    virtual ~Function();
+    virtual ~Function();
 
     /** \param params Аргументите на функцията. Преставлява речник име->стойност
      *  \return Стойността на функцията спрямо зададените аргументи.
