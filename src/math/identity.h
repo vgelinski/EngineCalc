@@ -6,6 +6,9 @@
 #include <string>
 #include <map>
 
+/** \brief Клас, моделиращ идентитет.
+ *
+ */
 class Identity : public Function {
 private:
 
@@ -13,6 +16,8 @@ private:
 
 public:
 
+    /** \param paramName Името на параметъра, по който е идентитетът.
+     */
     Identity(const std::string &paramName);
     virtual ~Identity();
     virtual double value(const std::map<std::string, double> &params) const override;
