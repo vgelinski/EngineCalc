@@ -48,4 +48,4 @@ test: gtest
 	$(CC) -fprofile-arcs -ftest-coverage -isystem ${GTESTDIR}/include -pthread $(CFLAGS) $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test $(TEST_LDFLAGS)
 
 clean:
-	rm -rf $(BIN) $(ODIR) $(LIBDIR)
+	rm -rf $(BIN) $(ODIR) $(LIBDIR) *.gcno
