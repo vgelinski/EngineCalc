@@ -6,6 +6,8 @@
 #include <memory>
 #include <string>
 
+namespace engc::math {
+
 typedef std::function<double(const double &p1, const double &p2)> operator_t;
 
 /** \brief Клас, моделиращ математическа функция
@@ -63,5 +65,7 @@ class Function::Aggregation : public Function {
         double value(const std::map<std::string, double> &p) const override;
 
 };
+
+}; //end namespace
 
 #endif

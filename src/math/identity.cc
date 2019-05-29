@@ -1,6 +1,7 @@
 #include "identity.h"
 
 using namespace std;
+using namespace engc::math;
 
 Identity::Identity(const string &paramName) : paramName(paramName){};
 

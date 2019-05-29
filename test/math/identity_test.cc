@@ -3,6 +3,7 @@
 #include "../../src/math/identity.h"
 
 using namespace std;
+using namespace engc::math;
 
 TEST (IdentityTest, valueTest) {
     const Identity x("x");

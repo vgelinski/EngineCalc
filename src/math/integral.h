@@ -5,15 +5,15 @@
 
 #include "function.h"
 
-namespace std{
+namespace engc::math{
 
 class IntegralCalculator {
 
 public:
 
-    static shared_ptr<Function> integrate(shared_ptr<Function> f,
+    static std::shared_ptr<Function> integrate(std::shared_ptr<Function> f,
                                           double start, double end,
-                                          const string &param,
+                                          const std::string &param,
                                           int riemannSumCount = 1000);
 
 private:
@@ -23,8 +23,8 @@ private:
 
     public:
 
-        virtual double value(const map<string, double> &params) const override;
+        virtual double value(const std::map<std::string, double> &params) const override;
     };
 };
-}
+}; //end namespace
 #endif

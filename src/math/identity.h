@@ -6,6 +6,8 @@
 #include <string>
 #include <map>
 
+namespace engc::math {
+
 /** \brief Клас, моделиращ идентитет.
  *
  */
@@ -22,5 +24,7 @@ public:
     virtual ~Identity();
     virtual double value(const std::map<std::string, double> &params) const override;
 };
+
+}; //and namespace
 
 #endif
