@@ -9,11 +9,7 @@ Function::Aggregation::Aggregation(
 		const shared_ptr<Function> &f1,
 		const operator_t &op,
 		const shared_ptr<Function> &f2
-		) {
-	this->f1 = f1;
-	this->f2 = f2;
-	this->op = op;
-}
+		) : f1(f1), f2(f2), op(op){}
 
 Function::Aggregation::~Aggregation() {}
 
