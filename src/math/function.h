@@ -38,6 +38,22 @@ public:
 private:
 
     class Aggregation;
+
+    friend std::shared_ptr<Function> operator+(
+		    const std::shared_ptr<Function> lhs,
+		    const std::shared_ptr<Function> rhs);
+
+    friend std::shared_ptr<Function> operator-(
+		    const std::shared_ptr<Function> lhs,
+		    const std::shared_ptr<Function> rhs);
+
+    friend std::shared_ptr<Function> operator*(
+		    const std::shared_ptr<Function> lhs,
+		    const std::shared_ptr<Function> rhs);
+
+    friend std::shared_ptr<Function> operator/(
+		    const std::shared_ptr<Function> lhs,
+		    const std::shared_ptr<Function> rhs);
 };
 
 /** \brief Агрегация на две функции
@@ -65,6 +81,22 @@ class Function::Aggregation : public Function {
         double value(const std::map<std::string, double> &p) const override;
 
 };
+
+std::shared_ptr<Function> operator+(
+		const std::shared_ptr<Function> lhs,
+		const std::shared_ptr<Function> rhs);
+
+std::shared_ptr<Function> operator-(
+		const std::shared_ptr<Function> lhs,
+		const std::shared_ptr<Function> rhs);
+
+std::shared_ptr<Function> operator*(
+		const std::shared_ptr<Function> lhs,
+		const std::shared_ptr<Function> rhs);
+
+std::shared_ptr<Function> operator/(
+		const std::shared_ptr<Function> lhs,
+		const std::shared_ptr<Function> rhs);
 
 }; //end namespace
 
