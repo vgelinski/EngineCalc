@@ -1,8 +1,12 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
+#include <functional>
 #include <map>
+#include <memory>
 #include <string>
+
+typedef std::function<double(const double &p1, const double &p2)> operator_t;
 
 /** \brief Клас, моделиращ математическа функция
  *
@@ -28,6 +32,36 @@ public:
      *  \return Стойността на функцията спрямо зададените аргументи.
      */
     virtual double value(const std::map<std::string, double> &params) const = 0;
+
+private:
+
+    class Aggregation;
+};
+
+/** \brief Агрегация на две функции
+ *
+ * Класът моделира агрегацията на 2 функции и оператор. Стойността на
+ * агрегацията (която сама по себе си е функция) е резултатът от изпълнението
+ * на оператора върху стойностите на агрегираните функции
+ */
+class Function::Aggregation : public Function {
+    private:
+        std::shared_ptr<Function> f1;
+	std::shared_ptr<Function> f2;
+	operator_t op;
+
+    public:
+
+	Aggregation(
+	    const std::shared_ptr<Function> &f1,
+	    const operator_t &op,
+	    const std::shared_ptr<Function> &f2
+	);
+
+	virtual ~Aggregation();
+
+        double value(const std::map<std::string, double> &p) const override;
+
 };
 
 #endif
