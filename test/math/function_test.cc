@@ -9,7 +9,7 @@ using namespace engc::math;
 
 class FunctionTest : public ::testing::Test {
 protected:
-    double totalVal(double x, double y, double z) {
+    double totalAggVal(double x, double y, double z) {
         return (x + y * z) / (5 - 3);
     };
 };
@@ -30,6 +30,12 @@ TEST_F (FunctionTest, aggregation) {
     params["z"] = 9.0;
     params["unused"] = -1.0;
 
-    ASSERT_EQ(total->value(params), totalVal(1.0, 2.0, 9.0));
+    ASSERT_EQ(total->value(params), totalAggVal(1.0, 2.0, 9.0));
+
+    params["x"] = -20.0;
+    params["y"] = 3.14;
+    params["z"] = 0.002;
+    
+    ASSERT_EQ(total->value(params), totalAggVal(-20.0, 3.14, 0.002));
 }
 
