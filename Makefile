@@ -9,7 +9,8 @@ DEPS=.
 
 TEST_LDFLAGS=-lgcov
 
-PROJECT_SRCS=src/math/function.cc\
+PROJECT_SRCS=src/math/constant.cc\
+src/math/function.cc\
 src/math/identity.cc\
 src/math/integral.cc
 
