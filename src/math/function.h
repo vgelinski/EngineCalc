@@ -25,7 +25,7 @@ typedef std::function<double(const double &p1, const double &p2)> operator_t;
  *      нуждае, поведението ѝ не е дефинирано.
  * 
  */
-class Function {
+class Function : public std::enable_shared_from_this<Function> {
 
 public:
     virtual ~Function();
@@ -35,9 +35,14 @@ public:
      */
     virtual double value(const std::map<std::string, double> &params) const = 0;
 
+    virtual std::shared_ptr<Function> compose(
+            const std::shared_ptr<Function> other,
+            const std::string &paramName) const;
+
 private:
 
     class Aggregation;
+    class Composition;
 
     friend std::shared_ptr<Function> operator+(
 		    const std::shared_ptr<Function> lhs,
@@ -63,24 +68,56 @@ private:
  * на оператора върху стойностите на агрегираните функции
  */
 class Function::Aggregation : public Function {
-    private:
-        std::shared_ptr<Function> f1;
-	std::shared_ptr<Function> f2;
-	operator_t op;
+private:
+    const std::shared_ptr<const Function> f1;
+    const std::shared_ptr<const Function> f2;
+    const operator_t op;
 
-    public:
+public:
 
-	Aggregation(
-	    const std::shared_ptr<Function> &f1,
-	    const operator_t &op,
-	    const std::shared_ptr<Function> &f2
-	);
+    Aggregation(
+        const std::shared_ptr<Function> &f1,
+        const operator_t &op,
+        const std::shared_ptr<Function> &f2
+    );
 
-	virtual ~Aggregation();
+    virtual ~Aggregation();
 
-        double value(const std::map<std::string, double> &p) const override;
+    double value(const std::map<std::string, double> &p) const override;
 
 };
+
+/** \brief Клас, моделиращ композиция на две функции
+*
+* Ако означим с \f$f(x_1, x_2...x_n)\f$ 
+* функция от тип \f$f:I\!R^n\rightarrow I\!R\f$
+* и с \f$g(y_1, y_2...y_m)\f$
+* функция от тип \f$f:I\!R^m\rightarrow I\!R\f$,
+* то композицията на f и g, спрямо променливата \f$x_2\f$, ще бъде функцията
+* \f$h(x_1, y_1, y_2...y_m, x_3...x_n) = f(x_1, g(y_1, y_2...y_m), x_3...x_n)\f$
+* от тип \f$h:I\!R^{n + m - 1}\rightarrow I\!R\f$
+*/
+class Function::Composition : public Function {
+
+private:
+
+    const std::shared_ptr<const Function> superF;
+    const std::shared_ptr<const Function> subF;
+    const std::string paramName;
+
+public:
+
+    Composition(
+            const std::shared_ptr<const Function> superF,
+            const std::shared_ptr<const Function> subF,
+            const std::string &paramName
+    );
+
+    virtual ~Composition();
+
+    double value(const std::map<std::string, double> &params) const override;
+};
+
 
 std::shared_ptr<Function> operator+(
 		const std::shared_ptr<Function> lhs,
