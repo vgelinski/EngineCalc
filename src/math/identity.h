@@ -25,6 +25,6 @@ public:
     virtual double value(const std::map<std::string, double> &params) const override;
 };
 
-}; //and namespace
+}; //end namespace
 
 #endif
