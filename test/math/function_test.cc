@@ -67,3 +67,19 @@ TEST_F(FunctionTest, compositon) {
     ASSERT_EQ(comp(params), totalCompVal(-3.14));
 
 }
+
+TEST_F(FunctionTest, variables) {
+    auto x = make_shared<Identity>("x");
+    auto y = make_shared<Identity>("y");
+    auto z = make_shared<Identity>("z");
+
+    auto xy = x + y;
+    auto zy = xy->compose(z, "x");
+    auto xyOfX = xy->compose(x, "x");
+    auto xyOfY = xy->compose(x, "y");
+
+    ASSERT_EQ(xy->variables(), fvariables_t({"y", "x"}));
+    ASSERT_EQ(zy->variables(), fvariables_t({"y", "z"}));
+    ASSERT_EQ(xyOfX->variables(), fvariables_t({"y", "x"}));
+    ASSERT_EQ(xyOfY->variables(), fvariables_t({"x"}));
+}

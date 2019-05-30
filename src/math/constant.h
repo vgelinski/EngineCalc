@@ -26,6 +26,7 @@ public:
      */
     Constant(const double &val);
     virtual ~Constant();
+    fvariables_t variables() const override;
 };
 
 }; //end namespace

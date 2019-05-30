@@ -10,3 +10,7 @@ Constant::~Constant() {};
 double Constant::value(const map<string, double> &params) const {
     return val;
 };
+
+fvariables_t Constant::variables() const {
+    return fvariables_t();
+}

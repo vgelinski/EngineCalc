@@ -26,6 +26,8 @@ public:
      */
     Identity(const std::string &paramName);
     virtual ~Identity();
+
+    fvariables_t variables() const override;
 };
 
 }; //end namespace

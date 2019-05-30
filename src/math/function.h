@@ -5,11 +5,13 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <unordered_set>
 
 namespace engc::math {
 
 typedef std::function<double(const double &p1, const double &p2)> operator_t;
 typedef std::map<std::string, double> fparams_t;
+typedef std::unordered_set<std::string> fvariables_t;
 
 /** \brief Клас, моделиращ математическа функция
  *
@@ -43,6 +45,14 @@ public:
     * вж. Function::value()
     */
     virtual double operator()(const fparams_t &params) const;
+
+    /** \brief Връща множеството от променливи на функцията
+    * Връща множеството от същински променливи на функцията.
+    * Една променлива е същинска тогава и само тогава, когато 
+    * съществуват две различни нейни стойности, такива че при еднакви стойности
+    * на другите аргументи, функцията приема различни стойности.
+    */
+    virtual fvariables_t variables() const = 0;
 
     virtual std::shared_ptr<Function> compose(
             const std::shared_ptr<Function> other,
@@ -95,6 +105,8 @@ public:
     );
 
     virtual ~Aggregation();
+
+    virtual fvariables_t variables() const override;
 };
 
 /** \brief Клас, моделиращ композиция на две функции
@@ -128,6 +140,8 @@ public:
     );
 
     virtual ~Composition();
+
+    virtual fvariables_t variables() const override;
 };
 
 

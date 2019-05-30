@@ -13,4 +13,7 @@ TEST (IdentityTest, valueTest) {
     params["y"] = 3.0;
     ASSERT_EQ(x(params), 2);
     ASSERT_EQ(y(params), 3);
+
+    ASSERT_EQ(x.variables(), fvariables_t({"x"}));
+    ASSERT_EQ(y.variables(), fvariables_t({"y"}));
 }
