@@ -25,8 +25,9 @@ TEST_F (FunctionTest, aggregation) {
     auto y = make_shared<Identity>("y");
     auto z = make_shared<Identity>("z");
 
-    auto total = (x + y * z) / (c5 - c3);
 
+    auto total_ptr = (x + y * z) / (c5 - c3);
+    const auto &total = *total_ptr;
 
     map<string, double> params;
     params["x"] = 1.0;
@@ -34,13 +35,13 @@ TEST_F (FunctionTest, aggregation) {
     params["z"] = 9.0;
     params["unused"] = -1.0;
 
-    ASSERT_EQ(total->value(params), totalAggVal(1.0, 2.0, 9.0));
+    ASSERT_EQ(total(params), totalAggVal(1.0, 2.0, 9.0));
 
     params["x"] = -20.0;
     params["y"] = 3.14;
     params["z"] = 0.002;
     
-    ASSERT_EQ(total->value(params), totalAggVal(-20.0, 3.14, 0.002));
+    ASSERT_EQ(total(params), totalAggVal(-20.0, 3.14, 0.002));
 }
 
 TEST_F(FunctionTest, compositon) {
@@ -56,12 +57,13 @@ TEST_F(FunctionTest, compositon) {
     params["y"] = 8.0;
     params["unused"] = -1.0;
 
-    auto comp = x_3->compose(y2, "x");
+    auto comp_ptr = x_3->compose(y2, "x");
+    const auto &comp = *comp_ptr; 
 
-    ASSERT_EQ(comp->value(params), totalCompVal(8.0));
+    ASSERT_EQ(comp(params), totalCompVal(8.0));
     params["x"] = -2;
-    ASSERT_EQ(comp->value(params), totalCompVal(8.0));
+    ASSERT_EQ(comp(params), totalCompVal(8.0));
     params["y"] = -3.14;
-    ASSERT_EQ(comp->value(params), totalCompVal(-3.14));
+    ASSERT_EQ(comp(params), totalCompVal(-3.14));
 
 }

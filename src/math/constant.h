@@ -16,13 +16,16 @@ private:
 
     double val;
 
+protected:
+
+    virtual double value(const fparams_t &params) const override;
+
 public:
 
     /** \param val Връщаната стойност, еднаква за всички аргументи на функцията
      */
     Constant(const double &val);
     virtual ~Constant();
-    virtual double value(const std::map<std::string, double> &params) const override;
 };
 
 }; //end namespace

@@ -9,6 +9,7 @@
 namespace engc::math {
 
 typedef std::function<double(const double &p1, const double &p2)> operator_t;
+typedef std::map<std::string, double> fparams_t;
 
 /** \brief Клас, моделиращ математическа функция
  *
@@ -27,13 +28,21 @@ typedef std::function<double(const double &p1, const double &p2)> operator_t;
  */
 class Function : public std::enable_shared_from_this<Function> {
 
-public:
-    virtual ~Function();
+protected:
 
     /** \param params Аргументите на функцията. Преставлява речник име->стойност
      *  \return Стойността на функцията спрямо зададените аргументи.
      */
-    virtual double value(const std::map<std::string, double> &params) const = 0;
+    virtual double value(const fparams_t &params) const = 0;
+
+public:
+
+    virtual ~Function();
+
+    /** Връща стойността на функцията, като извършва вътрешна оптимизация
+    * вж. Function::value()
+    */
+    virtual double operator()(const fparams_t &params) const;
 
     virtual std::shared_ptr<Function> compose(
             const std::shared_ptr<Function> other,
@@ -73,6 +82,10 @@ private:
     const std::shared_ptr<const Function> f2;
     const operator_t op;
 
+protected:
+
+    double value(const std::map<std::string, double> &p) const override;
+
 public:
 
     Aggregation(
@@ -82,9 +95,6 @@ public:
     );
 
     virtual ~Aggregation();
-
-    double value(const std::map<std::string, double> &p) const override;
-
 };
 
 /** \brief Клас, моделиращ композиция на две функции
@@ -105,6 +115,10 @@ private:
     const std::shared_ptr<const Function> subF;
     const std::string paramName;
 
+protected:
+
+    double value(const std::map<std::string, double> &params) const override;
+
 public:
 
     Composition(
@@ -114,8 +128,6 @@ public:
     );
 
     virtual ~Composition();
-
-    double value(const std::map<std::string, double> &params) const override;
 };
 
 

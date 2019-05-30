@@ -8,5 +8,5 @@ using namespace engc::math;
 TEST (ConstantTest, emptyParameters) {
     const Constant c(0.8);
     map<string, double> params;
-    ASSERT_EQ(c.value(params), 0.8);
+    ASSERT_EQ(c(params), 0.8);
 }

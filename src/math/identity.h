@@ -16,13 +16,16 @@ private:
 
     std::string paramName;
 
+protected:
+
+    virtual double value(const fparams_t &params) const override;
+
 public:
 
     /** \param paramName Името на параметъра, по който е идентитетът.
      */
     Identity(const std::string &paramName);
     virtual ~Identity();
-    virtual double value(const std::map<std::string, double> &params) const override;
 };
 
 }; //end namespace

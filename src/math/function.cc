@@ -5,6 +5,10 @@ using namespace engc::math;
 
 Function::~Function() {}
 
+double Function::operator()(const fparams_t &params) const {
+    return value(params); //TODO optimize
+}
+
 shared_ptr<Function> Function::compose(
         const shared_ptr<Function> other, const string &paramName) const {
 
