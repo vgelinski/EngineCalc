@@ -55,6 +55,13 @@ public:
     */
     virtual fvariables_t variables() const = 0;
 
+    /** \brief Връща композиция на текущата функция с дадената
+    * 
+    * Връща композиция (Composition), в която указаният аргумент е заменен
+    * от указаната функция.
+    * \param other Функцията, която ще замени аргумента
+    * \param paramName аргументът, който ще бъде заменен.
+    */
     virtual std::shared_ptr<Function> compose(
             const std::shared_ptr<Function> other,
             const std::string &paramName) const;
