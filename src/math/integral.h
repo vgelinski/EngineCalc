@@ -9,17 +9,18 @@ namespace engc::math{
 
 class IntegralCalculator {
 
-public:
+private:
+
+    friend class Function;
 
     static std::shared_ptr<Function> integrate(
-            std::shared_ptr<Function> f,
+            std::shared_ptr<const Function> f,
             double start, double end,
             const std::string &param,
             double errBound,
             int threadCount = 1
     );
 
-private:
     class SingleThreadIntegral : public Function {
 
     private:
@@ -31,7 +32,7 @@ private:
     public:
 
         SingleThreadIntegral(
-                std::shared_ptr<Function> f,
+                std::shared_ptr<const Function> f,
                 double start, double end,
                 const std::string &param,
                 double errBound

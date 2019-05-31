@@ -59,6 +59,27 @@ public:
             const std::shared_ptr<Function> other,
             const std::string &paramName) const;
 
+    /** \brief Пресмята определен интеграл от текущата функция
+    *
+    * Ако текущата функция е абстракция на
+    * \f$f(x_1, x_2...x_{i-1}, x_i, x_{i + 1}...x_n): I\!R^n \rightarrow I\!R\f$,
+    * то върнатата стойност
+    * ще бъде абстракция на функцията
+    * \f$g(x_1, x_2...x_{i - 1}, x_{i + 1}...x_n): I\!R^{n - 1} \rightarrow I\!R\f$
+    * където:
+    * 
+    * \f$g(x_1, x_2...x_{i - 1}, x_{i + 1}...x_n) = \int_{a}^{b} f(x_1, x_2...x_n) dx_i\f$
+    *
+    * \param start долната граница на интеграла (а) в примера
+    * \param end горната граница на интеграла (b) в примера
+    * \param paramName аргументът, по който ще се интегрира (\f$x_i\f$) в примера
+    * \param errBound допустимата погрешност при изчислението
+    */
+    virtual std::shared_ptr<Function> integrate(
+            double start, double end,
+            const std::string &paramName,
+            double errBound) const;
+
 private:
 
     class Aggregation;

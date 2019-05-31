@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "integral.h"
+
 using namespace std;
 using namespace engc::math;
 
@@ -15,6 +17,14 @@ shared_ptr<Function> Function::compose(
         const shared_ptr<Function> other, const string &paramName) const {
 
     return make_shared<Composition>(shared_from_this(), other, paramName);
+}
+
+shared_ptr<Function> Function::integrate(
+        double start, double end,
+        const string &paramName,
+        double errBound) const {
+
+    return IntegralCalculator::integrate(shared_from_this(), start, end, paramName, errBound);
 }
 
 Function::Aggregation::Aggregation(

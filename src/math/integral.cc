@@ -4,7 +4,7 @@ using namespace std;
 using namespace engc::math;
 
 shared_ptr<Function> IntegralCalculator::integrate(
-        shared_ptr<Function> f,
+        shared_ptr<const Function> f,
         double start, double end,
         const string &param,
         double errBound,
@@ -14,7 +14,7 @@ shared_ptr<Function> IntegralCalculator::integrate(
 }
 
 IntegralCalculator::SingleThreadIntegral::SingleThreadIntegral(
-        shared_ptr<Function> f,
+        shared_ptr<const Function> f,
         double start, double end,
         const string &param,
         double errBound) {}
