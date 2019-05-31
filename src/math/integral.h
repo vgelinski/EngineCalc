@@ -11,19 +11,36 @@ class IntegralCalculator {
 
 public:
 
-    static std::shared_ptr<Function> integrate(std::shared_ptr<Function> f,
-                                          double start, double end,
-                                          const std::string &param,
-                                          int riemannSumCount = 1000);
+    static std::shared_ptr<Function> integrate(
+            std::shared_ptr<Function> f,
+            double start, double end,
+            const std::string &param,
+            double errBound,
+            int threadCount = 1
+    );
 
 private:
     class SingleThreadIntegral : public Function {
 
     private:
 
+    protected:
+
+        virtual double value(const fparams_t &params) const override;
+
     public:
 
-        virtual double value(const std::map<std::string, double> &params) const override;
+        SingleThreadIntegral(
+                std::shared_ptr<Function> f,
+                double start, double end,
+                const std::string &param,
+                double errBound
+        );
+
+        virtual ~SingleThreadIntegral();
+
+        virtual fvariables_t variables() const override;
+
     };
 };
 }; //end namespace
