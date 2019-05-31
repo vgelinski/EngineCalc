@@ -31,6 +31,10 @@
 *.out
 *.app
 
+# Codeblocks
+*.cbp
+*.depend
+
 bin/
 coverage/
 docs/
