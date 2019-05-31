@@ -71,4 +71,8 @@ TEST_F (IntegralTest, integration) {
     ASSERT_EQ(integralY(params), totalValByY(-20.0, 3.14, 0.002));
 
     ASSERT_EQ(integralZ(params), 0);
+
+    ASSERT_EQ(integralX.variables(), fvariables_t({"y", "z"}));
+    ASSERT_EQ(integralY.variables(), fvariables_t({"x", "z"}));
+    ASSERT_EQ(integralZ.variables(), fvariables_t({"x", "y"}));
 }
