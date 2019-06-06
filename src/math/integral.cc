@@ -49,7 +49,9 @@ double IC::STI::value(const fparams_t &params) const {
 }
 
 fvariables_t IC::STI::variables() const {
-    return fvariables_t({});
+    fvariables_t vars = function->variables();
+    vars.erase(paramName);
+    return vars;
 }
 
 double IC::STI::calculateForN(int n, fparams_t params) const {
