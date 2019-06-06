@@ -57,6 +57,10 @@ private:
 
     private:
 
+        const double start, end, errBound;
+        const std::shared_ptr<const Function> function;
+        const std::string param;
+
     protected:
 
         virtual double value(const fparams_t &params) const override;
@@ -74,6 +78,9 @@ private:
 
         virtual fvariables_t variables() const override;
 
+     private:
+
+        double calculateForN(int n, fparams_t params) const;
     };
 };
 }; //end namespace

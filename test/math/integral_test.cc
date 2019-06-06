@@ -27,6 +27,8 @@ protected:
     const double START_Y = 3.14;
     const double END_Y = -18.4;
 
+    const double ERR_BOUND = 0.0001;
+
     double totalValByX(double x, double y, double z) {
         return undefinedIntrX(END_X, y, z) - undefinedIntrX(START_X, y, z);
     };
@@ -45,15 +47,15 @@ TEST_F (IntegralTest, integration) {
 
 
     auto integralX_ptr = ((x + y * z) / (c5 - c3))->integrate(
-        START_X, END_X, "x", 0.0001);
+        START_X, END_X, "x", ERR_BOUND);
     const auto &integralX = *integralX_ptr;
 
     auto integralY_ptr = ((x + y * z) / (c5 - c3))->integrate(
-        START_Y, END_Y, "y", 0.0001);
+        START_Y, END_Y, "y", ERR_BOUND);
     const auto &integralY = *integralY_ptr;
 
     auto integralZ_ptr = ((x + y * z) / (c5 - c3))->integrate(
-        START_X, START_X, "z", 0.0001);
+        START_X, START_X, "z", ERR_BOUND);
     const auto &integralZ = *integralZ_ptr;
 
     map<string, double> params;
@@ -62,15 +64,15 @@ TEST_F (IntegralTest, integration) {
     params["z"] = 9.0;
     params["unused"] = -1.0;
 
-    ASSERT_EQ(integralX(params), totalValByX(1.0, 2.0, 9.0));
+    ASSERT_NEAR(integralX(params), totalValByX(1.0, 2.0, 9.0), ERR_BOUND);
 
     params["x"] = -20.0;
     params["y"] = 3.14;
     params["z"] = 0.002;
 
-    ASSERT_EQ(integralY(params), totalValByY(-20.0, 3.14, 0.002));
+    ASSERT_NEAR(integralY(params), totalValByY(-20.0, 3.14, 0.002), ERR_BOUND);
 
-    ASSERT_EQ(integralZ(params), 0);
+    ASSERT_NEAR(integralZ(params), 0, ERR_BOUND);
 
     ASSERT_EQ(integralX.variables(), fvariables_t({"y", "z"}));
     ASSERT_EQ(integralY.variables(), fvariables_t({"x", "z"}));
