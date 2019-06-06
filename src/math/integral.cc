@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include "constant.h"
+
 using namespace std;
 using namespace engc::math;
 
@@ -15,7 +17,13 @@ shared_ptr<Function> IC::integrate(
         double errBound,
         int threadCount) {
 
-    return make_shared<SingleThreadIntegral>(f, start, end, param, errBound);
+    if (abs(start - end) < errBound / 2) {
+        return make_shared<Constant>(0);
+    }
+    double a = min(start, end);
+    double b = max(start, end);
+    auto intgr = make_shared<SingleThreadIntegral>(f, a, b, param, errBound);
+    return start < end ? intgr : (make_shared<Constant>(-1) * intgr);
 }
 
 IC::STI::SingleThreadIntegral(
@@ -32,7 +40,7 @@ double IC::STI::value(const fparams_t &params) const {
     int n = (end - start) / errBound;
     double result = calculateForN(n, params);
     double newResult = calculateForN(n*2, params);
-    while(abs(result - newResult) > errBound) {
+    while(abs(result - newResult) > errBound / 2) {
         result = newResult;
         n *= 2;
         newResult = calculateForN(n*2, params);
@@ -57,6 +65,5 @@ double IC::STI::calculateForN(int n, fparams_t params) const {
     params[param] = end;
     double fn = (*function)(params);
     double result = h * sum - h * (fn - f0) / 2;
-    //printf("n=%d,\tintgr=%f\n", n, result);
     return result;
 }

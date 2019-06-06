@@ -16,7 +16,7 @@ private:
     }
 
     double undefinedIntrY(double x, double y, double z) {
-        return (y * y * z / 2 - x * y) / 2;
+        return (y * y * z / 2 + x * y) / 2;
     }
 
 protected:
