@@ -7,7 +7,7 @@ CC=g++
 CFLAGS=-std=c++17 -Wall
 DEPS=.
 
-TEST_LDFLAGS=-lgcov
+TEST_LDFLAGS=-lgcov -pg
 
 PROJECT_SRCS=src/math/constant.cc\
 src/math/function.cc\
@@ -46,7 +46,7 @@ gtest: $(GTESTDIR)/src/gtest-all.cc create_dirs
 
 
 test: gtest
-	$(CC) -fprofile-arcs -ftest-coverage -isystem ${GTESTDIR}/include -pthread $(CFLAGS) $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test $(TEST_LDFLAGS)
+	$(CC) -fprofile-arcs -ftest-coverage -pg -isystem ${GTESTDIR}/include -pthread $(CFLAGS) $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test $(TEST_LDFLAGS)
 
 clean:
 	rm -rf $(BIN) $(ODIR) $(LIBDIR) *.gcno *.gcda
