@@ -50,7 +50,7 @@ double IC::STI::value(const fparams_t &params) const {
 
 fvariables_t IC::STI::variables() const {
     fvariables_t vars = function->variables();
-    vars.erase(paramName);
+    vars.erase(param);
     return vars;
 }
 
