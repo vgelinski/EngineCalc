@@ -7,7 +7,7 @@ CC=g++
 CFLAGS=-std=c++17 -Wall
 DEPS=.
 
-TEST_LDFLAGS=-lgcov -pg
+TEST_LDFLAGS=-lgcov -pg -no-pie
 
 PROJECT_SRCS=src/math/constant.cc\
 src/math/function.cc\
