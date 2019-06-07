@@ -2,7 +2,7 @@
 #define FUNCTION_H
 
 #include <functional>
-#include <map>
+#include <unordered_map>
 #include <memory>
 #include <string>
 #include <unordered_set>
@@ -11,7 +11,7 @@ namespace engc::math {
 
 typedef long double fret_t;
 typedef std::function<fret_t(const fret_t &p1, const fret_t &p2)> operator_t;
-typedef std::map<std::string, fret_t> fparams_t;
+typedef std::unordered_map<std::string, fret_t> fparams_t;
 typedef std::unordered_set<std::string> fvariables_t;
 
 /** \brief Клас, моделиращ математическа функция
@@ -124,7 +124,7 @@ private:
 
 protected:
 
-    fret_t value(const std::map<std::string, fret_t> &p) const override;
+    fret_t value(const fparams_t &p) const override;
 
 public:
 
@@ -159,7 +159,7 @@ private:
 
 protected:
 
-    fret_t value(const std::map<std::string, fret_t> &params) const override;
+    fret_t value(const fparams_t &params) const override;
 
 public:
 

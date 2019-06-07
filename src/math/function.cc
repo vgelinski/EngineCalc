@@ -35,7 +35,7 @@ Function::Aggregation::Aggregation(
 
 Function::Aggregation::~Aggregation() {}
 
-fret_t Function::Aggregation::value(const map<string, fret_t> &p) const {
+fret_t Function::Aggregation::value(const fparams_t &p) const {
     return op(f1->value(p), f2->value(p));
 }
 
@@ -57,8 +57,8 @@ Function::Composition::Composition(
 
 Function::Composition::~Composition(){}
 
-fret_t Function::Composition::value(const map<string, fret_t> &params) const {
-    map<string, fret_t> mParams = params;
+fret_t Function::Composition::value(const fparams_t &params) const {
+    fparams_t mParams = params;
     mParams[paramName] = subF->value(params);
     return superF->value(mParams);
 }
