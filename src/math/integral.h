@@ -53,7 +53,7 @@ private:
     * с \f$2*n\f$ и т.н. докато стойностите на две поредни итерации се разминават
     * с по-малко от исканата точност.
     */
-    class SingleThreadIntegral : public Function {
+    class Integral : public Function {
 
     private:
 
@@ -67,14 +67,14 @@ private:
 
     public:
 
-        SingleThreadIntegral(
+        Integral(
                 std::shared_ptr<const Function> f,
                 fret_t start, fret_t end,
                 const std::string &param,
                 fret_t errBound
         );
 
-        virtual ~SingleThreadIntegral();
+        virtual ~Integral();
 
         virtual fvariables_t variables() const override;
 

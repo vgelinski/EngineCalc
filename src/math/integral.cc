@@ -8,7 +8,7 @@ using namespace std;
 using namespace engc::math;
 
 #define IC IntegralCalculator
-#define STI SingleThreadIntegral
+#define MTI Integral
 
 shared_ptr<Function> IC::integrate(
         shared_ptr<const Function> f,
@@ -22,11 +22,11 @@ shared_ptr<Function> IC::integrate(
     }
     fret_t a = min(start, end);
     fret_t b = max(start, end);
-    auto intgr = make_shared<SingleThreadIntegral>(f, a, b, param, errBound);
+    auto intgr = make_shared<Integral>(f, a, b, param, errBound);
     return start < end ? intgr : (make_shared<Constant>(-1) * intgr);
 }
 
-IC::STI::SingleThreadIntegral(
+IC::MTI::Integral(
         shared_ptr<const Function> f,
         fret_t start, fret_t end,
         const string &param,
@@ -34,9 +34,9 @@ IC::STI::SingleThreadIntegral(
             start(start), end(end), errBound(errBound),
             function(f), param(param) {}
 
-IC::STI::~SingleThreadIntegral() {}
+IC::MTI::~Integral() {}
 
-fret_t IC::STI::value(const fparams_t &params) const {
+fret_t IC::MTI::value(const fparams_t &params) const {
     int n = (end - start) / errBound;
     fret_t result = calculateForN(n, params);
     fret_t newResult = calculateForN(n*2, params);
@@ -48,13 +48,13 @@ fret_t IC::STI::value(const fparams_t &params) const {
     return result;
 }
 
-fvariables_t IC::STI::variables() const {
+fvariables_t IC::MTI::variables() const {
     fvariables_t vars = function->variables();
     vars.erase(param);
     return vars;
 }
 
-fret_t IC::STI::calculateForN(int n, fparams_t params) const {
+fret_t IC::MTI::calculateForN(int n, fparams_t params) const {
     fret_t sum = 0;
     fret_t h = (end - start) / n;
     for (int i = 0; i <= n; i++) {
