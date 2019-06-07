@@ -57,10 +57,11 @@ fvariables_t IC::MTI::variables() const {
 fret_t IC::MTI::calculateForN(int n, fparams_t params) const {
     fret_t sum = 0;
     fret_t h = (end - start) / n;
-    for (int i = 0; i <= n; i++) {
-        fret_t xi = start + i * h;
-        params[param] = xi;
-        sum += (*function)(params);
+    int oneIterN = n / THREAD_COUNT;
+    for (int i = 0; i <= THREAD_COUNT; i++) {
+        fret_t a = start + i * oneIterN * h;
+        fret_t b = min(a + oneIterN * h, end);
+        sum += calculateAB(a, b, h, params);
     }
     params[param] = start;
     fret_t f0 = (*function)(params);
@@ -69,3 +70,15 @@ fret_t IC::MTI::calculateForN(int n, fparams_t params) const {
     fret_t result = h * sum - h * (fn - f0) / 2;
     return result;
 }
+
+fret_t IC::MTI::calculateAB(const fret_t &a, const fret_t &b,
+        const fret_t &step, fparams_t params) const {
+
+    fret_t sum = 0;
+    for(fret_t curr = a; curr < b; curr += step) {
+        params[param] = curr;
+        sum += (*function)(params);
+    }
+    return sum;
+}
+

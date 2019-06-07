@@ -57,6 +57,8 @@ private:
 
     private:
 
+        const static int THREAD_COUNT  = 16;
+
         const fret_t start, end, errBound;
         const std::shared_ptr<const Function> function;
         const std::string param;
@@ -81,6 +83,9 @@ private:
      private:
 
         fret_t calculateForN(int n, fparams_t params) const;
+
+        fret_t calculateAB(const fret_t &a, const fret_t &b,
+                const fret_t &step, fparams_t params) const;
     };
 };
 }; //end namespace
