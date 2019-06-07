@@ -4,9 +4,10 @@ BIN=bin
 LIBDIR=lib
 
 CC=g++
-CFLAGS=-std=c++17 -Wall
+CFLAGS=-std=c++17 -Wall -pthread
 DEPS=.
 
+TEST_CFLAGS=-fprofile-arcs -ftest-coverage -pg 
 TEST_LDFLAGS=-lgcov -pg -no-pie
 
 PROJECT_SRCS=src/math/constant.cc\
@@ -41,12 +42,13 @@ engineCalc: $(OBJ)
 
 gtest: $(GTESTDIR)/src/gtest-all.cc create_dirs
 	$(CC) -isystem ${GTESTDIR}/include -I${GTESTDIR} \
-            -pthread -c $(CFLAGS) ${GTESTDIR}/src/gtest-all.cc -o $(ODIR)/gtest-all.o
+            -c $(CFLAGS) ${GTESTDIR}/src/gtest-all.cc -o $(ODIR)/gtest-all.o
 	ar -rv $(LIBDIR)/libgtest.a $(ODIR)/gtest-all.o
 
 
 test: gtest
-	$(CC) -fprofile-arcs -ftest-coverage -pg -isystem ${GTESTDIR}/include -pthread $(CFLAGS) $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test $(TEST_LDFLAGS)
+	$(CC) $(TEST_CFLAGS) -isystem ${GTESTDIR}/include $(CFLAGS)\
+            $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test $(TEST_LDFLAGS)
 
 clean:
 	rm -rf $(BIN) $(ODIR) $(LIBDIR) *.gcno *.gcda
