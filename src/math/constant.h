@@ -14,17 +14,17 @@ namespace engc::math {
 class Constant : public Function {
 private:
 
-    double val;
+    fret_t val;
 
 protected:
 
-    virtual double value(const fparams_t &params) const override;
+    virtual fret_t value(const fparams_t &params) const override;
 
 public:
 
     /** \param val Връщаната стойност, еднаква за всички аргументи на функцията
      */
-    Constant(const double &val);
+    Constant(const fret_t &val);
     virtual ~Constant();
     fvariables_t variables() const override;
 };

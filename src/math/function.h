@@ -9,8 +9,9 @@
 
 namespace engc::math {
 
-typedef std::function<double(const double &p1, const double &p2)> operator_t;
-typedef std::map<std::string, double> fparams_t;
+typedef long double fret_t;
+typedef std::function<fret_t(const fret_t &p1, const fret_t &p2)> operator_t;
+typedef std::map<std::string, fret_t> fparams_t;
 typedef std::unordered_set<std::string> fvariables_t;
 
 /** \brief Клас, моделиращ математическа функция
@@ -35,7 +36,7 @@ protected:
     /** \param params Аргументите на функцията. Преставлява речник име->стойност
      *  \return Стойността на функцията спрямо зададените аргументи.
      */
-    virtual double value(const fparams_t &params) const = 0;
+    virtual fret_t value(const fparams_t &params) const = 0;
 
 public:
 
@@ -44,7 +45,7 @@ public:
     /** Връща стойността на функцията, като извършва вътрешна оптимизация
     * вж. Function::value()
     */
-    virtual double operator()(const fparams_t &params) const;
+    virtual fret_t operator()(const fparams_t &params) const;
 
     /** \brief Връща множеството от променливи на функцията
     *
@@ -83,9 +84,9 @@ public:
     * \param errBound допустимата погрешност при изчислението
     */
     virtual std::shared_ptr<Function> integrate(
-            double start, double end,
+            fret_t start, fret_t end,
             const std::string &paramName,
-            double errBound) const;
+            fret_t errBound) const;
 
 private:
 
@@ -123,7 +124,7 @@ private:
 
 protected:
 
-    double value(const std::map<std::string, double> &p) const override;
+    fret_t value(const std::map<std::string, fret_t> &p) const override;
 
 public:
 
@@ -158,7 +159,7 @@ private:
 
 protected:
 
-    double value(const std::map<std::string, double> &params) const override;
+    fret_t value(const std::map<std::string, fret_t> &params) const override;
 
 public:
 

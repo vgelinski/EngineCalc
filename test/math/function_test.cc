@@ -9,11 +9,11 @@ using namespace engc::math;
 
 class FunctionTest : public ::testing::Test {
 protected:
-    double totalAggVal(double x, double y, double z) {
+    long double totalAggVal(long double x, long double y, long double z) {
         return (x + y * z) / (5 - 3);
     };
 
-    double totalCompVal(double y) {
+    long double totalCompVal(long double y) {
         return (y - 2) * (y - 2) * (y - 2);
     };
 };
@@ -29,7 +29,7 @@ TEST_F (FunctionTest, aggregation) {
     auto total_ptr = (x + y * z) / (c5 - c3);
     const auto &total = *total_ptr;
 
-    map<string, double> params;
+    fparams_t params;
     params["x"] = 1.0;
     params["y"] = 2.0;
     params["z"] = 9.0;
@@ -52,7 +52,7 @@ TEST_F(FunctionTest, compositon) {
     auto c2 = make_shared<Constant>(2);
     auto y2 = y - c2;
 
-    map<string, double> params;
+    fparams_t params;
     params["x"] = 5.0;
     params["y"] = 8.0;
     params["unused"] = -1.0;

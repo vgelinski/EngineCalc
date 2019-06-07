@@ -58,7 +58,7 @@ TEST_F (IntegralTest, integration) {
         START_X, START_X, "z", ERR_BOUND);
     const auto &integralZ = *integralZ_ptr;
 
-    map<string, double> params;
+    fparams_t params;
     params["x"] = 1.0;
     params["y"] = 2.0;
     params["z"] = 9.0;

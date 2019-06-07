@@ -7,7 +7,7 @@ Identity::Identity(const string &paramName) : paramName(paramName){};
 
 Identity::~Identity() {};
 
-double Identity::value(const map<string, double> &params) const {
+fret_t Identity::value(const map<string, fret_t> &params) const {
     return params.at(paramName);
 };
 

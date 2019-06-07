@@ -15,9 +15,9 @@ private:
 
     static std::shared_ptr<Function> integrate(
             std::shared_ptr<const Function> f,
-            double start, double end,
+            fret_t start, fret_t end,
             const std::string &param,
-            double errBound,
+            fret_t errBound,
             int threadCount = 1
     );
 
@@ -57,21 +57,21 @@ private:
 
     private:
 
-        const double start, end, errBound;
+        const fret_t start, end, errBound;
         const std::shared_ptr<const Function> function;
         const std::string param;
 
     protected:
 
-        virtual double value(const fparams_t &params) const override;
+        virtual fret_t value(const fparams_t &params) const override;
 
     public:
 
         SingleThreadIntegral(
                 std::shared_ptr<const Function> f,
-                double start, double end,
+                fret_t start, fret_t end,
                 const std::string &param,
-                double errBound
+                fret_t errBound
         );
 
         virtual ~SingleThreadIntegral();
@@ -80,7 +80,7 @@ private:
 
      private:
 
-        double calculateForN(int n, fparams_t params) const;
+        fret_t calculateForN(int n, fparams_t params) const;
     };
 };
 }; //end namespace

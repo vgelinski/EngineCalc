@@ -3,11 +3,11 @@
 using namespace std;
 using namespace engc::math;
 
-Constant::Constant(const double &val) : val(val){};
+Constant::Constant(const fret_t &val) : val(val){};
 
 Constant::~Constant() {};
 
-double Constant::value(const map<string, double> &params) const {
+fret_t Constant::value(const fparams_t &params) const {
     return val;
 };
 

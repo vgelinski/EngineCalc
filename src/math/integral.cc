@@ -12,34 +12,34 @@ using namespace engc::math;
 
 shared_ptr<Function> IC::integrate(
         shared_ptr<const Function> f,
-        double start, double end,
+        fret_t start, fret_t end,
         const string &param,
-        double errBound,
+        fret_t errBound,
         int threadCount) {
 
     if (abs(start - end) < errBound / 2) {
         return make_shared<Constant>(0);
     }
-    double a = min(start, end);
-    double b = max(start, end);
+    fret_t a = min(start, end);
+    fret_t b = max(start, end);
     auto intgr = make_shared<SingleThreadIntegral>(f, a, b, param, errBound);
     return start < end ? intgr : (make_shared<Constant>(-1) * intgr);
 }
 
 IC::STI::SingleThreadIntegral(
         shared_ptr<const Function> f,
-        double start, double end,
+        fret_t start, fret_t end,
         const string &param,
-        double errBound) : 
+        fret_t errBound) : 
             start(start), end(end), errBound(errBound),
             function(f), param(param) {}
 
 IC::STI::~SingleThreadIntegral() {}
 
-double IC::STI::value(const fparams_t &params) const {
+fret_t IC::STI::value(const fparams_t &params) const {
     int n = (end - start) / errBound;
-    double result = calculateForN(n, params);
-    double newResult = calculateForN(n*2, params);
+    fret_t result = calculateForN(n, params);
+    fret_t newResult = calculateForN(n*2, params);
     while(abs(result - newResult) > errBound / 2) {
         result = newResult;
         n *= 2;
@@ -54,18 +54,18 @@ fvariables_t IC::STI::variables() const {
     return vars;
 }
 
-double IC::STI::calculateForN(int n, fparams_t params) const {
-    double sum = 0;
-    double h = (end - start) / n;
+fret_t IC::STI::calculateForN(int n, fparams_t params) const {
+    fret_t sum = 0;
+    fret_t h = (end - start) / n;
     for (int i = 0; i <= n; i++) {
-        double xi = start + i * h;
+        fret_t xi = start + i * h;
         params[param] = xi;
         sum += (*function)(params);
     }
     params[param] = start;
-    double f0 = (*function)(params);
+    fret_t f0 = (*function)(params);
     params[param] = end;
-    double fn = (*function)(params);
-    double result = h * sum - h * (fn - f0) / 2;
+    fret_t fn = (*function)(params);
+    fret_t result = h * sum - h * (fn - f0) / 2;
     return result;
 }
