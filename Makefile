@@ -4,7 +4,7 @@ BIN=bin
 LIBDIR=lib
 
 CC=g++
-CFLAGS=-std=c++17 -Wall -pthread
+CFLAGS=-std=c++17 -Wall -pthread -Ofast
 DEPS=.
 
 TEST_CFLAGS= -std=c++17 -Wall -pthread -fprofile-arcs -ftest-coverage -pg 
