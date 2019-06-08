@@ -62,34 +62,28 @@ fret_t IC::MTI::calculateForN(int n, fparams_t params) const {
     vector<future<fret_t>> futures;
     for (int i = 0; i <= THREAD_COUNT; i++) {
         fret_t a = start + i * oneIterN * h;
-        fret_t b = min(a + oneIterN * h, end);
         int thisIterN = min(oneIterN, n - i * oneIterN);
-        auto future = async(launch::async, [this, a, b, h, thisIterN, params](){
-            return calculateAB(a, b, h, thisIterN, params);
+        auto future = async(launch::async, [this, a, h, thisIterN, &params](){
+            fret_t lSum = 0;
+            fparams_t lParams = params;
+            for(int i = 0; i < thisIterN; i++) {
+                fret_t xi = a + i * h;
+                lParams[param] = xi;
+                lSum += (*function)(lParams);
+            }
+            return lSum;
         });
         futures.push_back(std::move(future));
     }
 
-    for (auto &f: futures) {
-        sum += f.get();
+    for (auto &fut: futures) {
+        sum += fut.get();
     }
-    params[param] = start;
-    fret_t f0 = (*function)(params);
-    params[param] = end;
-    fret_t fn = (*function)(params);
-    fret_t result = h * sum - h * (fn - f0) / 2;
+    auto f = [this, &params](const fret_t &p) {
+        params[param] = p;
+        return (*function)(params);
+    };
+    fret_t result = h * sum - h * (f(end) - f(start)) / 2;
     return result;
-}
-
-fret_t IC::MTI::calculateAB(const fret_t &a, const fret_t &b,
-        const fret_t &step, int n, fparams_t params) const {
-
-    fret_t sum = 0;
-    for(int i = 0; i < n; i++) {
-        fret_t xi = a + i * step;
-        params[param] = xi;
-        sum += (*function)(params);
-    }
-    return sum;
 }
 
