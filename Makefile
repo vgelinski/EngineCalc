@@ -7,7 +7,7 @@ CC=g++
 CFLAGS=-std=c++17 -Wall -pthread
 DEPS=.
 
-TEST_CFLAGS=-fprofile-arcs -ftest-coverage -pg 
+TEST_CFLAGS= -std=c++17 -Wall -pthread -fprofile-arcs -ftest-coverage -pg 
 TEST_LDFLAGS=-lgcov -pg -no-pie
 
 PROJECT_SRCS=src/math/constant.cc\
@@ -42,12 +42,12 @@ engineCalc: $(OBJ)
 
 gtest: $(GTESTDIR)/src/gtest-all.cc create_dirs
 	$(CC) -isystem ${GTESTDIR}/include -I${GTESTDIR} \
-            -c $(CFLAGS) ${GTESTDIR}/src/gtest-all.cc -o $(ODIR)/gtest-all.o
+            -c $(TEST_CFLAGS) ${GTESTDIR}/src/gtest-all.cc -o $(ODIR)/gtest-all.o
 	ar -rv $(LIBDIR)/libgtest.a $(ODIR)/gtest-all.o
 
 
 test: gtest
-	$(CC) $(TEST_CFLAGS) -isystem ${GTESTDIR}/include $(CFLAGS)\
+	$(CC) $(TEST_CFLAGS) -isystem ${GTESTDIR}/include \
             $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test $(TEST_LDFLAGS)
 
 clean:
