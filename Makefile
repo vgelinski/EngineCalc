@@ -7,7 +7,11 @@ CC=g++
 CFLAGS=-std=c++17 -Wall -pthread -Ofast
 DEPS=.
 
-TEST_CFLAGS= -std=c++17 -Wall -pthread -fprofile-arcs -ftest-coverage -pg 
+TEST_CFLAGS=-std=c++17 -Wall -pthread -fprofile-arcs -ftest-coverage -pg
+ifdef FULL_TEST
+      TEST_CFLAGS += -DFULL_TEST
+endif
+
 TEST_LDFLAGS=-lgcov -pg -no-pie
 
 PROJECT_SRCS=src/math/constant.cc\

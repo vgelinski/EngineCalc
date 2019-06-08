@@ -27,7 +27,11 @@ protected:
     const double START_Y = 3.14;
     const double END_Y = -18.4;
 
-    const double ERR_BOUND = 0.0001;
+#if defined FULL_TEST
+    const double ERR_BOUND = 0.000001;
+#else
+    const double ERR_BOUND = 0.01;
+#endif
 
     double totalValByX(double x, double y, double z) {
         return undefinedIntrX(END_X, y, z) - undefinedIntrX(START_X, y, z);
