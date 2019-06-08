@@ -85,7 +85,7 @@ private:
         fret_t calculateForN(int n, fparams_t params) const;
 
         fret_t calculateAB(const fret_t &a, const fret_t &b,
-                const fret_t &step, fparams_t params) const;
+                const fret_t &step, int n, fparams_t params) const;
     };
 };
 }; //end namespace
