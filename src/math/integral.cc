@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <future>
+#include <vector>
 
 #include "constant.h"
 
