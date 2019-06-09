@@ -28,7 +28,7 @@ protected:
     const double END_Y = -18.4;
 
 #if defined FULL_TEST
-    const double ERR_BOUND = 0.000001;
+    const double ERR_BOUND = 0.00001;
 #else
     const double ERR_BOUND = 0.01;
 #endif
