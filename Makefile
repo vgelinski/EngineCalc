@@ -17,7 +17,8 @@ TEST_LDFLAGS=-lgcov -pg -no-pie
 PROJECT_SRCS=src/math/constant.cc\
 src/math/function.cc\
 src/math/identity.cc\
-src/math/integral.cc
+src/math/integral.cc\
+src/physics/units.cc
 
 SRCS=$(PROJECT_SRCS)\
 src/main.cc
