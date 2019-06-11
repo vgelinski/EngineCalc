@@ -1,7 +1,10 @@
 #ifndef UNITS_H
 #define UNITS_H
 
+#include <cstdio>
+#include <optional>
 #include <string>
+#include <unordered_map>
 
 namespace engc::physics {
 
@@ -38,6 +41,18 @@ public:
     virtual ~MultipleUnit();
 
     virtual std::string toString() const;
+};
+
+class CompoundUnit {
+private:
+    std::unordered_map<MultipleUnit const *, long double> units;
+    const std::optional<std::string> name;
+
+public:
+    virtual ~CompoundUnit();
+    virtual std::string toString() const;
+    virtual std::string toDebugString() const;
+    virtual std::string toLatexString() const;
 };
 }; //end namespace
 #endif

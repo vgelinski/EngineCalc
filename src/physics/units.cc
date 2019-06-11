@@ -20,3 +20,13 @@ MultipleUnit::~MultipleUnit() {}
 
 string MultipleUnit::toString() const {return name;}
 
+CompoundUnit::~CompoundUnit() {}
+
+string CompoundUnit::toString() const {
+    return name.value_or(toDebugString());
+}
+
+string CompoundUnit::toDebugString() const {return "";}
+
+string CompoundUnit::toLatexString() const {return "";}
+
