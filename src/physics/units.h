@@ -44,6 +44,25 @@ private:
     );
 
 public:
+
+    static const MultipleUnit * const HundredthMilliMeters;
+    static const MultipleUnit * const MilliMeters;
+    static const MultipleUnit * const Meters;
+    static const MultipleUnit * const KiloMeters;
+
+    static const MultipleUnit * const Grams;
+    static const MultipleUnit * const Kilograms;
+
+    static const MultipleUnit * const MilliSeconds;
+    static const MultipleUnit * const Seconds;
+    static const MultipleUnit * const Minutes;
+    static const MultipleUnit * const Hours;
+
+    static const MultipleUnit * const Kelvins;
+
+    static const MultipleUnit * const Radians;
+    static const MultipleUnit * const Degrees;
+
     virtual ~MultipleUnit();
 
     virtual std::string toString() const;
