@@ -17,9 +17,15 @@ private:
     const SimpleUnitType &type;
     const std::string unit;
 
-    SimpleUnit(const SimpleUnitType type, const std::string &unit);
+    SimpleUnit(const SimpleUnitType &type, const std::string &unit);
 
 public:
+
+    static const SimpleUnit * const Meters;
+    static const SimpleUnit * const Kilograms;
+    static const SimpleUnit * const Seconds;
+    static const SimpleUnit * const Kelvins;
+
     virtual ~SimpleUnit();
 
     virtual std::string toString() const;
@@ -28,12 +34,12 @@ public:
 class MultipleUnit {
 private:
     const long double multiplier;
-    const SimpleUnit &unit;
+    const SimpleUnit * const unit;
     const std::string name;
 
     MultipleUnit(
             const long double &multiplier,
-            const SimpleUnit &unit,
+            const SimpleUnit * const unit,
             const std::string &name
     );
 
