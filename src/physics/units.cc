@@ -1,6 +1,6 @@
 #include "units.h"
 
-#include <algorithm>
+#include <cmath>
 #include <numeric>
 #include <set>
 
@@ -51,7 +51,7 @@ string CU::toDebugString() const {
     set<string> numerator, denominator;
     for (auto p: units) {
         string str = p.first->toString();
-        int degree = abs(p.second);
+        int degree = fabs(p.second);
         if (degree > 1) {
             str.append(string("^") + to_string(degree));
         }
