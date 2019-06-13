@@ -7,7 +7,7 @@ CC=g++
 CFLAGS=-std=c++17 -Wall -pthread -Ofast
 DEPS=.
 
-TEST_CFLAGS=-std=c++17 -Wall -pthread -fprofile-arcs -ftest-coverage -pg
+TEST_CFLAGS=-std=c++17 -Wall -pthread -fprofile-arcs -ftest-coverage -pg -g
 
 ifdef OLDGCC
       TEST_CFLAGS += -DOLDGCC
