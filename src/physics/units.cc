@@ -1,32 +1,97 @@
 #include "units.h"
 
+#include <algorithm>
+#include <numeric>
+#include <set>
+
 using namespace engc::physics;
 using namespace std;
 
-SimpleUnit::SimpleUnit(const SimpleUnitType &type, const string &unit)
+#define SU SimpleUnit
+#define MU MultipleUnit
+#define CU CompoundUnit
+
+SU::SU(const SimpleUnitType &type, const string &unit)
         : type(type), unit(unit) {}
 
-SimpleUnit::~SimpleUnit() {}
+SU::~SU() {}
 
-string SimpleUnit::toString() const {return unit;}
+string SU::toString() const {return unit;}
 
-MultipleUnit::MultipleUnit(
+MU::MU(
         const long double &multiplier,
-        const SimpleUnit * const unit,
+        const SU * const unit,
         const string &name)
         : multiplier(multiplier), unit(unit), name(name) {}
 
-MultipleUnit::~MultipleUnit() {}
+MU::~MU() {}
 
-string MultipleUnit::toString() const {return name;}
+string MU::toString() const {return name;}
 
-CompoundUnit::~CompoundUnit() {}
+CU::CU(
+        const std::unordered_map<MU const *, long double> &units,
+        const std::optional<string> &name)
+            : units(units), name(name) {}
 
-string CompoundUnit::toString() const {
+CU::CU(const MU * const unit) {
+    units[unit] = 1;
+}
+
+CU::~CU() {}
+
+string CU::toString() const {
     return name.value_or(toDebugString());
 }
 
-string CompoundUnit::toDebugString() const {return "";}
+string CU::toDebugString() const {
+    set<string> numerator, denominator;
+    for (auto p: units) {
+        string str = p.first->toString();
+        int degree = abs(p.second);
+        if (degree > 1) {
+            str.append(string("^") + to_string(degree));
+        }
+        auto &toAppend = p.second >= 0.0L ? numerator : denominator;
+        toAppend.insert(str);
+    }
+    auto appendF = [](const string &s1, const string &s2){
+        return s1 + string("*") + s2;
+    };
+    string result =  accumulate(
+            ++(numerator.begin()),
+            numerator.end(),
+            *numerator.begin(),
+            appendF
+    );
+    if (!denominator.empty()) {
+        result = accumulate(
+                ++(denominator.begin()),
+                denominator.end(),
+                result + "/" + *denominator.begin(),
+                appendF
+        );
+    }
+    return result;
+}
 
-string CompoundUnit::toLatexString() const {return "";}
+string CU::toLatexString() const {return "";}
 
+shared_ptr<CU> engc::physics::operator*(
+        const shared_ptr<CU> lhs, const shared_ptr<CU> rhs) {
+
+    unordered_map<MU const *, long double> mergedMap = lhs->units;
+    for (auto p: rhs->units) {
+        mergedMap[p.first] += p.second;
+    }
+    return shared_ptr<CU>(new CU(mergedMap));
+}
+
+shared_ptr<CU> engc::physics::operator/(
+        const shared_ptr<CU> lhs, const shared_ptr<CU> rhs) {
+
+    unordered_map<MU const *, long double> mergedMap = lhs->units;
+    for (auto p: rhs->units) {
+        mergedMap[p.first] -= p.second;
+    }
+    return shared_ptr<CU>(new CU(mergedMap));
+}

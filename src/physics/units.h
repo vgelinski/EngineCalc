@@ -2,6 +2,7 @@
 #define UNITS_H
 
 #include <cstdio>
+#include <memory>
 #include <optional>
 #include <string>
 #include <unordered_map>
@@ -73,11 +74,38 @@ private:
     std::unordered_map<MultipleUnit const *, long double> units;
     const std::optional<std::string> name;
 
+    CompoundUnit(
+            const std::unordered_map<MultipleUnit const *, long double> &units,
+            const std::optional<std::string> &name = {}
+    );
+
+
+    friend std::shared_ptr<CompoundUnit> operator*(
+            const std::shared_ptr<CompoundUnit> lhs,
+            const std::shared_ptr<CompoundUnit> rhs
+    );
+
+    friend std::shared_ptr<CompoundUnit> operator/(
+            const std::shared_ptr<CompoundUnit> lhs,
+            const std::shared_ptr<CompoundUnit> rhs
+    );
+
 public:
+    CompoundUnit(const MultipleUnit * const unit);
     virtual ~CompoundUnit();
     virtual std::string toString() const;
     virtual std::string toDebugString() const;
     virtual std::string toLatexString() const;
 };
+
+std::shared_ptr<CompoundUnit> operator*(
+        const std::shared_ptr<CompoundUnit> lhs,
+        const std::shared_ptr<CompoundUnit> rhs
+);
+
+std::shared_ptr<CompoundUnit> operator/(
+        const std::shared_ptr<CompoundUnit> lhs,
+        const std::shared_ptr<CompoundUnit> rhs
+);
 }; //end namespace
 #endif
