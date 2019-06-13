@@ -16,11 +16,7 @@
 
 namespace engc::physics {
 
-#ifndef OLDGCC
 typedef std::optional<std::string> uname_t;
-#else
-typedef std::experimental::optional<std::string> uname_t;
-#endif
 
 enum class SimpleUnitType {
     Length, Mass, Time, Temperature, Angle,
