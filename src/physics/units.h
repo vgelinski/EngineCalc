@@ -26,33 +26,13 @@ enum class SimpleUnitType {
     Length, Mass, Time, Temperature, Angle,
 };
 
-class SimpleUnit {
-private:
-    const std::string unit;
-
-    SimpleUnit(const SimpleUnitType &type, const std::string &unit);
-
-public:
-
-    const SimpleUnitType type;
-    static const SimpleUnit * const Meters;
-    static const SimpleUnit * const Kilograms;
-    static const SimpleUnit * const Seconds;
-    static const SimpleUnit * const Kelvins;
-    static const SimpleUnit * const Radians;
-
-    virtual ~SimpleUnit();
-
-    virtual std::string toString() const;
-};
-
 class MultipleUnit {
 private:
     static std::vector<const MultipleUnit *> vals;
 
     MultipleUnit(
             const long double &multiplier,
-            const SimpleUnit * const unit,
+            const SimpleUnitType type,
             const std::string &name
     );
 
@@ -77,14 +57,13 @@ public:
     static const MultipleUnit * const Degrees;
 
     const long double multiplier;
-    const SimpleUnit * const unit;
+    const SimpleUnitType type;
     const std::string name;
 
     static const std::vector<MultipleUnit const *>& values();
 
     virtual ~MultipleUnit();
 
-    virtual SimpleUnitType type() const;
     virtual std::string toString() const;
 };
 

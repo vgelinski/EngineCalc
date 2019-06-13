@@ -9,16 +9,10 @@ using namespace std;
 using namespace engc::physics;
 
 #define SUT SimpleUnitType
-#define SU SimpleUnit
 #define MU MultipleUnit
 #define CU CompoundUnit
 
 TEST (UnitsTest, toStringTest) {
-    ASSERT_EQ(SU::Meters->toString(), "m");
-    ASSERT_EQ(SU::Kilograms->toString(), "kg");
-    ASSERT_EQ(SU::Seconds->toString(), "s");
-    ASSERT_EQ(SU::Kelvins->toString(), "K°");
-
     ASSERT_EQ(MU::Kelvins->toString(), "K°");
     ASSERT_EQ(MU::MilliMeters->toString(), "mm");
     ASSERT_EQ(MU::Minutes->toString(), "min");
@@ -37,7 +31,7 @@ TEST (UnitsTest, testUniqueness) {
     ASSERT_GT(MU::values().size(), 0);
 
     for (auto val : MU::values()) {
-        auto t = val->type();
+        auto t = val->type;
         mults.insert(pair(pair(t, val->multiplier), val));
         names.insert(pair(val->toString(), val));
     }

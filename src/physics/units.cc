@@ -7,16 +7,9 @@
 using namespace engc::physics;
 using namespace std;
 
-#define SU SimpleUnit
+#define SUT SimpleUnitType
 #define MU MultipleUnit
 #define CU CompoundUnit
-
-SU::SU(const SimpleUnitType &type, const string &unit)
-        : type(type), unit(unit) {}
-
-SU::~SU() {}
-
-string SU::toString() const {return unit;}
 
 const vector<MU const *>& MU::values() {
     return MU::vals;
@@ -24,17 +17,13 @@ const vector<MU const *>& MU::values() {
 
 MU::MU(
         const long double &multiplier,
-        const SU * const unit,
+        const SUT type,
         const string &name)
-        : multiplier(multiplier), unit(unit), name(name) {
+        : multiplier(multiplier), type(type), name(name) {
     MU::vals.push_back(this);
 }
 
 MU::~MU() {}
-
-SimpleUnitType MU::type() const {
-    return unit->type;
-}
 
 string MU::toString() const {return name;}
 
