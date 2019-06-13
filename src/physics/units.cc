@@ -18,13 +18,23 @@ SU::~SU() {}
 
 string SU::toString() const {return unit;}
 
+const vector<MU const *>& MU::values() {
+    return MU::vals;
+}
+
 MU::MU(
         const long double &multiplier,
         const SU * const unit,
         const string &name)
-        : multiplier(multiplier), unit(unit), name(name) {}
+        : multiplier(multiplier), unit(unit), name(name) {
+    MU::vals.push_back(this);
+}
 
 MU::~MU() {}
+
+SimpleUnitType MU::type() const {
+    return unit->type;
+}
 
 string MU::toString() const {return name;}
 

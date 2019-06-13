@@ -12,6 +12,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace engc::physics {
 
@@ -22,22 +23,23 @@ typedef std::experimental::optional<std::string> uname_t;
 #endif
 
 enum class SimpleUnitType {
-    Length, Mass, Time, Temperature,
+    Length, Mass, Time, Temperature, Angle,
 };
 
 class SimpleUnit {
 private:
-    const SimpleUnitType &type;
     const std::string unit;
 
     SimpleUnit(const SimpleUnitType &type, const std::string &unit);
 
 public:
 
+    const SimpleUnitType type;
     static const SimpleUnit * const Meters;
     static const SimpleUnit * const Kilograms;
     static const SimpleUnit * const Seconds;
     static const SimpleUnit * const Kelvins;
+    static const SimpleUnit * const Radians;
 
     virtual ~SimpleUnit();
 
@@ -46,9 +48,7 @@ public:
 
 class MultipleUnit {
 private:
-    const long double multiplier;
-    const SimpleUnit * const unit;
-    const std::string name;
+    static std::vector<const MultipleUnit *> vals;
 
     MultipleUnit(
             const long double &multiplier,
@@ -76,8 +76,15 @@ public:
     static const MultipleUnit * const Radians;
     static const MultipleUnit * const Degrees;
 
+    const long double multiplier;
+    const SimpleUnit * const unit;
+    const std::string name;
+
+    static const std::vector<MultipleUnit const *>& values();
+
     virtual ~MultipleUnit();
 
+    virtual SimpleUnitType type() const;
     virtual std::string toString() const;
 };
 
