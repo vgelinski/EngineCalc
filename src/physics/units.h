@@ -26,11 +26,11 @@ enum class SimpleUnitType {
     Length, Mass, Time, Temperature, Angle,
 };
 
-class MultipleUnit {
+class SimpleUnit {
 private:
-    static std::vector<const MultipleUnit *> vals;
+    static std::vector<const SimpleUnit *> vals;
 
-    MultipleUnit(
+    SimpleUnit(
             const long double &multiplier,
             const SimpleUnitType type,
             const std::string &name
@@ -38,42 +38,42 @@ private:
 
 public:
 
-    static const MultipleUnit * const HundredthMilliMeters;
-    static const MultipleUnit * const MilliMeters;
-    static const MultipleUnit * const Meters;
-    static const MultipleUnit * const KiloMeters;
+    static const SimpleUnit * const HundredthMilliMeters;
+    static const SimpleUnit * const MilliMeters;
+    static const SimpleUnit * const Meters;
+    static const SimpleUnit * const KiloMeters;
 
-    static const MultipleUnit * const Grams;
-    static const MultipleUnit * const Kilograms;
+    static const SimpleUnit * const Grams;
+    static const SimpleUnit * const Kilograms;
 
-    static const MultipleUnit * const MilliSeconds;
-    static const MultipleUnit * const Seconds;
-    static const MultipleUnit * const Minutes;
-    static const MultipleUnit * const Hours;
+    static const SimpleUnit * const MilliSeconds;
+    static const SimpleUnit * const Seconds;
+    static const SimpleUnit * const Minutes;
+    static const SimpleUnit * const Hours;
 
-    static const MultipleUnit * const Kelvins;
+    static const SimpleUnit * const Kelvins;
 
-    static const MultipleUnit * const Radians;
-    static const MultipleUnit * const Degrees;
+    static const SimpleUnit * const Radians;
+    static const SimpleUnit * const Degrees;
 
     const long double multiplier;
     const SimpleUnitType type;
     const std::string name;
 
-    static const std::vector<MultipleUnit const *>& values();
+    static const std::vector<SimpleUnit const *>& values();
 
-    virtual ~MultipleUnit();
+    virtual ~SimpleUnit();
 
     virtual std::string toString() const;
 };
 
 class CompoundUnit {
 private:
-    std::unordered_map<MultipleUnit const *, long double> units;
+    std::unordered_map<SimpleUnit const *, long double> units;
     const uname_t name;
 
     CompoundUnit(
-            const std::unordered_map<MultipleUnit const *, long double> &units,
+            const std::unordered_map<SimpleUnit const *, long double> &units,
             const uname_t &name = {}
     );
 
@@ -89,7 +89,7 @@ private:
     );
 
 public:
-    CompoundUnit(const MultipleUnit * const unit);
+    CompoundUnit(const SimpleUnit * const unit);
     virtual ~CompoundUnit();
     virtual std::string toString() const;
     virtual std::string toDebugString() const;

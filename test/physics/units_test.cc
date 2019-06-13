@@ -9,14 +9,14 @@ using namespace std;
 using namespace engc::physics;
 
 #define SUT SimpleUnitType
-#define MU MultipleUnit
+#define SU SimpleUnit
 #define CU CompoundUnit
 
 TEST (UnitsTest, toStringTest) {
-    ASSERT_EQ(MU::Kelvins->toString(), "K°");
-    ASSERT_EQ(MU::MilliMeters->toString(), "mm");
-    ASSERT_EQ(MU::Minutes->toString(), "min");
-    ASSERT_EQ(MU::Radians->toString(), "rad");
+    ASSERT_EQ(SU::Kelvins->toString(), "K°");
+    ASSERT_EQ(SU::MilliMeters->toString(), "mm");
+    ASSERT_EQ(SU::Minutes->toString(), "min");
+    ASSERT_EQ(SU::Radians->toString(), "rad");
 }
 
 TEST (UnitsTest, testUniqueness) {
@@ -25,12 +25,12 @@ TEST (UnitsTest, testUniqueness) {
             return hash<SUT>()(p.first) ^ (hash<long double>()(p.second) << 1);
         }
     };
-    unordered_multimap<pair<SUT, long double>, MU const *, hasher> mults;
-    unordered_multimap<string, MU const *> names;
+    unordered_multimap<pair<SUT, long double>, SU const *, hasher> mults;
+    unordered_multimap<string, SU const *> names;
 
-    ASSERT_GT(MU::values().size(), 0);
+    ASSERT_GT(SU::values().size(), 0);
 
-    for (auto val : MU::values()) {
+    for (auto val : SU::values()) {
         auto t = val->type;
         mults.insert(pair(pair(t, val->multiplier), val));
         names.insert(pair(val->toString(), val));
@@ -47,15 +47,15 @@ TEST (UnitsTest, testUniqueness) {
 }
 
 TEST (UnitsTest, testCompoundUnit) {
-    shared_ptr<CU> km = make_shared<CU>(MU::KiloMeters);
-    shared_ptr<CU> h = make_shared<CU>(MU::Hours);
+    shared_ptr<CU> km = make_shared<CU>(SU::KiloMeters);
+    shared_ptr<CU> h = make_shared<CU>(SU::Hours);
     shared_ptr<CU> kmPh = km / h;
 
-    shared_ptr<CU> m = make_shared<CU>(MU::Meters);
+    shared_ptr<CU> m = make_shared<CU>(SU::Meters);
     shared_ptr<CU> m2 = m * m;
 
-    shared_ptr<CU> s = make_shared<CU>(MU::Seconds);
-    shared_ptr<CU> kg = make_shared<CU>(MU::Kilograms);
+    shared_ptr<CU> s = make_shared<CU>(SU::Seconds);
+    shared_ptr<CU> kg = make_shared<CU>(SU::Kilograms);
     shared_ptr<CU> f = kg * m / (s * s);
 
     ASSERT_EQ(kmPh->toString(), "km/h");

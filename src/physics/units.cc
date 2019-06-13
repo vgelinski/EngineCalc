@@ -8,31 +8,31 @@ using namespace engc::physics;
 using namespace std;
 
 #define SUT SimpleUnitType
-#define MU MultipleUnit
+#define SU SimpleUnit
 #define CU CompoundUnit
 
-const vector<MU const *>& MU::values() {
-    return MU::vals;
+const vector<SU const *>& SU::values() {
+    return SU::vals;
 }
 
-MU::MU(
+SU::SU(
         const long double &multiplier,
         const SUT type,
         const string &name)
         : multiplier(multiplier), type(type), name(name) {
-    MU::vals.push_back(this);
+    SU::vals.push_back(this);
 }
 
-MU::~MU() {}
+SU::~SU() {}
 
-string MU::toString() const {return name;}
+string SU::toString() const {return name;}
 
 CU::CU(
-        const std::unordered_map<MU const *, long double> &units,
+        const std::unordered_map<SU const *, long double> &units,
         const uname_t &name)
             : units(units), name(name) {}
 
-CU::CU(const MU * const unit) {
+CU::CU(const SU * const unit) {
     units[unit] = 1;
 }
 
@@ -78,7 +78,7 @@ string CU::toLatexString() const {return "";}
 shared_ptr<CU> engc::physics::operator*(
         const shared_ptr<CU> lhs, const shared_ptr<CU> rhs) {
 
-    unordered_map<MU const *, long double> mergedMap = lhs->units;
+    unordered_map<SU const *, long double> mergedMap = lhs->units;
     for (auto p: rhs->units) {
         mergedMap[p.first] += p.second;
     }
@@ -88,7 +88,7 @@ shared_ptr<CU> engc::physics::operator*(
 shared_ptr<CU> engc::physics::operator/(
         const shared_ptr<CU> lhs, const shared_ptr<CU> rhs) {
 
-    unordered_map<MU const *, long double> mergedMap = lhs->units;
+    unordered_map<SU const *, long double> mergedMap = lhs->units;
     for (auto p: rhs->units) {
         mergedMap[p.first] -= p.second;
     }
