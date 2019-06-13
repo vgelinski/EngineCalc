@@ -3,7 +3,13 @@
 
 #include <cstdio>
 #include <memory>
+
+#ifndef OLDGCC
 #include <optional>
+#else
+#include <experimental/optional>
+#endif
+
 #include <string>
 #include <unordered_map>
 
@@ -72,11 +78,19 @@ public:
 class CompoundUnit {
 private:
     std::unordered_map<MultipleUnit const *, long double> units;
+#ifndef OLDGCC
     const std::optional<std::string> name;
+#else
+    const std::experimental::optional<std::string> name;
+#endif
 
     CompoundUnit(
             const std::unordered_map<MultipleUnit const *, long double> &units,
+#ifndef OLDGCC
             const std::optional<std::string> &name = {}
+#else
+            const std::experimental::optional<std::string> &name = {}
+#endif
     );
 
 

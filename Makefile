@@ -8,6 +8,11 @@ CFLAGS=-std=c++17 -Wall -pthread -Ofast
 DEPS=.
 
 TEST_CFLAGS=-std=c++17 -Wall -pthread -fprofile-arcs -ftest-coverage -pg
+
+ifdef OLDGCC
+      TEST_CFLAGS += -DOLDGCC
+endif
+
 ifdef FULL_TEST
       TEST_CFLAGS += -DFULL_TEST
 endif
