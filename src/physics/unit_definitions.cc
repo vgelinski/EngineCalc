@@ -23,7 +23,7 @@ const SU * const SU::Seconds = new SU(1.0L, SUT::Time, "s");
 const SU * const SU::Minutes = new SU(60.0L, SUT::Time, "min");
 const SU * const SU::Hours = new SU(60.0L * 60.0L, SUT::Time, "h");
 
-  const SU * const SU::Kelvins = new SU(1.0L, SUT::Temperature, "K°");
+const SU * const SU::Kelvins = new SU(1.0L, SUT::Temperature, "K°");
 
 const SU * const SU::Radians = new SU(1.0L, SUT::Angle , "rad");
 const SU * const SU::Degrees = new SU(2.0L * M_PI/ 360.0L, SUT::Angle , "deg");
