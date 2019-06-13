@@ -15,6 +15,12 @@
 
 namespace engc::physics {
 
+#ifndef OLGGCC
+typedef std::optional<std::string> uname_t;
+#else
+typedef std::experimental::optional<std::string> uname_t;
+#endif
+
 enum class SimpleUnitType {
     Length, Mass, Time, Temperature,
 };
@@ -78,19 +84,11 @@ public:
 class CompoundUnit {
 private:
     std::unordered_map<MultipleUnit const *, long double> units;
-#ifndef OLDGCC
-    const std::optional<std::string> name;
-#else
-    const std::experimental::optional<std::string> name;
-#endif
+    const uname_t name;
 
     CompoundUnit(
             const std::unordered_map<MultipleUnit const *, long double> &units,
-#ifndef OLDGCC
-            const std::optional<std::string> &name = {}
-#else
-            const std::experimental::optional<std::string> &name = {}
-#endif
+            const uname_t &name = {}
     );
 
 

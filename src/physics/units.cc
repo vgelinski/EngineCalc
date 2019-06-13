@@ -30,11 +30,7 @@ string MU::toString() const {return name;}
 
 CU::CU(
         const std::unordered_map<MU const *, long double> &units,
-#ifndef OLDGCC
-        const std::optional<string> &name)
-#else
-        const std::experimental::optional<string> &name)
-#endif
+        const uname_t &name)
             : units(units), name(name) {}
 
 CU::CU(const MU * const unit) {
