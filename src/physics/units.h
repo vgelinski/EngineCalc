@@ -16,7 +16,7 @@
 
 namespace engc::physics {
 
-#ifndef OLGGCC
+#ifndef OLDGCC
 typedef std::optional<std::string> uname_t;
 #else
 typedef std::experimental::optional<std::string> uname_t;
