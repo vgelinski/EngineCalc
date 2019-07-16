@@ -60,6 +60,7 @@ public:
 
     virtual ~SimpleUnit();
 
+    virtual const SimpleUnit * const siUnit() const;
     virtual std::string toString() const;
 };
 
@@ -87,6 +88,10 @@ private:
 public:
     CompoundUnit(const SimpleUnit * const unit);
     virtual ~CompoundUnit();
+
+    virtual long double siMultiplier() const;
+    virtual std::shared_ptr<CompoundUnit> siUnit() const;
+
     virtual std::string toString() const;
     virtual std::string toDebugString() const;
     virtual std::string toLatexString() const;

@@ -46,6 +46,13 @@ TEST (UnitsTest, testUniqueness) {
     }
 }
 
+TEST (UnitsTest, testSiUnit) {
+
+    for (auto val : SU::values()) {
+        ASSERT_NE(val->siUnit(), nullptr);
+    }
+}
+
 TEST (UnitsTest, testCompoundUnit) {
     shared_ptr<CU> km = make_shared<CU>(SU::KiloMeters);
     shared_ptr<CU> h = make_shared<CU>(SU::Hours);

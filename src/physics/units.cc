@@ -25,6 +25,13 @@ SU::SU(
 
 SU::~SU() {}
 
+const SU * const SU::siUnit() const {
+    for (auto u : vals) {
+        if (u->multiplier == 1 && u->type == type) return u;
+    }
+    return nullptr;
+}
+
 string SU::toString() const {return name;}
 
 CU::CU(
@@ -37,6 +44,22 @@ CU::CU(const SU * const unit) {
 }
 
 CU::~CU() {}
+
+long double CU::siMultiplier() const {
+    long double mult = 1;
+    for (auto p : units) {
+        mult *= pow(p.first->multiplier, p.second);
+    }
+    return mult;
+}
+
+shared_ptr<CU> CU::siUnit() const {
+    unordered_map<SimpleUnit const *, long double> siUnits; 
+    for (auto p : units) {
+        siUnits[p.first->siUnit()] = p.second;
+    }
+    return shared_ptr<CU>(new CU(siUnits));
+}
 
 string CU::toString() const {
     return name.value_or(toDebugString());
