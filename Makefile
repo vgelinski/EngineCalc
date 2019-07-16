@@ -20,7 +20,8 @@ src/math/function.cc\
 src/math/identity.cc\
 src/math/integral.cc\
 src/physics/unit_definitions.cc\
-src/physics/units.cc
+src/physics/units.cc\
+src/physics/value.cc
 
 SRCS=$(PROJECT_SRCS)\
 src/main.cc
