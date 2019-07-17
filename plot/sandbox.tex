@@ -1,0 +1,16 @@
+\documentclass{minimal}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines = left,
+    xlabel = $x$,
+    ylabel = {$f(x)$},
+]
+\addplot table [col sep=semicolon,trim cells=true,y=value1,mark=none] {sandbox.csv};
+\addplot table [col sep=semicolon,trim cells=true,y=value2] {sandbox.csv}; 
+\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -43,3 +43,8 @@ docs/
 #coverage and profiling
 *.gcda
 *.gcno
+
+#pdflatex output
+*.aux
+*.log
+*.pdf
