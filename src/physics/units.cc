@@ -35,9 +35,9 @@ const SU * const SU::siUnit() const {
 string SU::toString() const {return name;}
 
 CU::CU(
-        const std::unordered_map<SU const *, long double> &units,
-        const uname_t &name)
-            : units(units), name(name) {}
+        const std::unordered_map<SU const *, long double>& units,
+        const uname_t& name
+      ) : units(units), name(name) {}
 
 CU::CU(const SU * const unit) {
     units[unit] = 1;
@@ -56,9 +56,13 @@ long double CU::siMultiplier() const {
 shared_ptr<CU> CU::siUnit() const {
     unordered_map<SimpleUnit const *, long double> siUnits; 
     for (auto p : units) {
-        siUnits[p.first->siUnit()] = p.second;
+        siUnits[p.first->siUnit()] += p.second;
     }
     return shared_ptr<CU>(new CU(siUnits));
+}
+
+bool CU::canBeConverted(const shared_ptr<CU>& o) const {
+    return siUnit()->units == o->siUnit()->units;
 }
 
 string CU::toString() const {
