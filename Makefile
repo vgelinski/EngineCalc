@@ -1,4 +1,5 @@
 ODIR=obj
+TEST_ODIR=tobj
 GTESTDIR=test/googletest/googletest
 BIN=bin
 LIBDIR=lib
@@ -29,37 +30,55 @@ src/main.cc
 
 TEST_SRCS=$(PROJECT_SRCS)\
 test/test_runner.cc\
-test/math/*_test.cc\
-test/physics/*_test.cc
+test/math/constant_test.cc\
+test/math/function_test.cc\
+test/math/identity_test.cc\
+test/math/integral_test.cc\
+test/physics/units_test.cc\
+test/physics/value_test.cc
 
 _OBJ=$(SRCS:.cc=.o)
+_TEST_OBJ=$(TEST_SRCS:.cc=.o)
 
 default: create_dirs engineCalc
 	@echo DONE
 
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
+TEST_OBJ=$(patsubst %,$(TEST_ODIR)/%,$(_TEST_OBJ))
 
 $(ODIR)/%.o: %.cc
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+$(TEST_ODIR)/%.o: %.cc
+	$(CC) -isystem ${GTESTDIR}/include -c -o $@ $< $(TEST_CFLAGS) 
+
 create_dirs: 
 	@mkdir -p $(ODIR)/src/math
 	@mkdir -p $(ODIR)/src/physics
+	@mkdir -p $(ODIR)/src/util/exceptions
+	@cp -r $(ODIR) $(TEST_ODIR)
+	@mkdir -p $(TEST_ODIR)/test/math
+	@mkdir -p $(TEST_ODIR)/test/physics
+	@mkdir -p $(TEST_ODIR)/test/util/exceptions
 	@mkdir -p $(BIN)
 	@mkdir -p $(LIBDIR)
 
 engineCalc: $(OBJ)
 	$(CC) -o $(BIN)/$@ $^ $(CFLAGS) $(LIBS)
 
+
 gtest: $(GTESTDIR)/src/gtest-all.cc create_dirs
 	$(CC) -isystem ${GTESTDIR}/include -I${GTESTDIR} \
             -c $(TEST_CFLAGS) ${GTESTDIR}/src/gtest-all.cc -o $(ODIR)/gtest-all.o
 	ar -rv $(LIBDIR)/libgtest.a $(ODIR)/gtest-all.o
 
+test: create_dirs gtest testRunner
+	@echo DONE
 
-test: gtest
+testRunner: $(TEST_OBJ)
 	$(CC) $(TEST_CFLAGS) -isystem ${GTESTDIR}/include \
-            $(TEST_SRCS) $(LIBDIR)/libgtest.a -o $(BIN)/test $(TEST_LDFLAGS)
+            -o $(BIN)/$@ $^ $(LIBDIR)/libgtest.a $(LIBS) $(TEST_LDFLAGS)
+
 
 clean:
-	rm -rf $(BIN) $(ODIR) $(LIBDIR) *.gcno *.gcda
+	rm -rf $(BIN) $(ODIR) $(TEST_ODIR) $(LIBDIR) *.gcno *.gcda
