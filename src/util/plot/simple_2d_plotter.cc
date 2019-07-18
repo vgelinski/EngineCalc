@@ -25,14 +25,15 @@ S2DP::~S2DP() {}
 
 void S2DP::plot() {
     string plotContent = "";
-    plotContent += string(std::accumulate(
+    plotContent += std::accumulate(
             lineNames.begin(),
             lineNames.end(),
             plotContent,
             [this](const string& a, const string& b) -> string {
                 return a + (a.length() > 0 ? separator + "\t" : "") + b;
             }
-     ));
+     );
+    plotContent += "\n";
     for (auto row : dataCalc->calculateData()) {
         plotContent += std::accumulate(
                 row.begin(),
@@ -42,6 +43,7 @@ void S2DP::plot() {
                     return a + (a.length() > 0 ? separator + "\t" : "") + to_string(b->value);
                 }
         );
+        plotContent += "\n";
     }
     FileIO::writeToFile(filename, plotContent);
 }
