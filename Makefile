@@ -26,6 +26,7 @@ src/physics/value.cc\
 src/util/exceptions/illegal_argument_exception.cc\
 src/util/files/file_io.cc\
 src/util/plot/data_calculator_2d.cc\
+src/util/plot/plot_builder_2d.cc\
 src/util/plot/simple_2d_plotter.cc
 
 SRCS=$(PROJECT_SRCS)\
