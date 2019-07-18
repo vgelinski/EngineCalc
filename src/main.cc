@@ -4,28 +4,53 @@
 
 #include "math/constant.h"
 #include "math/identity.h"
+#include "util/plot/plot_builder_2d.h"
+
+#define SU SimpleUnit
+#define CU CompoundUnit
 
 using namespace std;
 using namespace std::chrono;
 using namespace engc::math;
+using namespace engc::physics;
+using namespace engc::util;
 
 void calculation() {
-    auto c5 = make_shared<Constant>(5);
-    auto c3 = make_shared<Constant>(3);
-    auto x = make_shared<Identity>("x");
-    auto y = make_shared<Identity>("y");
-    auto z = make_shared<Identity>("z");
+    shared_ptr<CU> km = make_shared<CU>(SU::KiloMeters);
+    shared_ptr<CU> h = make_shared<CU>(SU::Hours);
+    shared_ptr<CU> kmPh = km / h;
 
-    auto integralY_ptr = ((x + y * z) / (c5 - c3))->integrate(
-        3.14, -18.4, "y", 0.0001);
-    const auto &integralY = *integralY_ptr;
-    fparams_t params;
-    params["x"] = -20.0;
-    params["y"] = 3.14;
-    params["z"] = 0.002;
-    params["unused"] = -1.0;
+    shared_ptr<CU> g = make_shared<CU>(SU::Grams);
 
-    printf("The value is %Lf\n", integralY(params));
+    shared_ptr<CU> min = make_shared<CU>(SU::Minutes);
+
+    auto acc = 0.5; // m/s^2
+    auto speedF = make_shared<Constant>(acc) * make_shared<Identity>("t");//m/s
+
+    auto mass = 0.1; //kg
+    auto massF = make_shared<Identity>("m");
+
+    auto energyF = massF * speedF * speedF / make_shared<Constant>(2);
+    auto j = (kmPh * kmPh * g)->siUnit();
+
+    auto start = make_shared<Value>(0, min);
+    auto end = make_shared<Value>(20, min);
+    auto step = make_shared<Value>(1, min);
+
+    fparams_t p;
+    p["m"] = mass;
+
+    make_shared<PlotBuilder2D>()
+            ->addLine(speedF, kmPh, "speed")
+            ->addLine(massF, g, "mass")
+            ->addLine(energyF, j, "Energy")
+            ->setStart(start)
+            ->setEnd(end)
+            ->setStep(step)
+            ->setParams(p)
+            ->setParamToPlot("t")
+            ->build()
+            ->plot();
 }
 
 int main() {
