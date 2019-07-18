@@ -31,7 +31,11 @@ public:
     );
     virtual ~DataCalculator2D();
 
-    std::vector<std::vector<valuePtr_t>> calculateData() const;
+    std::vector<std::vector<valuePtr_t>> calculateData();
+
+private:
+
+    std::vector<valuePtr_t> calculateRow(const math::fret_t& currVal);
 };
 }; //end namespace
 #endif
