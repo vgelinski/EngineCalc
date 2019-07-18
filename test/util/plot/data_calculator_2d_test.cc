@@ -51,10 +51,11 @@ TEST (DataCalculator2DTest, calculate) {
         auto speedMps = acc * seconds;
         auto speedKmph = speedMps * 3.6;
         auto energyJ = mass * speedMps * speedMps / 2;
-        ASSERT_EQ(row.size(), 3);
-        ASSERT_DOUBLE_EQ(row[0]->value, speedKmph) << "minutes: " <<  minutes;
-        ASSERT_DOUBLE_EQ(row[1]->value, 100.0);
-        ASSERT_DOUBLE_EQ(row[2]->value, energyJ) << "munites: " << minutes;
+        ASSERT_EQ(row.size(), 4);
+        ASSERT_DOUBLE_EQ(row[0]->value, minutes);
+        ASSERT_DOUBLE_EQ(row[1]->value, speedKmph) << "minutes: " <<  minutes;
+        ASSERT_DOUBLE_EQ(row[2]->value, 100.0);
+        ASSERT_DOUBLE_EQ(row[3]->value, energyJ) << "munites: " << minutes;
         minutes++;
     }
 }

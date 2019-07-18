@@ -30,13 +30,16 @@ vector<vector<valuePtr_t>> DC::calculateData() {
     auto siStep = step->convertToSi();
     vector<vector<valuePtr_t>> result;
     for (fret_t i = siStart->value; i <= siEnd->value; i+= siStep->value) {
-        result.push_back(calculateRow(i));
+        result.push_back(calculateRow(i, siStart->unit));
     }
     return result;
 }
 
-vector<valuePtr_t> DC::calculateRow(const fret_t& currVal) {
-    vector<valuePtr_t> row;
+vector<valuePtr_t> DC::calculateRow(
+        const fret_t& currVal,
+        const shared_ptr<CompoundUnit>& u) {
+
+    vector<valuePtr_t> row{make_shared<Value>(currVal, u)->convertTo(start->unit)};
     for (auto line : lines) {
         const auto& f = *line.first;
         auto unit = line.second;

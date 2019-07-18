@@ -35,7 +35,10 @@ public:
 
 private:
 
-    std::vector<valuePtr_t> calculateRow(const math::fret_t& currVal);
+    std::vector<valuePtr_t> calculateRow(
+        const math::fret_t& currVal,
+        const std::shared_ptr<physics::CompoundUnit>& u
+    );
 };
 }; //end namespace
 #endif
