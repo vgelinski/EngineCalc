@@ -24,6 +24,7 @@ src/physics/unit_definitions.cc\
 src/physics/units.cc\
 src/physics/value.cc\
 src/util/exceptions/illegal_argument_exception.cc\
+src/util/files/file_io.cc\
 src/util/plot/data_calculator_2d.cc\
 src/util/plot/simple_2d_plotter.cc
 
@@ -59,11 +60,13 @@ create_dirs:
 	@mkdir -p $(ODIR)/src/math
 	@mkdir -p $(ODIR)/src/physics
 	@mkdir -p $(ODIR)/src/util/exceptions
+	@mkdir -p $(ODIR)/src/util/files
 	@mkdir -p $(ODIR)/src/util/plot
 	@cp -r $(ODIR) $(TEST_ODIR)
 	@mkdir -p $(TEST_ODIR)/test/math
 	@mkdir -p $(TEST_ODIR)/test/physics
 	@mkdir -p $(TEST_ODIR)/test/util/exceptions
+	@mkdir -p $(TEST_ODIR)/test/util/files
 	@mkdir -p $(TEST_ODIR)/test/util/plot
 	@mkdir -p $(BIN)
 	@mkdir -p $(LIBDIR)
