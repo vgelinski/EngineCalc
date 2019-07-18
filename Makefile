@@ -14,7 +14,8 @@ ifdef FULL_TEST
       TEST_CFLAGS += -DFULL_TEST
 endif
 
-TEST_LDFLAGS=-lgcov -pg -no-pie
+LDFLAGS=-lstdc++fs
+TEST_LDFLAGS=-lgcov -pg -no-pie -lstdc++fs
 
 PROJECT_SRCS=src/math/constant.cc\
 src/math/function.cc\
@@ -73,7 +74,7 @@ create_dirs:
 	@mkdir -p $(LIBDIR)
 
 engineCalc: $(OBJ)
-	$(CC) -o $(BIN)/$@ $^ $(CFLAGS) $(LIBS)
+	$(CC) -o $(BIN)/$@ $^ $(CFLAGS) $(LIBS) $(LDFLAGS)
 
 
 gtest: $(GTESTDIR)/src/gtest-all.cc create_dirs
