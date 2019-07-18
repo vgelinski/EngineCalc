@@ -31,7 +31,8 @@ src/main.cc
 TEST_SRCS=$(PROJECT_SRCS)\
 test/test_runner.cc\
 test/math/*_test.cc\
-test/physics/*_test.cc
+test/physics/*_test.cc\
+test/util/plot/*_test.cc
 
 _OBJ=$(SRCS:.cc=.o)
 
@@ -46,6 +47,8 @@ $(ODIR)/%.o: %.cc
 create_dirs: 
 	@mkdir -p $(ODIR)/src/math
 	@mkdir -p $(ODIR)/src/physics
+	@mkdir -p $(ODIR)/src/util/exceptions
+	@mkdir -p $(ODIR)/src/util/plot
 	@mkdir -p $(BIN)
 	@mkdir -p $(LIBDIR)
 
