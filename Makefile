@@ -22,6 +22,7 @@ src/math/function.cc\
 src/math/identity.cc\
 src/math/integral.cc\
 src/physics/unit_definitions.cc\
+src/physics/common_units.cc\
 src/physics/units.cc\
 src/physics/value.cc\
 src/util/exceptions/illegal_argument_exception.cc\

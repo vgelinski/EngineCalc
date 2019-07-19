@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 
+#include "../../src/physics/common_units.h"
 #include "../../src/physics/value.h"
 #include "../../src/util/exceptions/illegal_argument_exception.h"
 
@@ -11,26 +12,15 @@ using namespace engc::util;
 #define CU CompoundUnit
 
 TEST (ValueTest, conversion) {
-    auto km = make_shared<CU>(SU::KiloMeters);
-    auto h = make_shared<CU>(SU::Hours);
-    auto kmPh = km / h;
 
-    auto m = make_shared<CU>(SU::Meters);
-    auto s = make_shared<CU>(SU::Seconds);
-    auto min = make_shared<CU>(SU::Minutes);
-    auto mPmin = m / min;
-    auto mPs = m / s;
-
-    auto kg = make_shared<CU>(SU::Kilograms);
-    auto j = kg * m / (s * s);
-    auto kj = j->withName("KJ", 1000);
+    auto mPmin = CommonUnits::Length::m / CommonUnits::Time::min;
 
     auto speedMpmin = make_shared<Value>(100 * 60, mPmin);
-    auto speedKmph = speedMpmin->convertTo(kmPh);
+    auto speedKmph = speedMpmin->convertTo(CommonUnits::Speed::KmPh);
     auto speedSi = speedKmph->convertToSi();
 
-    auto energyJ = make_shared<Value>(234, j);
-    auto energyKJ = energyJ->convertTo(kj);
+    auto energyJ = make_shared<Value>(234, CommonUnits::Energy::J);
+    auto energyKJ = energyJ->convertTo(CommonUnits::Energy::KJ);
     auto energySi = energyKJ->convertToSi();
 
     ASSERT_DOUBLE_EQ(speedKmph->value, 360);
@@ -40,19 +30,12 @@ TEST (ValueTest, conversion) {
 }
 
 TEST (ValueTest, impossibleConversion) {
-    auto km = make_shared<CU>(SU::KiloMeters);
-    auto m = make_shared<CU>(SU::Meters);
-    auto h = make_shared<CU>(SU::Hours);
-    auto kmPh = km / h;
-    auto m2 = m * m;
-    auto kmm = km * m;
+    auto kmm = CommonUnits::Length::Km * CommonUnits::Length::m;
 
-    auto kg = make_shared<CU>(SU::Kilograms);
-    auto min = make_shared<CU>(SU::Minutes);
-    auto kgPmin = kg / min;
+    auto kgPmin = CommonUnits::Mass::Kg / CommonUnits::Time::min;
 
-    auto speed = make_shared<Value>(100, kmPh);
-    auto area = make_shared<Value>(20, m2);
+    auto speed = make_shared<Value>(100, CommonUnits::Speed::KmPh);
+    auto area = make_shared<Value>(20, CommonUnits::Area::m2);
     ASSERT_THROW(speed->convertTo(kgPmin), IllegalArgumentException);
     ASSERT_NO_THROW(area->convertTo(kmm));
 }

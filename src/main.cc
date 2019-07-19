@@ -4,6 +4,7 @@
 
 #include "math/constant.h"
 #include "math/identity.h"
+#include "physics/common_units.h"
 #include "util/plot/plot_builder_2d.h"
 
 #define SU SimpleUnit
@@ -16,14 +17,6 @@ using namespace engc::physics;
 using namespace engc::util;
 
 void calculation() {
-    shared_ptr<CU> km = make_shared<CU>(SU::KiloMeters);
-    shared_ptr<CU> h = make_shared<CU>(SU::Hours);
-    shared_ptr<CU> kmPh = km / h;
-
-    shared_ptr<CU> g = make_shared<CU>(SU::Grams);
-
-    shared_ptr<CU> min = make_shared<CU>(SU::Minutes);
-
     auto acc = 0.5; // m/s^2
     auto speedF = make_shared<Constant>(acc) * make_shared<Identity>("t");//m/s
 
@@ -31,20 +24,19 @@ void calculation() {
     auto massF = make_shared<Identity>("m");
 
     auto energyF = massF * speedF * speedF / make_shared<Constant>(2);
-    auto j = (kmPh * kmPh * g)->siUnit();
 
-    auto start = make_shared<Value>(0, min);
-    auto end = make_shared<Value>(20, min);
-    auto step = make_shared<Value>(1, min);
+    auto start = make_shared<Value>(0, CommonUnits::Time::min);
+    auto end = make_shared<Value>(20, CommonUnits::Time::min);
+    auto step = make_shared<Value>(1, CommonUnits::Time::min);
 
     fparams_t p;
     p["m"] = mass;
 
     make_shared<PlotBuilder2D>()
             ->setFilename("plot/sandbox.csv")
-            ->addLine(speedF, kmPh, "speed")
-            ->addLine(massF, g, "mass")
-            ->addLine(energyF, j, "Energy")
+            ->addLine(speedF, CommonUnits::Speed::KmPh, "speed")
+            ->addLine(massF, CommonUnits::Mass::g, "mass")
+            ->addLine(energyF, CommonUnits::Energy::KJ, "Energy")
             ->setStart(start)
             ->setEnd(end)
             ->setStep(step)

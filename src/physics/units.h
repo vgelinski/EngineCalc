@@ -45,6 +45,7 @@ public:
 
     static const SimpleUnit * const Radians;
     static const SimpleUnit * const Degrees;
+    static const SimpleUnit * const Rounds;
 
     const long double multiplier;
     const SimpleUnitType type;
@@ -90,7 +91,7 @@ public:
     virtual bool canBeConverted(const std::shared_ptr<CompoundUnit>& o) const;
     virtual std::shared_ptr<CompoundUnit> withName(
             const std::string& name,
-            const long double& multiplier = 0.0L
+            const long double& multiplier = 1.0L
      ) const;
 
     virtual std::string toString() const;

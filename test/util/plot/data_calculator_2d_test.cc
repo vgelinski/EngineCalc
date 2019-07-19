@@ -4,6 +4,7 @@
 
 #include "../../../src/math/constant.h"
 #include "../../../src/math/identity.h"
+#include "../../../src/physics/common_units.h"
 
 using namespace std;
 using namespace engc::math;
@@ -14,14 +15,6 @@ using namespace engc::util;
 #define CU CompoundUnit
 
 TEST (DataCalculator2DTest, calculate) {
-    shared_ptr<CU> km = make_shared<CU>(SU::KiloMeters);
-    shared_ptr<CU> h = make_shared<CU>(SU::Hours);
-    shared_ptr<CU> kmPh = km / h;
-
-    shared_ptr<CU> g = make_shared<CU>(SU::Grams);
-
-    shared_ptr<CU> min = make_shared<CU>(SU::Minutes);
-
     auto acc = 0.5; // m/s^2
     auto speedF = make_shared<Constant>(acc) * make_shared<Identity>("t");//m/s
 
@@ -30,14 +23,14 @@ TEST (DataCalculator2DTest, calculate) {
 
     auto energyF = massF * speedF * speedF / make_shared<Constant>(2);
 
-    auto start = make_shared<Value>(0, min);
-    auto end = make_shared<Value>(2, min);
-    auto step = make_shared<Value>(1, min);
+    auto start = make_shared<Value>(0, CommonUnits::Time::min);
+    auto end = make_shared<Value>(2, CommonUnits::Time::min);
+    auto step = make_shared<Value>(1, CommonUnits::Time::min);
 
     vector<line_t> lines = {
-        pair(speedF, kmPh),
-        pair(massF, g),
-        pair(energyF, (kmPh * kmPh * g)->siUnit()) //J
+        pair(speedF, CommonUnits::Speed::KmPh),
+        pair(massF, CommonUnits::Mass::g),
+        pair(energyF, CommonUnits::Energy::J)
     };
     fparams_t p;
     p["m"] = mass;

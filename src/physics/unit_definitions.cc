@@ -27,4 +27,5 @@ const SU * const SU::Kelvins = new SU(1.0L, SUT::Temperature, "K°");
 
 const SU * const SU::Radians = new SU(1.0L, SUT::Angle , "rad");
 const SU * const SU::Degrees = new SU(2.0L * M_PI/ 360.0L, SUT::Angle , "deg");
+const SU * const SU::Rounds = new SU(2.0L * M_PI, SUT::Angle , "r");
 

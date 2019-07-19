@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <utility>
 
+#include "../../src/physics/common_units.h"
 #include "../../src/physics/units.h"
 
 using namespace std;
@@ -54,24 +55,14 @@ TEST (UnitsTest, testSiUnit) {
 }
 
 TEST (UnitsTest, testCompoundUnit) {
-    shared_ptr<CU> km = make_shared<CU>(SU::KiloMeters);
-    shared_ptr<CU> h = make_shared<CU>(SU::Hours);
-    shared_ptr<CU> kmPh = km / h;
+    ASSERT_EQ(CommonUnits::Speed::KmPh->toString(), "km/h");
+    ASSERT_EQ(CommonUnits::Area::m2->toString(), "m^2");
 
-    shared_ptr<CU> m = make_shared<CU>(SU::Meters);
-    shared_ptr<CU> m2 = m * m;
+    ASSERT_EQ(CommonUnits::Mass::Kg->toDebugString(), "kg");
+    ASSERT_EQ(CommonUnits::Acceleration::mps2->toDebugString(), "m/s^2");
 
-    shared_ptr<CU> s = make_shared<CU>(SU::Seconds);
-    shared_ptr<CU> kg = make_shared<CU>(SU::Kilograms);
-    shared_ptr<CU> f = kg * m / (s * s);
-
-    ASSERT_EQ(kmPh->toString(), "km/h");
-    ASSERT_EQ(m2->toString(), "m^2");
-    ASSERT_EQ(f->toString(), "kg*m/s^2");
-
-    auto n = f->withName("N");
-    auto kn = f->withName("KN", 1000);
-    ASSERT_EQ(n->toString(), "N");
-    ASSERT_EQ(kn->toDebugString(), "1000.000000*kg*m/s^2");
+    ASSERT_EQ(CommonUnits::Force::N->toDebugString(), "kg*m/s^2");
+    ASSERT_EQ(CommonUnits::Force::N->toString(), "N");
+    ASSERT_EQ(CommonUnits::Force::KN->toDebugString(), "1000.000000*kg*m/s^2");
 }
 
