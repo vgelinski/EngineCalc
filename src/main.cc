@@ -41,6 +41,7 @@ void calculation() {
     p["m"] = mass;
 
     make_shared<PlotBuilder2D>()
+            ->setFilename("plot/sandbox.csv")
             ->addLine(speedF, kmPh, "speed")
             ->addLine(massF, g, "mass")
             ->addLine(energyF, j, "Energy")
@@ -61,6 +62,6 @@ int main() {
 
     auto duration = duration_cast<milliseconds>( t2 - t1 ).count();
 
-    cout << duration << endl;
+    cout <<  "The execution took " << duration << "ms" << endl;
     return 0;
 }

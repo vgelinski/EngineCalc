@@ -59,5 +59,5 @@ shared_ptr<PlotBuilder2D> PB::addLine(
 
 shared_ptr<Simple2DPlotter> PB::build() const {
     auto dataCalc = make_shared<DataCalculator2D>(lines, start, end, step, params, paramToPlot);
-    return make_shared<Simple2DPlotter>(filename, separator, dataCalc, lineNames);
+    return make_shared<Simple2DPlotter>(filename, separator, dataCalc, lineNames, paramToPlot);
 }

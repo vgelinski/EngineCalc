@@ -12,6 +12,7 @@ private:
     const char separator;
     std::shared_ptr<DataCalculator2D> dataCalc;
     const std::vector<std::string> lineNames;
+    const std::string paramToPlot;
 
 public:
 
@@ -19,7 +20,8 @@ public:
         const std::string& filename,
         const char& separator,
         const std::shared_ptr<DataCalculator2D>& dataCalc,
-        const std::vector<std::string>& lineNames
+        const std::vector<std::string>& lineNames,
+        const std::string& paramToPlot
     );
     virtual ~Simple2DPlotter();
 

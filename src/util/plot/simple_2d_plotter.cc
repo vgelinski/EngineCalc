@@ -15,22 +15,23 @@ S2DP::S2DP(
         const std::string& filename,
         const char& separator,
         const shared_ptr<DataCalculator2D>& dataCalc,
-        const std::vector<std::string>& lineNames
-    ) : filename(filename),
+        const std::vector<std::string>& lineNames,
+        const std::string& paramToPlot
+) : filename(filename),
         separator(separator),
         dataCalc(dataCalc),
-        lineNames(lineNames) {}
+        lineNames(lineNames),
+        paramToPlot(paramToPlot) {}
 
 S2DP::~S2DP() {}
 
 void S2DP::plot() {
-    string plotContent = "";
-    plotContent += std::accumulate(
+    auto plotContent = accumulate(
             lineNames.begin(),
             lineNames.end(),
-            plotContent,
+            paramToPlot,
             [this](const string& a, const string& b) -> string {
-                return a + (a.length() > 0 ? separator + "\t" : "") + b;
+                return a + string(1, separator) + "\t" + b;
             }
      );
     plotContent += "\n";
@@ -40,7 +41,7 @@ void S2DP::plot() {
                 row.end(),
                 string(),
                 [this](const string& a, const shared_ptr<Value>& b) -> string {
-                    return a + (a.length() > 0 ? separator + "\t" : "") + to_string(b->value);
+                    return a + (a.length() > 0 ? string(1, separator) + "\t" : "") + to_string(b->value);
                 }
         );
         plotContent += "\n";
