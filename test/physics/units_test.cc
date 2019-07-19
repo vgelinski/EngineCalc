@@ -68,5 +68,10 @@ TEST (UnitsTest, testCompoundUnit) {
     ASSERT_EQ(kmPh->toString(), "km/h");
     ASSERT_EQ(m2->toString(), "m^2");
     ASSERT_EQ(f->toString(), "kg*m/s^2");
+
+    auto n = f->withName("N");
+    auto kn = f->withName("KN", 1000);
+    ASSERT_EQ(n->toString(), "N");
+    ASSERT_EQ(kn->toDebugString(), "1000.000000*kg*m/s^2");
 }
 

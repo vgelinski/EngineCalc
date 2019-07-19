@@ -66,6 +66,10 @@ bool CU::canBeConverted(const shared_ptr<CU>& o) const {
     return siUnit()->units == o->siUnit()->units;
 }
 
+shared_ptr<CU> CU::withName(const std::string& nameStr, const long double& multiplier) const {
+    return shared_ptr<CU>(new CU(units, this->multiplier * multiplier, optional<string>(nameStr)));
+}
+
 string CU::toString() const {
     return name.value_or(toDebugString());
 }

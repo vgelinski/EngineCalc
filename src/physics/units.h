@@ -88,6 +88,10 @@ public:
     virtual long double siMultiplier() const;
     virtual std::shared_ptr<CompoundUnit> siUnit() const;
     virtual bool canBeConverted(const std::shared_ptr<CompoundUnit>& o) const;
+    virtual std::shared_ptr<CompoundUnit> withName(
+            const std::string& name,
+            const long double& multiplier = 0.0L
+     ) const;
 
     virtual std::string toString() const;
     virtual std::string toDebugString() const;
