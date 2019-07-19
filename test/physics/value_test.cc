@@ -11,35 +11,45 @@ using namespace engc::util;
 #define CU CompoundUnit
 
 TEST (ValueTest, conversion) {
-    shared_ptr<CU> km = make_shared<CU>(SU::KiloMeters);
-    shared_ptr<CU> h = make_shared<CU>(SU::Hours);
-    shared_ptr<CU> kmPh = km / h;
+    auto km = make_shared<CU>(SU::KiloMeters);
+    auto h = make_shared<CU>(SU::Hours);
+    auto kmPh = km / h;
 
-    shared_ptr<CU> m = make_shared<CU>(SU::Meters);
-    shared_ptr<CU> s = make_shared<CU>(SU::Seconds);
-    shared_ptr<CU> min = make_shared<CU>(SU::Minutes);
-    shared_ptr<CU> mPmin = m / min;
-    shared_ptr<CU> mPs = m / s;
+    auto m = make_shared<CU>(SU::Meters);
+    auto s = make_shared<CU>(SU::Seconds);
+    auto min = make_shared<CU>(SU::Minutes);
+    auto mPmin = m / min;
+    auto mPs = m / s;
+
+    auto kg = make_shared<CU>(SU::Kilograms);
+    auto j = kg * m / (s * s);
+    auto kj = j->withName("KJ", 1000);
 
     auto speedMpmin = make_shared<Value>(100 * 60, mPmin);
     auto speedKmph = speedMpmin->convertTo(kmPh);
     auto speedSi = speedKmph->convertToSi();
 
+    auto energyJ = make_shared<Value>(234, j);
+    auto energyKJ = energyJ->convertTo(kj);
+    auto energySi = energyKJ->convertToSi();
+
     ASSERT_DOUBLE_EQ(speedKmph->value, 360);
     ASSERT_DOUBLE_EQ(speedSi->value, 100);
+    ASSERT_DOUBLE_EQ(energyKJ->value, 0.234);
+    ASSERT_DOUBLE_EQ(energySi->value, 234);
 }
 
 TEST (ValueTest, impossibleConversion) {
-    shared_ptr<CU> km = make_shared<CU>(SU::KiloMeters);
-    shared_ptr<CU> m = make_shared<CU>(SU::Meters);
-    shared_ptr<CU> h = make_shared<CU>(SU::Hours);
-    shared_ptr<CU> kmPh = km / h;
-    shared_ptr<CU> m2 = m * m;
-    shared_ptr<CU> kmm = km * m;
+    auto km = make_shared<CU>(SU::KiloMeters);
+    auto m = make_shared<CU>(SU::Meters);
+    auto h = make_shared<CU>(SU::Hours);
+    auto kmPh = km / h;
+    auto m2 = m * m;
+    auto kmm = km * m;
 
-    shared_ptr<CU> kg = make_shared<CU>(SU::Kilograms);
-    shared_ptr<CU> min = make_shared<CU>(SU::Minutes);
-    shared_ptr<CU> kgPmin = kg / min;
+    auto kg = make_shared<CU>(SU::Kilograms);
+    auto min = make_shared<CU>(SU::Minutes);
+    auto kgPmin = kg / min;
 
     auto speed = make_shared<Value>(100, kmPh);
     auto area = make_shared<Value>(20, m2);
