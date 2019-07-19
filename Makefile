@@ -66,11 +66,7 @@ create_dirs:
 	@mkdir -p $(ODIR)/src/util/files
 	@mkdir -p $(ODIR)/src/util/plot
 	@cp -r $(ODIR) $(TEST_ODIR)
-	@mkdir -p $(TEST_ODIR)/test/math
-	@mkdir -p $(TEST_ODIR)/test/physics
-	@mkdir -p $(TEST_ODIR)/test/util/exceptions
-	@mkdir -p $(TEST_ODIR)/test/util/files
-	@mkdir -p $(TEST_ODIR)/test/util/plot
+	@cp -r $(TEST_ODIR)/src $(TEST_ODIR)/test
 	@mkdir -p $(BIN)
 	@mkdir -p $(LIBDIR)
 
