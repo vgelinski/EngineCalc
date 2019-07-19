@@ -60,11 +60,7 @@ $(TEST_ODIR)/%.o: %.cc
 	$(CC) -isystem ${GTESTDIR}/include -c -o $@ $< $(TEST_CFLAGS) 
 
 create_dirs: 
-	@mkdir -p $(ODIR)/src/math
-	@mkdir -p $(ODIR)/src/physics
-	@mkdir -p $(ODIR)/src/util/exceptions
-	@mkdir -p $(ODIR)/src/util/files
-	@mkdir -p $(ODIR)/src/util/plot
+	@find src -type d -links 2 -exec mkdir -p $(ODIR)/{} \;
 	@cp -r $(ODIR) $(TEST_ODIR)
 	@cp -r $(TEST_ODIR)/src $(TEST_ODIR)/test
 	@mkdir -p $(BIN)
