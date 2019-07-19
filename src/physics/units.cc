@@ -16,9 +16,9 @@ const vector<SU const *>& SU::values() {
 }
 
 SU::SU(
-        const long double &multiplier,
+        const long double& multiplier,
         const SUT type,
-        const string &name)
+        const string& name)
         : multiplier(multiplier), type(type), name(name) {
     SU::vals.push_back(this);
 }
@@ -36,17 +36,18 @@ string SU::toString() const {return name;}
 
 CU::CU(
         const std::unordered_map<SU const *, long double>& units,
+        const long double& multiplier,
         const uname_t& name
-      ) : units(units), name(name) {}
+      ) : units(units), multiplier(multiplier), name(name) {}
 
-CU::CU(const SU * const unit) {
+CU::CU(const SU * const unit) : multiplier(1.0L) {
     units[unit] = 1;
 }
 
 CU::~CU() {}
 
 long double CU::siMultiplier() const {
-    long double mult = 1;
+    long double mult = multiplier;
     for (auto p : units) {
         mult *= pow(p.first->multiplier, p.second);
     }
@@ -97,6 +98,9 @@ string CU::toDebugString() const {
                 appendF
         );
     }
+    if (multiplier != 1.0L) {
+        result = to_string(multiplier) + "*" + result;
+    }
     return result;
 }
 
@@ -109,7 +113,8 @@ shared_ptr<CU> engc::physics::operator*(
     for (auto p: rhs->units) {
         mergedMap[p.first] += p.second;
     }
-    return shared_ptr<CU>(new CU(mergedMap));
+    auto mult = lhs->multiplier * rhs->multiplier;
+    return shared_ptr<CU>(new CU(mergedMap, mult));
 }
 
 shared_ptr<CU> engc::physics::operator/(
@@ -119,5 +124,6 @@ shared_ptr<CU> engc::physics::operator/(
     for (auto p: rhs->units) {
         mergedMap[p.first] -= p.second;
     }
-    return shared_ptr<CU>(new CU(mergedMap));
+    auto mult = lhs->multiplier / rhs->multiplier;
+    return shared_ptr<CU>(new CU(mergedMap, mult));
 }

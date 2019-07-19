@@ -3,13 +3,7 @@
 
 #include <cstdio>
 #include <memory>
-
-#ifndef OLDGCC
 #include <optional>
-#else
-#include <experimental/optional>
-#endif
-
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -27,9 +21,9 @@ private:
     static std::vector<const SimpleUnit *> vals;
 
     SimpleUnit(
-            const long double &multiplier,
+            const long double& multiplier,
             const SimpleUnitType type,
-            const std::string &name
+            const std::string& name
     );
 
 public:
@@ -67,11 +61,13 @@ public:
 class CompoundUnit {
 private:
     std::unordered_map<SimpleUnit const *, long double> units;
+    const long double multiplier;
     const uname_t name;
 
     CompoundUnit(
-            const std::unordered_map<SimpleUnit const *, long double> &units,
-            const uname_t &name = {}
+            const std::unordered_map<SimpleUnit const *, long double>& units,
+            const long double& multiplier = 1.0L,
+            const uname_t& name = {}
     );
 
 
