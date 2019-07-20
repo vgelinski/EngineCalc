@@ -21,6 +21,7 @@ PROJECT_SRCS=src/math/constant.cc\
 src/math/function.cc\
 src/math/identity.cc\
 src/math/integral.cc\
+src/model/engine/engine.cc\
 src/physics/unit_definitions.cc\
 src/physics/common_units.cc\
 src/physics/units.cc\
