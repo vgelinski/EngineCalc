@@ -16,7 +16,6 @@ private:
     VAL cylinderBore; //diameter
     VAL strokeLength;
     VAL rodLength;
-    VAL rotatingSpeed;
     VAL combustionChamberVolume;
 
 public:
@@ -32,7 +31,6 @@ public:
     virtual std::shared_ptr<Engine> setCylinderBore(const VAL& cylinderBore);
     virtual std::shared_ptr<Engine> setStrokeLength(const VAL& strokeLength);
     virtual std::shared_ptr<Engine> setRodLength(const VAL& rodLength);
-    virtual std::shared_ptr<Engine> setRotatingSpeed(const VAL& rotatingSpeed);
     virtual std::shared_ptr<Engine> setCombustionChamberVolume(const VAL& combustionChamberVolume);
     virtual std::shared_ptr<Engine> setCombustionRatio(const long double& ratio);
 
