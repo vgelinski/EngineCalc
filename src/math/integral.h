@@ -39,7 +39,7 @@ private:
     * и височина \f$h\f$ Стойността на определения интеграл ще бъде сумата
     * от лицата на всички правоъгълници, или:
     * \f[
-      \int_{a}^{b}f(x)dx =
+      \int_{a}^{b}f(x)\mathrm{d}x =
        h . \left(\frac{f(x_0) + f(x_1)}{2} +
            \frac{f(x_1) + f(x_2)}{2} + ... + \frac{f(x_{n - 1}) + f(x_n)}{2}\right) =
        \frac{b - a}{n}\sum_{i = 0}^{n}f(x_i) - \frac{b - a}{n}.\frac{f(x_0) + f(x_n)}{2}
