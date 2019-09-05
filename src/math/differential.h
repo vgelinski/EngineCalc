@@ -13,7 +13,7 @@ private:
 
     friend class Function;
 
-    static std::shared_ptr<Function> differentiate(
+    static std::shared_ptr<Function> derive(
             std::shared_ptr<const Function> f,
             const std::string &param,
             fret_t errBound

@@ -60,7 +60,7 @@ TEST_F (IntegralTest, integration) {
 
     auto integralZ_ptr = ((x + y * z) / (c5 - c3))->integrate(
         START_X, START_X, "z", ERR_BOUND);
-    const auto &integralZ = *integralZ_ptr;
+    const auto& integralZ = *integralZ_ptr;
 
     fparams_t params;
     params["x"] = 1.0;

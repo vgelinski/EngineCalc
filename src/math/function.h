@@ -88,6 +88,8 @@ public:
             const std::string &paramName,
             fret_t errBound) const;
 
+    virtual std::shared_ptr<Function> derive(const std::string &paramName, fret_t errBound) const;
+
 private:
 
     class Aggregation;

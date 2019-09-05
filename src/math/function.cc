@@ -2,6 +2,7 @@
 
 #include <algorithm>
 
+#include "differential.h"
 #include "integral.h"
 
 using namespace std;
@@ -25,6 +26,10 @@ shared_ptr<Function> Function::integrate(
         fret_t errBound) const {
 
     return IntegralCalculator::integrate(shared_from_this(), start, end, paramName, errBound);
+}
+
+shared_ptr<Function> Function::derive(const std::string &paramName, engc::math::fret_t errBound) const {
+    return DifferentialCalculator::derive(shared_from_this(), paramName, errBound);
 }
 
 Function::Aggregation::Aggregation(
