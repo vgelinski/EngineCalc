@@ -15,7 +15,7 @@ private:
 
     static std::shared_ptr<Function> derive(
             std::shared_ptr<const Function> f,
-            const std::string &param,
+            const std::string& param,
             fret_t errBound
     );
 
@@ -29,16 +29,17 @@ private:
 
         const std::shared_ptr<const Function> function;
         const std::string param;
+        const fret_t errBound;
 
     protected:
 
-        virtual fret_t value(const fparams_t &params) const override;
+        virtual fret_t value(const fparams_t& params) const override;
 
     public:
 
         Differential(
                 std::shared_ptr<const Function> f,
-                const std::string &param,
+                const std::string& param,
                 fret_t errBound
         );
 

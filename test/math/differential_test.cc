@@ -24,7 +24,8 @@ TEST_F (DifferentialTest, deriving) {
     auto x = make_shared<Identity>("x");
     auto y = make_shared<Identity>("y");
     auto x2 = (x * x) / c2 + y;
-    auto& dx = *(x2->derive("x", ERR_BOUND));
+    auto scopeGuardDx = x2->derive("x", ERR_BOUND);
+    auto& dx = *scopeGuardDx;
 
     fparams_t params;
     params["unused"] = -1.0;
@@ -43,5 +44,5 @@ TEST_F (DifferentialTest, deriving) {
     ASSERT_NEAR(dx(params), x->operator()(params), ERR_BOUND);
 
 
-    ASSERT_EQ(dx.variables(), x->variables());
+    ASSERT_EQ(dx.variables(), fvariables_t({"x", "y"}));
 }
