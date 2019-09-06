@@ -15,7 +15,7 @@ using namespace engc::math;
 shared_ptr<Function> IC::integrate(
         shared_ptr<const Function> f,
         fret_t start, fret_t end,
-        const string &param,
+        const string& param,
         fret_t errBound,
         int threadCount) {
 
@@ -31,14 +31,14 @@ shared_ptr<Function> IC::integrate(
 IC::MTI::Integral(
         shared_ptr<const Function> f,
         fret_t start, fret_t end,
-        const string &param,
+        const string& param,
         fret_t errBound) : 
             start(start), end(end), errBound(errBound),
             function(f), param(param) {}
 
 IC::MTI::~Integral() {}
 
-fret_t IC::MTI::value(const fparams_t &params) const {
+fret_t IC::MTI::value(const fparams_t& params) const {
     int n = (end - start) / errBound;
     fret_t result = calculateForN(n, params);
     fret_t newResult = calculateForN(n*2, params);
@@ -64,7 +64,7 @@ fret_t IC::MTI::calculateForN(int n, fparams_t params) const {
     for (int i = 0; i <= THREAD_COUNT; i++) {
         fret_t a = start + i * oneIterN * h;
         int thisIterN = min(oneIterN, n - i * oneIterN);
-        auto future = async(launch::async, [this, a, h, thisIterN, &params](){
+        auto future = async(launch::async, [this, a, h, thisIterN,& params](){
             fret_t lSum = 0;
             fparams_t lParams = params;
             for(int i = 0; i < thisIterN; i++) {
@@ -77,10 +77,10 @@ fret_t IC::MTI::calculateForN(int n, fparams_t params) const {
         futures.push_back(std::move(future));
     }
 
-    for (auto &fut: futures) {
+    for (auto& fut: futures) {
         sum += fut.get();
     }
-    auto f = [this, &params](const fret_t &p) {
+    auto f = [this,& params](const fret_t& p) {
         params[param] = p;
         return (*function)(params);
     };

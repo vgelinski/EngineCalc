@@ -10,7 +10,7 @@
 namespace engc::math {
 
 typedef long double fret_t;
-typedef std::function<fret_t(const fret_t &p1, const fret_t &p2)> operator_t;
+typedef std::function<fret_t(const fret_t& p1, const fret_t& p2)> operator_t;
 typedef std::unordered_map<std::string, fret_t> fparams_t;
 typedef std::unordered_set<std::string> fvariables_t;
 
@@ -36,7 +36,7 @@ protected:
     /** \param params Аргументите на функцията. Преставлява речник име->стойност
      *  \return Стойността на функцията спрямо зададените аргументи.
      */
-    virtual fret_t value(const fparams_t &params) const = 0;
+    virtual fret_t value(const fparams_t& params) const = 0;
 
 public:
 
@@ -45,7 +45,7 @@ public:
     /** Връща стойността на функцията, като извършва вътрешна оптимизация
     * вж. Function::value()
     */
-    virtual fret_t operator()(const fparams_t &params) const;
+    virtual fret_t operator()(const fparams_t& params) const;
 
     /** \brief Връща множеството от променливи на функцията
     *
@@ -65,7 +65,7 @@ public:
     */
     virtual std::shared_ptr<Function> compose(
             const std::shared_ptr<Function> other,
-            const std::string &paramName) const;
+            const std::string& paramName) const;
 
     /** \brief Пресмята определен интеграл от текущата функция
     *
@@ -85,8 +85,10 @@ public:
     */
     virtual std::shared_ptr<Function> integrate(
             fret_t start, fret_t end,
-            const std::string &paramName,
+            const std::string& paramName,
             fret_t errBound) const;
+
+    virtual std::shared_ptr<Function> derive(const std::string& paramName, fret_t errBound) const;
 
 private:
 
@@ -124,14 +126,14 @@ private:
 
 protected:
 
-    fret_t value(const fparams_t &p) const override;
+    fret_t value(const fparams_t& p) const override;
 
 public:
 
     Aggregation(
-        const std::shared_ptr<Function> &f1,
-        const operator_t &op,
-        const std::shared_ptr<Function> &f2
+        const std::shared_ptr<Function>& f1,
+        const operator_t& op,
+        const std::shared_ptr<Function>& f2
     );
 
     virtual ~Aggregation();
@@ -159,14 +161,14 @@ private:
 
 protected:
 
-    fret_t value(const fparams_t &params) const override;
+    fret_t value(const fparams_t& params) const override;
 
 public:
 
     Composition(
             const std::shared_ptr<const Function> superF,
             const std::shared_ptr<const Function> subF,
-            const std::string &paramName
+            const std::string& paramName
     );
 
     virtual ~Composition();

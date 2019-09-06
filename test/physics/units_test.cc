@@ -22,7 +22,7 @@ TEST (UnitsTest, toStringTest) {
 
 TEST (UnitsTest, testUniqueness) {
     struct hasher {
-        size_t operator()(const pair<SUT, long double> &p) const {
+        size_t operator()(const pair<SUT, long double>& p) const {
             return hash<SUT>()(p.first) ^ (hash<long double>()(p.second) << 1);
         }
     };

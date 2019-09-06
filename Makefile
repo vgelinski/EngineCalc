@@ -18,6 +18,8 @@ LDFLAGS=-lstdc++fs
 TEST_LDFLAGS=-lgcov -pg -no-pie -lstdc++fs
 
 PROJECT_SRCS=src/math/constant.cc\
+src/math/custom_function.cc\
+src/math/differential.cc\
 src/math/function.cc\
 src/math/identity.cc\
 src/math/integral.cc\
@@ -38,6 +40,8 @@ src/main.cc
 TEST_SRCS=$(PROJECT_SRCS)\
 test/test_runner.cc\
 test/math/constant_test.cc\
+test/math/custom_function_test.cc\
+test/math/differential_test.cc\
 test/math/function_test.cc\
 test/math/identity_test.cc\
 test/math/integral_test.cc\

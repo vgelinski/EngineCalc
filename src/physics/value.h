@@ -15,7 +15,7 @@ public:
     Value(const long double& value, const std::shared_ptr<CompoundUnit> unit);
     virtual ~Value();
 
-    std::shared_ptr<Value> convertTo(const std::shared_ptr<CompoundUnit> &unit) const;
+    std::shared_ptr<Value> convertTo(const std::shared_ptr<CompoundUnit>& unit) const;
     std::shared_ptr<Value> convertToSi() const;
     std::string toString() const;
 };

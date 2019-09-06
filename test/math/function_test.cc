@@ -27,7 +27,7 @@ TEST_F (FunctionTest, aggregation) {
 
 
     auto total_ptr = (x + y * z) / (c5 - c3);
-    const auto &total = *total_ptr;
+    const auto& total = *total_ptr;
 
     fparams_t params;
     params["x"] = 1.0;
@@ -58,7 +58,7 @@ TEST_F(FunctionTest, compositon) {
     params["unused"] = -1.0;
 
     auto comp_ptr = x_3->compose(y2, "x");
-    const auto &comp = *comp_ptr; 
+    const auto& comp = *comp_ptr;
 
     ASSERT_EQ(comp(params), totalCompVal(8.0));
     params["x"] = -2;

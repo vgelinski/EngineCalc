@@ -82,10 +82,10 @@ string CU::toDebugString() const {
         if (degree > 1) {
             str.append(string("^") + to_string(degree));
         }
-        auto &toAppend = p.second >= 0.0L ? numerator : denominator;
+        auto& toAppend = p.second >= 0.0L ? numerator : denominator;
         toAppend.insert(str);
     }
-    auto appendF = [](const string &s1, const string &s2){
+    auto appendF = [](const string& s1, const string& s2){
         return s1 + string("*") + s2;
     };
     string result =  accumulate(

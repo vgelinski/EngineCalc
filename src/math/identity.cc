@@ -3,11 +3,11 @@
 using namespace std;
 using namespace engc::math;
 
-Identity::Identity(const string &paramName) : paramName(paramName){};
+Identity::Identity(const string& paramName) : paramName(paramName){};
 
 Identity::~Identity() {};
 
-fret_t Identity::value(const fparams_t &params) const {
+fret_t Identity::value(const fparams_t& params) const {
     return params.at(paramName);
 };
 
