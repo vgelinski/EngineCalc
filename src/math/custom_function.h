@@ -17,7 +17,7 @@ private:
 protected:
 
 
-    virtual fret_t value(const fparams_t &params) const override;
+    virtual fret_t value(const fparams_t& params) const override;
 
 public:
 

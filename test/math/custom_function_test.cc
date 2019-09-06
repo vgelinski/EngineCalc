@@ -13,8 +13,8 @@ TEST (CustomFunctionTest, valueTest) {
     fparams_t params;
     params["x"] = 2.0;
     params["y"] = 3.0;
-    ASSERT_EQ(sinx(params), sin(2));
-    ASSERT_EQ(cosy(params), cos(3));
+    ASSERT_DOUBLE_EQ(sinx(params), sin(2));
+    ASSERT_DOUBLE_EQ(cosy(params), cos(3));
 
     ASSERT_EQ(sinx.variables(), fvariables_t({"x"}));
     ASSERT_EQ(cosy.variables(), fvariables_t({"y"}));
