@@ -39,6 +39,7 @@ src/main.cc
 TEST_SRCS=$(PROJECT_SRCS)\
 test/test_runner.cc\
 test/math/constant_test.cc\
+test/math/custom_function_test.cc\
 test/math/differential_test.cc\
 test/math/function_test.cc\
 test/math/identity_test.cc\
