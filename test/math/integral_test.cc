@@ -52,11 +52,11 @@ TEST_F (IntegralTest, integration) {
 
     auto integralX_ptr = ((x + y * z) / (c5 - c3))->integrate(
         START_X, END_X, "x", ERR_BOUND);
-    const auto &integralX = *integralX_ptr;
+    const auto& integralX = *integralX_ptr;
 
     auto integralY_ptr = ((x + y * z) / (c5 - c3))->integrate(
         START_Y, END_Y, "y", ERR_BOUND);
-    const auto &integralY = *integralY_ptr;
+    const auto& integralY = *integralY_ptr;
 
     auto integralZ_ptr = ((x + y * z) / (c5 - c3))->integrate(
         START_X, START_X, "z", ERR_BOUND);

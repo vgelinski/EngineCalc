@@ -8,7 +8,7 @@ using namespace engc::math;
 
 shared_ptr<Function> DC::derive(
         shared_ptr<const Function> f,
-        const string &param,
+        const string& param,
         fret_t errBound) {
 
     return make_shared<Differential>(f, param, errBound);
@@ -20,7 +20,7 @@ DC::Differential::Differential(shared_ptr<const Function> f, const string& param
 DC::Differential::~Differential() {}
 
 
-fret_t DC::Differential::value(const fparams_t &params) const {
+fret_t DC::Differential::value(const fparams_t& params) const {
     fret_t dx = errBound / 2;
     fret_t result = calculateForDx(dx, params);
     fret_t newResult = calculateForDx(dx / 2, params);
@@ -36,7 +36,7 @@ fvariables_t DC::Differential::variables() const {
     return function->variables();
 }
 
-fret_t DC::Differential::calculateForDx(const fret_t &dx, fparams_t params) const {
+fret_t DC::Differential::calculateForDx(const fret_t& dx, fparams_t params) const {
     auto fx = function->operator()(params);
     params[param] += dx;
     auto fdx = function->operator()(params);

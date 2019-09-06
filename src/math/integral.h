@@ -16,7 +16,7 @@ private:
     static std::shared_ptr<Function> integrate(
             std::shared_ptr<const Function> f,
             fret_t start, fret_t end,
-            const std::string &param,
+            const std::string& param,
             fret_t errBound,
             int threadCount = 1
     );
@@ -65,14 +65,14 @@ private:
 
     protected:
 
-        virtual fret_t value(const fparams_t &params) const override;
+        virtual fret_t value(const fparams_t& params) const override;
 
     public:
 
         Integral(
                 std::shared_ptr<const Function> f,
                 fret_t start, fret_t end,
-                const std::string &param,
+                const std::string& param,
                 fret_t errBound
         );
 

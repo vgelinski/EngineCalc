@@ -18,13 +18,13 @@ private:
 
 protected:
 
-    virtual fret_t value(const fparams_t &params) const override;
+    virtual fret_t value(const fparams_t& params) const override;
 
 public:
 
     /** \param paramName Името на параметъра, по който е идентитетът.
      */
-    Identity(const std::string &paramName);
+    Identity(const std::string& paramName);
     virtual ~Identity();
 
     fvariables_t variables() const override;
