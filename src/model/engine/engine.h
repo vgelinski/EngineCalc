@@ -11,6 +11,14 @@ namespace engc::model {
 class Engine : public std::enable_shared_from_this<Engine> {
 private:
 
+    static const std::string PISTON_COUNT;
+    static const std::string PISTON_MASS;
+    static const std::string CYLINDER_BORE;
+    static const std::string STROKE_LENGTH;
+    static const std::string ROD_LENGTH;
+    static const std::string COMBUSTION_CHAMBER_VOLUME;
+    static const std::string ROTATING_SPEED;
+
     int pistonCount;
     VAL pistonMass;
     VAL cylinderBore; //diameter
@@ -38,7 +46,7 @@ public:
      * и оста (на схемата \f$\varphi\f$) след време \f$t\f$ ще бъде \f$\varphi(t) = \omega t\f$
      *
      * Да разгледаме триъгълник \f$ODC\f$. От синусовата теорема имаме \f$ \frac{l}{\sin \varphi} = \frac{r}{\sin \beta}\f$,
-     * откъдето \f$ \sin \beta = \frac{l}{r \sin \varphi}\f$ и \f$ \cos \beta = \sqrt{1 - \frac{l^2}{r^2 \sin^2 \varphi}}\f$
+     * откъдето \f$ \sin \beta = \frac{r \sin \varphi}{l}\f$ и \f$ \cos \beta = \sqrt{1 - \frac{r^2 \sin^2 \varphi}{l^2}}\f$
      *
      * От същия триъгълник получаваме \f$OC = r \cos \varphi + l \cos \beta\f$
      *

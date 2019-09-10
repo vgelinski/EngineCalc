@@ -5,7 +5,7 @@ using namespace engc::math;
 
 #define CF CustomFunction
 
-CF::CustomFunction(const function<fret_t(fparams_t)>& cf, const fvariables_t& vars)
+CF::CustomFunction(const function<fret_t(const fparams_t&)>& cf, const fvariables_t& vars)
         : custF(cf), vars(vars) {}
 
 CF::~CustomFunction() {}

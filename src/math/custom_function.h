@@ -11,7 +11,7 @@ class CustomFunction : public Function {
 
 private:
 
-    const std::function<fret_t(fparams_t)> custF;
+    const std::function<fret_t(const fparams_t&)> custF;
     const fvariables_t vars;
 
 protected:
@@ -21,7 +21,7 @@ protected:
 
 public:
 
-    CustomFunction(const std::function<fret_t(fparams_t)>& cf, const fvariables_t& vars);
+    CustomFunction(const std::function<fret_t(const fparams_t&)>& cf, const fvariables_t& vars);
     ~CustomFunction();
 
     virtual fvariables_t variables() const override;

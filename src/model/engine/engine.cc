@@ -2,6 +2,9 @@
 
 #include <cmath>
 
+#include "../../math/constant.h"
+#include "../../math/custom_function.h"
+#include "../../math/identity.h"
 #include "../../physics/common_units.h"
 
 using namespace std;
@@ -9,23 +12,73 @@ using namespace engc::math;
 using namespace engc::model;
 using namespace engc::physics;
 
+const string Engine::PISTON_COUNT = "n";
+const string Engine::PISTON_MASS = "pistonMass";
+const string Engine::CYLINDER_BORE = "cylinderBore";
+const string Engine::STROKE_LENGTH = "strokeLength";
+const string Engine::ROD_LENGTH = "rodLength";
+const string Engine::COMBUSTION_CHAMBER_VOLUME = "combustionChamberVolume";
+const string Engine::ROTATING_SPEED = "rotationSped";
+
+
 Engine::Engine(int pistonCount) : pistonCount(pistonCount) {}
 
 Engine::~Engine() {}
 
 fparams_t Engine::getParams() const {
     fparams_t params;
-    params["n"] = pistonCount;
-    params["pistonMass"] = pistonMass->convertToSi()->value;
-    params["cylinderBore"] = cylinderBore->convertToSi()->value;
-    params["strokeLength"] = strokeLength->convertToSi()->value;
-    params["rodLength"] = rodLength->convertToSi()->value;
-    params["setCombustionChamberVolume"] = combustionChamberVolume->convertToSi()->value;
+    params[PISTON_COUNT] = pistonCount;
+    params[PISTON_MASS] = pistonMass->convertToSi()->value;
+    params[CYLINDER_BORE] = cylinderBore->convertToSi()->value;
+    params[STROKE_LENGTH] = strokeLength->convertToSi()->value;
+    params[ROD_LENGTH] = rodLength->convertToSi()->value;
+    params[COMBUSTION_CHAMBER_VOLUME] = combustionChamberVolume->convertToSi()->value;
     return params;
 }
 
 shared_ptr<Function> Engine::mechanicalLossF() const {
-    return nullptr;
+    auto rotSpeedF = make_shared<Identity>(ROTATING_SPEED);
+    auto elapesedTimeF = make_shared<Identity>("t");
+    auto phi = rotSpeedF * elapesedTimeF;
+
+    auto cosPhi = make_shared<CustomFunction>([phi](const fparams_t& params){
+        return cos((*phi)(params));
+        }, phi->variables());
+
+    auto varSinB = phi->variables();
+    varSinB.insert(STROKE_LENGTH);
+    auto sinB = make_shared<CustomFunction>([phi](const fparams_t& params){
+        auto r = params.at(STROKE_LENGTH) / 2;
+        auto l = params.at(ROD_LENGTH);
+        auto sinPhi = sin((*phi)(params));
+        return r * sinPhi / l;
+    }, varSinB);
+
+    auto cosB = make_shared<CustomFunction>([sinB](const fparams_t& params){
+        auto sinBV = (*sinB)(params);
+        auto beta = asin(sinBV);
+        return cos(beta);
+    }, varSinB);
+
+    auto rF = make_shared<Identity>(STROKE_LENGTH) / make_shared<Constant>(2);
+    auto lF = make_shared<Identity>(ROD_LENGTH);
+    auto ocF = rF * cosPhi + lF * cosB;
+
+    auto xF = lF + rF - ocF;
+    auto velocityF = xF->derive("t", 0.001);
+    auto accF = velocityF->derive("t", 0.0001l);
+
+    auto massF = make_shared<Identity>(PISTON_MASS);
+    auto forceF = massF * accF;
+
+    auto fVF = forceF * velocityF;
+    auto lossF = make_shared<CustomFunction>([fVF, rotSpeedF](const fparams_t& params){
+        auto rotSpeedRPS = make_shared<Value>((*rotSpeedF)(params), CommonUnits::Speed::radPs)->convertTo(CommonUnits::Angle::round / CommonUnits::Time::s)->value;
+        auto roundTimeS = 1 / rotSpeedRPS;
+        auto  resultF = fVF->integrate(0, 2 * roundTimeS, "t", 0.001);
+        return (*resultF)(params);
+        }, fVF->variables());
+    return lossF;
 }
 
 shared_ptr<Engine> Engine::setPistonMass(const std::shared_ptr<Value> &pistonMass) {

@@ -8,7 +8,7 @@ class CommonEngines {
 public:
     class VAZ {
     public:
-        static std::shared_ptr<Engine> VAZ2101();
+        static std::shared_ptr<Engine> VAZ_2101();
     };
 
 };

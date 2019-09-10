@@ -4,6 +4,7 @@
 
 #include "math/constant.h"
 #include "math/identity.h"
+#include "model/engine/common_engines.h"
 #include "physics/common_units.h"
 #include "util/plot/plot_builder_2d.h"
 
@@ -13,30 +14,24 @@
 using namespace std;
 using namespace std::chrono;
 using namespace engc::math;
+using namespace engc::model;
 using namespace engc::physics;
 using namespace engc::util;
 
 void calculation() {
-    auto acc = 0.5; // m/s^2
-    auto speedF = make_shared<Constant>(acc) * make_shared<Identity>("t");//m/s
+    auto vaz2101 = CommonEngines::VAZ::VAZ_2101();
+    auto lossF= vaz2101->mechanicalLossF();
 
-    auto mass = 0.1; //kg
-    auto massF = make_shared<Identity>("m");
+    auto start = make_shared<Value>(0, CommonUnits::Time::s);
+    auto end = make_shared<Value>(1.5, CommonUnits::Time::s);
+    auto step = make_shared<Value>(0.1, CommonUnits::Time::s);
 
-    auto energyF = massF * speedF * speedF / make_shared<Constant>(2);
-
-    auto start = make_shared<Value>(0, CommonUnits::Time::min);
-    auto end = make_shared<Value>(20, CommonUnits::Time::min);
-    auto step = make_shared<Value>(1, CommonUnits::Time::min);
-
-    fparams_t p;
-    p["m"] = mass;
+    fparams_t p = vaz2101->getParams();
+    p["rotationSped"] = make_shared<Value>(5600, CommonUnits::Speed::rpm)->convertToSi()->value;
 
     make_shared<PlotBuilder2D>()
             ->setFilename("plot/sandbox.csv")
-            ->addLine(speedF, CommonUnits::Speed::KmPh, "speed")
-            ->addLine(massF, CommonUnits::Mass::g, "mass")
-            ->addLine(energyF, CommonUnits::Energy::KJ, "Energy")
+            ->addLine(lossF, CommonUnits::Force::N, "phi")
             ->setStart(start)
             ->setEnd(end)
             ->setStep(step)
