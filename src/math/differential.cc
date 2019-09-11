@@ -29,7 +29,7 @@ fret_t DC::Differential::value(const fparams_t& params) const {
         dx /= 2;
         newResult = calculateForDx(dx /2, params);
     }
-    return result;
+    return newResult;
 }
 
 fvariables_t DC::Differential::variables() const {
