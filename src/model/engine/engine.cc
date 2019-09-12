@@ -65,18 +65,27 @@ shared_ptr<Function> Engine::mechanicalLossF() const {
     auto ocF = rF * cosPhi + lF * cosB;
 
     auto xF = lF + rF - ocF;
-    auto velocityF = xF->derive("t", 0.01);
+    auto velocityF = xF->derive("t", 0.001);
     auto accF = velocityF->derive("t", 0.01l);
 
     auto massF = make_shared<Identity>(PISTON_MASS);
     auto forceF = massF * accF;
+    auto fFrF = make_shared<CustomFunction>([forceF, sinB](const fparams_t& params){
+        auto f = (*forceF)(params);
+        auto sb = (*sinB)(params);
+        return abs(f * sb) * 0.15;
+        }, forceF->variables());
 
-    auto fVF = forceF * velocityF;
+    auto absVelocityF = make_shared<CustomFunction>([velocityF](const fparams_t& params){
+        return abs((*velocityF)(params));
+        }, velocityF->variables());
+    auto fVF = fFrF * absVelocityF;
     auto lossF = make_shared<CustomFunction>([fVF, rotSpeedF](const fparams_t& params){
         auto rotSpeedRPS = make_shared<Value>((*rotSpeedF)(params), CommonUnits::Speed::radPs)->convertTo(CommonUnits::Angle::round / CommonUnits::Time::s)->value;
         auto roundTimeS = 1 / rotSpeedRPS;
-        auto  resultF = fVF->integrate(0, 2 * roundTimeS, "t", 0.01);
-        return (*resultF)(params);
+        auto roundWorkF = fVF->integrate(0, roundTimeS, "t", 0.001);
+        auto  roundWork = (*roundWorkF)(params);
+        return roundWork / roundTimeS;
         }, fVF->variables());
     return lossF;
 }
