@@ -22,9 +22,9 @@ void calculation() {
     auto vaz2101 = CommonEngines::VAZ::VAZ_2101();
     auto lossF= vaz2101->mechanicalLossF();
 
-    auto start = make_shared<Value>(1500, CommonUnits::Speed::rpm);
-    auto end = make_shared<Value>(6000, CommonUnits::Speed::rpm);
-    auto step = make_shared<Value>(250, CommonUnits::Speed::rpm);
+    auto start = vaz2101->getRodLength();
+    auto end = make_shared<Value>(start->convertTo(CommonUnits::Length::mm)->value + 200, CommonUnits::Length::mm);
+    auto step = make_shared<Value>(10, CommonUnits::Length::mm);
 
     fparams_t p = vaz2101->getParams();
     p["rotationSped"] = make_shared<Value>(5600, CommonUnits::Speed::rpm)->convertToSi()->value;
@@ -36,7 +36,7 @@ void calculation() {
             ->setEnd(end)
             ->setStep(step)
             ->setParams(p)
-            ->setParamToPlot("rotationSped")
+            ->setParamToPlot("rodLength")
             ->build()
             ->plot();
 }

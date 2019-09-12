@@ -66,6 +66,7 @@ public:
     virtual std::shared_ptr<Engine> setCylinderBore(const VAL& cylinderBore);
     virtual std::shared_ptr<Engine> setStrokeLength(const VAL& strokeLength);
     virtual std::shared_ptr<Engine> setRodLength(const VAL& rodLength);
+    virtual VAL getRodLength() const;
     virtual std::shared_ptr<Engine> setCombustionChamberVolume(const VAL& combustionChamberVolume);
     virtual std::shared_ptr<Engine> setCombustionRatio(const long double& ratio);
 

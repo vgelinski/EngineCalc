@@ -73,7 +73,7 @@ shared_ptr<Function> Engine::mechanicalLossF() const {
     auto fFrF = make_shared<CustomFunction>([forceF, sinB](const fparams_t& params){
         auto f = (*forceF)(params);
         auto sb = (*sinB)(params);
-        return abs(f * sb) * 0.15;
+        return abs(f * sb) * 0.1;
         }, forceF->variables());
 
     auto absVelocityF = make_shared<CustomFunction>([velocityF](const fparams_t& params){
@@ -108,6 +108,10 @@ shared_ptr<Engine> Engine::setStrokeLength(const std::shared_ptr<Value> &strokeL
 shared_ptr<Engine> Engine::setRodLength(const std::shared_ptr<Value> &rodLength) {
     this->rodLength = rodLength;
     return shared_from_this();
+}
+
+shared_ptr<Value> Engine::getRodLength() const {
+    return rodLength;
 }
 
 shared_ptr<Engine> Engine::setCombustionChamberVolume(const std::shared_ptr<Value> &combustionChamberVolume) {
