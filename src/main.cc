@@ -22,7 +22,7 @@ void calculation() {
     auto vaz2101 = CommonEngines::VAZ::VAZ_2101();
     auto lossF= vaz2101->mechanicalLossF();
 
-    auto start = make_shared<Value>(800, CommonUnits::Speed::rpm);
+    auto start = make_shared<Value>(1500, CommonUnits::Speed::rpm);
     auto end = make_shared<Value>(6000, CommonUnits::Speed::rpm);
     auto step = make_shared<Value>(250, CommonUnits::Speed::rpm);
 
@@ -31,7 +31,7 @@ void calculation() {
 
     make_shared<PlotBuilder2D>()
             ->setFilename("plot/sandbox.csv")
-            ->addLine(lossF, CommonUnits::Force::N, "phi")
+            ->addLine(lossF, CommonUnits::Power::HP, "phi")
             ->setStart(start)
             ->setEnd(end)
             ->setStep(step)
