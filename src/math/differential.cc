@@ -21,7 +21,7 @@ DC::Differential::~Differential() {}
 
 
 fret_t DC::Differential::value(const fparams_t& params) const {
-    fret_t dx = errBound / 2;
+    fret_t dx = errBound;
     fret_t result = calculateForDx(dx, params);
     fret_t newResult = calculateForDx(dx / 2, params);
     while(abs(result - newResult) > errBound / 2) {
@@ -37,9 +37,9 @@ fvariables_t DC::Differential::variables() const {
 }
 
 fret_t DC::Differential::calculateForDx(const fret_t& dx, fparams_t params) const {
-    auto fx = function->operator()(params);
+    auto fx = (*function)(params);
     params[param] += dx;
-    auto fdx = function->operator()(params);
+    auto fdx = (*function)(params);
     auto df = fdx - fx;
     return df/dx;
 }
