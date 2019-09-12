@@ -65,8 +65,8 @@ shared_ptr<Function> Engine::mechanicalLossF() const {
     auto ocF = rF * cosPhi + lF * cosB;
 
     auto xF = lF + rF - ocF;
-    auto velocityF = xF->derive("t", 0.001);
-    auto accF = velocityF->derive("t", 0.01l);
+    auto velocityF = xF->derive("t", 0.0001);
+    auto accF = velocityF->derive("t", 0.0001l);
 
     auto massF = make_shared<Identity>(PISTON_MASS);
     auto forceF = massF * accF;

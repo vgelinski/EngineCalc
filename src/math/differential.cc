@@ -37,6 +37,7 @@ fvariables_t DC::Differential::variables() const {
 }
 
 fret_t DC::Differential::calculateForDx(const fret_t& dx, fparams_t params) const {
+    params[param] -= dx / 2;
     auto fx = (*function)(params);
     params[param] += dx;
     auto fdx = (*function)(params);
