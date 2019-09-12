@@ -17,7 +17,7 @@ protected:
 #if defined FULL_TEST
     const double ERR_BOUND = 0.00001;
 #else
-    const double ERR_BOUND = 0.0001;
+    const double ERR_BOUND = 0.00001;
 #endif
 };
 
