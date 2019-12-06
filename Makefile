@@ -46,6 +46,7 @@ test/math/custom_function_test.cc\
 test/math/differential_test.cc\
 test/math/function_test.cc\
 test/math/identity_test.cc\
+test/math/implicit_function_test.cc\
 test/math/integral_test.cc\
 test/model/engine/common_engines_test.cc\
 test/physics/units_test.cc\
