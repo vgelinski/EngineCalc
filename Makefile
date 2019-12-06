@@ -22,6 +22,7 @@ src/math/custom_function.cc\
 src/math/differential.cc\
 src/math/function.cc\
 src/math/identity.cc\
+src/math/implicit_function.cc\
 src/math/integral.cc\
 src/model/engine/common_engines.cc\
 src/model/engine/engine.cc\
