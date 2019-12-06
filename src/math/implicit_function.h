@@ -25,6 +25,10 @@ private:
     const fret_t end;
     const fret_t err_bound;
 
+    bool equals(const fret_t& a, const fret_t& b) const;
+    inline fret_t val(fparams_t& params, const fret_t& arg) const;
+    fret_t solveFor(const fret_t& left, const fret_t& right, fparams_t& params) const;
+
 protected:
 
     /**
