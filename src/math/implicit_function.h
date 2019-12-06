@@ -1,6 +1,8 @@
 #ifndef IMPLICIT_FUNCTION_H
 #define IMPLICIT_FUNCTION_H
 
+#include <limits>
+
 #include "function.h"
 
 namespace engc::math {
@@ -15,6 +17,13 @@ namespace engc::math {
  *
  */
 class ImplicitFunction : public Function {
+private:
+
+    const std::shared_ptr<Function> F;
+    const std::string pName;
+    const fret_t start;
+    const fret_t end;
+    const fret_t err_bound;
 
 protected:
 
@@ -29,6 +38,19 @@ protected:
      * макар че истинската стойност може и да не е достижима след краен брой стъпки.
      */
     virtual fret_t value(const fparams_t& params) const override;
+
+public:
+
+    ImplicitFunction(
+            const std::shared_ptr<Function>& F,
+            const std::string& pName,
+            const fret_t& start = std::numeric_limits<fret_t >::min() / 2,
+            const fret_t& end = std::numeric_limits<fret_t >::max() / 2,
+            const fret_t& err_bound = 0.00000001
+    );
+    virtual ~ImplicitFunction();
+
+    virtual fvariables_t variables() const override;
 };
 }; // end namespace
 
