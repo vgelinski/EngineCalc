@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "tools/engine/engine_power_calculator.h"
+#include "tools/suspension/suspension_calculator.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -10,13 +11,13 @@ using namespace engc::tools;
 
 static const int EXIT = 0;
 static const int PLOT_ENGINE_POWER_BY_ROD_LENGTH = 1;
-static const int CALCULATE_OPTIMUM_REAR_SUSPENSION_BARS_LENGTH = 2;
+static const int CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS = 2;
 
 void calculate(int what) {
     switch (what) {
         case PLOT_ENGINE_POWER_BY_ROD_LENGTH: EnginePowerCalculator::plotPowerByRodLength();
             break;
-        case CALCULATE_OPTIMUM_REAR_SUSPENSION_BARS_LENGTH: int a;
+        case CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS: SuspensionCalculator::calculateRearSuspentionOptimalBarLengths();
             break;
         case EXIT:
             return;
@@ -27,7 +28,7 @@ void calculate(int what) {
 
 void printUsage() {
     cout << "To plot Engine power by Rod length, enter " << PLOT_ENGINE_POWER_BY_ROD_LENGTH << endl;
-    cout << "To calculate optimum rear suspension rods length, enter " << CALCULATE_OPTIMUM_REAR_SUSPENSION_BARS_LENGTH << endl;
+    cout << "To calculate optimum rear suspension rods length, enter " << CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS << endl;
     cout << "To Cancel, enter " << EXIT << endl;
 }
 

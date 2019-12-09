@@ -32,6 +32,7 @@ src/physics/common_units.cc\
 src/physics/units.cc\
 src/physics/value.cc\
 src/tools/engine/engine_power_calculator.cc\
+src/tools/suspension/suspension_calculator.cc\
 src/util/exceptions/illegal_argument_exception.cc\
 src/util/files/file_io.cc\
 src/util/plot/data_calculator_2d.cc\
