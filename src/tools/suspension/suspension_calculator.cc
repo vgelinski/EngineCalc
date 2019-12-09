@@ -52,8 +52,8 @@ void SC::calculateRearSuspensionOptimalBarLengths() {
     auto fF = sq(xBF - xAF) + sq(yBF_xBF - yAF) - sq(cdF);
     auto xBFExplicit = make_shared<ImplicitFunction>(fF,
             "xb",
-            make_shared<Value>(615.0L, CU::Length::mm)->convertToSi()->value,
-            make_shared<Value>(625.0L, CU::Length::mm)->convertToSi()->value,
+            make_shared<Value>(605.0L, CU::Length::mm)->convertToSi()->value,
+            make_shared<Value>(645.0L, CU::Length::mm)->convertToSi()->value,
             ERR_BOUND->convertToSi()->value * 1800 //TODO debug why so big errBound is needed
             );
     auto xCF = (xAF + xBFExplicit) / make_shared<Constant>(2.0L);
