@@ -23,7 +23,9 @@ fret_t IF::value(const fparams_t& params) const {
 }
 
 fvariables_t IF::variables() const {
-    return fvariables_t {pName};
+    auto vars = F->variables();
+    vars.erase(pName);
+    return vars;
 }
 
 bool IF::equals(const fret_t &a, const fret_t &b) const {
@@ -37,16 +39,16 @@ inline fret_t IF::val(fparams_t &params, const fret_t& arg) const {
 
 fret_t IF::solveFor(const fret_t& left, const fret_t& right, fparams_t& params) const {
     auto lVal = val(params, left);
-    if (equals(lVal, 0)) return left;
+    if (equals(lVal, 0.0L)) return left;
 
     auto rVal = val(params, right);
-    if (equals(rVal, 0)) return right;
+    if (equals(rVal, 0.0L)) return right;
 
-    auto middle = (left + right) / 2;
+    auto middle = (left + right) / 2.0L;
     auto midVal = val(params, middle);
-    if (equals(midVal, 0)) return middle;
+    if (equals(midVal, 0.0L)) return middle;
 
-    if (lVal * midVal < 0) { // different signs
+    if (lVal * midVal < 0.0L) { // different signs
         return solveFor(left, middle, params);
     } else {
         return solveFor(middle, right, params);

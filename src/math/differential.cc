@@ -1,5 +1,7 @@
 #include "differential.h"
 
+#include <cmath>
+
 using namespace std;
 using namespace engc::math;
 
@@ -21,13 +23,13 @@ DC::Differential::~Differential() {}
 
 
 fret_t DC::Differential::value(const fparams_t& params) const {
-    fret_t dx = errBound * 4;
+    fret_t dx = errBound * 4.0L;
     fret_t result = calculateForDx(dx, params);
-    fret_t newResult = calculateForDx(dx / 2, params);
-    while(abs(result - newResult) > errBound / 2) {
+    fret_t newResult = calculateForDx(dx / 2.0L, params);
+    while(fabs(result - newResult) > errBound / 2) {
         result = newResult;
-        dx /= 2;
-        newResult = calculateForDx(dx /2, params);
+        dx /= 2.0L;
+        newResult = calculateForDx(dx /2.0L, params);
     }
     return newResult;
 }
@@ -37,7 +39,7 @@ fvariables_t DC::Differential::variables() const {
 }
 
 fret_t DC::Differential::calculateForDx(const fret_t& dx, fparams_t params) const {
-    params[param] -= dx / 2;
+    params[param] -= dx / 2.0L;
     auto fx = (*function)(params);
     params[param] += dx;
     auto fdx = (*function)(params);

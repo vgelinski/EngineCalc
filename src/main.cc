@@ -17,7 +17,7 @@ void calculate(int what) {
     switch (what) {
         case PLOT_ENGINE_POWER_BY_ROD_LENGTH: EnginePowerCalculator::plotPowerByRodLength();
             break;
-        case CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS: SuspensionCalculator::calculateRearSuspentionOptimalBarLengths();
+        case CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS: SuspensionCalculator::calculateRearSuspensionOptimalBarLengths();
             break;
         case EXIT:
             return;
@@ -28,7 +28,7 @@ void calculate(int what) {
 
 void printUsage() {
     cout << "To plot Engine power by Rod length, enter " << PLOT_ENGINE_POWER_BY_ROD_LENGTH << endl;
-    cout << "To calculate optimum rear suspension rods length, enter " << CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS << endl;
+    cout << "To calculate optimum rear suspension bars lengths, enter " << CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS << endl;
     cout << "To Cancel, enter " << EXIT << endl;
 }
 

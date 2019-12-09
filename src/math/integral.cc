@@ -19,7 +19,7 @@ shared_ptr<Function> IC::integrate(
         fret_t errBound,
         int threadCount) {
 
-    if (abs(start - end) < errBound / 2) {
+    if (fabs(start - end) < errBound / 2.0L) {
         return make_shared<Constant>(0);
     }
     fret_t a = min(start, end);
@@ -42,7 +42,7 @@ fret_t IC::MTI::value(const fparams_t& params) const {
     int n = (end - start) / errBound;
     fret_t result = calculateForN(n, params);
     fret_t newResult = calculateForN(n*2, params);
-    while(abs(result - newResult) > errBound / 2) {
+    while(fabs(result - newResult) > errBound / 2.0L) {
         result = newResult;
         n *= 2;
         newResult = calculateForN(n*2, params);

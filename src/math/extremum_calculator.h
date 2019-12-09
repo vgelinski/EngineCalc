@@ -10,7 +10,7 @@ private:
 
     typedef std::pair<fret_t, fret_t> pbound_t;
 
-    const std::shared_ptr<Function>& function;
+    const std::shared_ptr<Function> function;
     fparams_t params;
     const fret_t errBound;
 
