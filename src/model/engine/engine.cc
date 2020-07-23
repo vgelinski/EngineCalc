@@ -18,7 +18,7 @@ const string Engine::CYLINDER_BORE = "cylinderBore";
 const string Engine::STROKE_LENGTH = "strokeLength";
 const string Engine::ROD_LENGTH = "rodLength";
 const string Engine::COMBUSTION_CHAMBER_VOLUME = "combustionChamberVolume";
-const string Engine::ROTATING_SPEED = "rotationSped";
+const string Engine::ROTATING_SPEED = "rotationSpeed";
 
 
 Engine::Engine(int pistonCount) : pistonCount(pistonCount) {}

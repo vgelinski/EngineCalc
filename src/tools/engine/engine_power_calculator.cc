@@ -28,7 +28,7 @@ void EPC::plotPowerByRodLength() {
     auto step = make_shared<Value>(10, CommonUnits::Length::mm);
 
     fparams_t p = vaz2101->getParams();
-    p["rotationSped"] = make_shared<Value>(5600, CommonUnits::Speed::rpm)->convertToSi()->value;
+    p["rotationSpeed"] = make_shared<Value>(5600, CommonUnits::Speed::rpm)->convertToSi()->value;
 
     make_shared<PlotBuilder2D>()
             ->setFilename("plot/sandbox.csv")

@@ -1,9 +1,10 @@
 #include "tyre.h"
 
 #include "../../math/constant.h"
-#include "../../math/custom_function.h"
 #include "../../math/identity.h"
 #include "../../physics/common_units.h"
+
+#include <cmath>
 
 using namespace std;
 using namespace engc::math;
@@ -14,7 +15,7 @@ using namespace engc::physics;
 const string Tyre::RADIUS = "R";
 const string Tyre::WIDTH = "width";
 const string Tyre::HEIGHT = "height";
-const string Tyre::ROTATING_SPEED = "rotationSped";
+const string Tyre::ROTATING_SPEED = "rotationSpeed";
 
 Tyre::Tyre(const math::fret_t& widthMM, const math::fret_t& heightPerc, const math::fret_t& radiusInch)
         : radius(make_shared<Value>(radiusInch, CommonUnits::Length::Inch)),
@@ -26,5 +27,6 @@ Tyre::~Tyre(){}
 
 shared_ptr<Function> Tyre::speedF() const {
     auto radiusF = make_shared<Constant>(radius->convertToSi()->value + height->convertToSi()->value);
-    return radiusF;
+    auto rotSpeedF = make_shared<Identity>(ROTATING_SPEED); // rad/s
+    return radiusF * rotSpeedF;
 }
