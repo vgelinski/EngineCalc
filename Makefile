@@ -28,6 +28,7 @@ src/math/integral.cc\
 src/model/engine/common_engines.cc\
 src/model/engine/engine.cc\
 src/model/transmission/tyre.cc\
+src/model/transmission/differential.cc\
 src/physics/unit_definitions.cc\
 src/physics/common_units.cc\
 src/physics/units.cc\
