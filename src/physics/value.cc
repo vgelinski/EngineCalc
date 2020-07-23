@@ -3,10 +3,11 @@
 #include "../util/exceptions/illegal_argument_exception.h"
 
 using namespace std;
+using namespace engc::math;
 using namespace engc::physics;
 using namespace engc::util;
 
-Value::Value(const long double& value, const shared_ptr<CompoundUnit> unit):
+Value::Value(const fret_t& value, const shared_ptr<CompoundUnit> unit):
         value(value), unit(unit) {}
 
 Value::~Value(){}

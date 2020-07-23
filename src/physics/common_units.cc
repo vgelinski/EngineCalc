@@ -27,6 +27,7 @@ LENGTH::mm = MK_UNIT(SU::MilliMeters);
 LENGTH::cm = CMN::Length::mm->withName("cm", 10);
 LENGTH::m = MK_UNIT(SU::Meters);
 LENGTH::Km = MK_UNIT(SU::KiloMeters);
+LENGTH::Inch = CMN::Length::mm->withName("in", 25.4L);
 
 AREA::mm2 = CMN::Length::mm * CMN::Length::mm;
 AREA::m2 = CMN::Length::m * CMN::Length::m;

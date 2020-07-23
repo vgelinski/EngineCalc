@@ -15,6 +15,7 @@ public:
         CU cm;
         CU m;
         CU Km;
+        CU Inch;
     };
     class Area {
     public:
