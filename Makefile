@@ -27,6 +27,8 @@ src/math/implicit_function.cc\
 src/math/integral.cc\
 src/model/engine/common_engines.cc\
 src/model/engine/engine.cc\
+src/model/transmission/common_gearboxes.cc\
+src/model/transmission/common_differentials.cc\
 src/model/transmission/differential.cc\
 src/model/transmission/gearbox.cc\
 src/model/transmission/transmission.cc\
