@@ -31,5 +31,5 @@ TEST (TransmissionTest, speedTest) {
     fparams_t params;
     params["rotationSpeed"] = make_shared<Value>(4500, CommonUnits::Speed::rpm)->convertToSi()->value;
 
-    ASSERT_DOUBLE_EQ(v(params), ((185.0L/1000.0L) * 0.8L + 13.0L * 0.0254L) * 2 * M_PI * (4500 / (0.801L * 4.1L * 60))); // m/s
+    ASSERT_DOUBLE_EQ(v(params), ((185.0L/1000.0L) * 0.8L + 13.0L * 0.0254L / 2) * 2 * M_PI * (4500 / (0.801L * 4.1L * 60))); // m/s
 }

@@ -23,14 +23,14 @@ TEST (TyreTest, speedTest) {
     params["rotationSpeed"] = make_shared<Value>(1200, CommonUnits::Speed::rpm)->convertToSi()->value;
     params["unused"] = 3.0;
 
-    ASSERT_DOUBLE_EQ(v1(params), ((185.0L/1000.0L) * 0.8L + 13.0L * 0.0254L) * 2 * M_PI * 20); // m/s
-    ASSERT_DOUBLE_EQ(v2(params), ((165.0L/1000.0L) * 0.7L + 13.0L * 0.0254L) * 2 * M_PI * 20); // m/s
-    ASSERT_DOUBLE_EQ(v3(params), ((225.0L/1000.0L) * 0.5L + 17.0L * 0.0254L) * 2 * M_PI * 20); // m/s
+    ASSERT_DOUBLE_EQ(v1(params), ((185.0L/1000.0L) * 0.8L + 13.0L * 0.0254L / 2) * 2 * M_PI * 20); // m/s
+    ASSERT_DOUBLE_EQ(v2(params), ((165.0L/1000.0L) * 0.7L + 13.0L * 0.0254L / 2) * 2 * M_PI * 20); // m/s
+    ASSERT_DOUBLE_EQ(v3(params), ((225.0L/1000.0L) * 0.5L + 17.0L * 0.0254L / 2) * 2 * M_PI * 20); // m/s
 
     params["rotationSpeed"] = make_shared<Value>(600, CommonUnits::Speed::rpm)->convertToSi()->value;
 
 
-    ASSERT_DOUBLE_EQ(v1(params), ((185.0L/1000.0L) * 0.8L + 13.0L * 0.0254L) * 2 * M_PI * 10); // m/s
-    ASSERT_DOUBLE_EQ(v2(params), ((165.0L/1000.0L) * 0.7L + 13.0L * 0.0254L) * 2 * M_PI * 10); // m/s
-    ASSERT_DOUBLE_EQ(v3(params), ((225.0L/1000.0L) * 0.5L + 17.0L * 0.0254L) * 2 * M_PI * 10); // m/s
+    ASSERT_DOUBLE_EQ(v1(params), ((185.0L/1000.0L) * 0.8L + 13.0L * 0.0254L / 2) * 2 * M_PI * 10); // m/s
+    ASSERT_DOUBLE_EQ(v2(params), ((165.0L/1000.0L) * 0.7L + 13.0L * 0.0254L / 2) * 2 * M_PI * 10); // m/s
+    ASSERT_DOUBLE_EQ(v3(params), ((225.0L/1000.0L) * 0.5L + 17.0L * 0.0254L / 2) * 2 * M_PI * 10); // m/s
 }

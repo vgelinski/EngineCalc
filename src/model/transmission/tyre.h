@@ -11,18 +11,18 @@ namespace engc::model {
 class Tyre {
 private:
 
-    static const std::string RADIUS;
+    static const std::string DIAMETER;
     static const std::string WIDTH;
     static const std::string HEIGHT;
     static const std::string ROTATING_SPEED;
 
-    const VAL radius;
+    const VAL diameter;
     const VAL width;
     const VAL height;
 
 public:
 
-    Tyre(const math::fret_t& widthMM, const math::fret_t& heightPerc, const math::fret_t& radiusInch);
+    Tyre(const math::fret_t& widthMM, const math::fret_t& heightPerc, const math::fret_t& diameterInch);
     virtual ~Tyre();
 
     virtual std::shared_ptr<math::Function> speedF() const;
