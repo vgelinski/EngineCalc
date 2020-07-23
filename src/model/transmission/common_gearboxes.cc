@@ -11,7 +11,7 @@ shared_ptr<Gearbox> CG::VAZ::VAZ_2101() {
 }
 
 shared_ptr<Gearbox> CG::VAZ::VAZ_2105() {
-    return make_shared<Gearbox>(vector<fret_t>({-3.53L, 3.667L, 2.1L, 1.361, 1.0L, 0.801}));
+    return make_shared<Gearbox>(vector<fret_t>({-3.53L, 3.667L, 2.1L, 1.361, 1.0L, 0.801L}));
 }
 
 shared_ptr<Gearbox> CG::VAZ::VAZ_2106() {

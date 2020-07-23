@@ -30,5 +30,5 @@ shared_ptr<Function> Transmission::speedF() const {
     auto rightTyreF = rightTyre->speedF()->substitute(ROTATING_SPEED, "right");
     auto leftSpeedF = leftTyreF->compose(diffF, "left")->compose(gearboxF, "diff");
     auto rightSpeedF = rightTyreF->compose(diffF, "right")->compose(gearboxF, "diff");
-    return leftSpeedF + rightSpeedF / make_shared<Constant>(2);
+    return (leftSpeedF + rightSpeedF) / make_shared<Constant>(2);
 }
