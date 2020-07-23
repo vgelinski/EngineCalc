@@ -56,6 +56,17 @@ public:
     */
     virtual fvariables_t variables() const = 0;
 
+    /** \brief Връща субституция на дадения аргумент с новото му име
+    *
+    * Връща Същата функция , в която обаче името на аргумента е променено
+    * \param oldParamName старото име на аргумента
+    * \param newParamName новото име на аргумента
+    */
+    virtual std::shared_ptr<const Function> substitute(
+            const std::string& oldParamName,
+            const std::string& newParamName) const;
+
+
     /** \brief Връща композиция на текущата функция с дадената
     * 
     * Връща композиция (Composition), в която указаният аргумент е заменен

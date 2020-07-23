@@ -29,6 +29,7 @@ src/model/engine/common_engines.cc\
 src/model/engine/engine.cc\
 src/model/transmission/differential.cc\
 src/model/transmission/gearbox.cc\
+src/model/transmission/transmission.cc\
 src/model/transmission/tyre.cc\
 src/physics/unit_definitions.cc\
 src/physics/common_units.cc\

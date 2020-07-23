@@ -4,6 +4,8 @@
 #include "../../src/math/function.h"
 #include "../../src/math/identity.h"
 
+#include <cmath>
+
 using namespace std;
 using namespace engc::math;
 
@@ -17,6 +19,26 @@ protected:
         return (y - 2) * (y - 2) * (y - 2);
     };
 };
+
+TEST_F(FunctionTest, substitution) {
+
+    auto x = make_shared<Identity>("x");
+    auto x_3 = x * x * x;
+
+    fparams_t params;
+    params["x"] = 5.0;
+    params["y"] = 8.0;
+    params["unused"] = -1.0;
+
+    auto subst_ptr = x_3->substitute("x", "y");
+    const auto& subst = *subst_ptr;
+
+    ASSERT_DOUBLE_EQ(subst(params), pow(8.0L, 3));
+    params["x"] = -2;
+    ASSERT_DOUBLE_EQ(subst(params), pow(8.0L, 3));
+    params["y"] = -3.14;
+    ASSERT_DOUBLE_EQ(subst(params), pow(-3.14, 3));
+}
 
 TEST_F (FunctionTest, aggregation) {
     auto c5 = make_shared<Constant>(5);
@@ -82,4 +104,7 @@ TEST_F(FunctionTest, variables) {
     ASSERT_EQ(zy->variables(), fvariables_t({"y", "z"}));
     ASSERT_EQ(xyOfX->variables(), fvariables_t({"y", "x"}));
     ASSERT_EQ(xyOfY->variables(), fvariables_t({"x"}));
+    ASSERT_EQ(x->substitute("x", "test")->variables(), fvariables_t({"test"}));
+    ASSERT_EQ(zy->substitute("x", "test")->variables(), fvariables_t({"y", "z"}));
+    ASSERT_EQ(zy->substitute("y", "test")->variables(), fvariables_t({"test", "z"}));
 }

@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "differential.h"
+#include "identity.h"
 #include "integral.h"
 
 using namespace std;
@@ -18,6 +19,17 @@ shared_ptr<Function> Function::compose(
         const shared_ptr<Function> other, const string& paramName) const {
 
     return make_shared<Composition>(shared_from_this(), other, paramName);
+}
+
+shared_ptr<const Function> Function::substitute(
+        const string& oldName, const string& newName) const {
+
+    //TODO use contains after migrating to C++20
+    if (variables().count(oldName) == 0) {
+        return shared_from_this();
+    }
+
+    return compose(make_shared<Identity>(newName), oldName);
 }
 
 shared_ptr<Function> Function::integrate(
