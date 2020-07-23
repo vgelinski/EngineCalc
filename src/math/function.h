@@ -75,7 +75,7 @@ public:
     * \param paramName аргументът, който ще бъде заменен.
     */
     virtual std::shared_ptr<Function> compose(
-            const std::shared_ptr<Function> other,
+            const std::shared_ptr<const Function> other,
             const std::string& paramName) const;
 
     /** \brief Пресмята определен интеграл от текущата функция

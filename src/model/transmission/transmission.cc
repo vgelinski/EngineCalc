@@ -24,6 +24,11 @@ Transmission::Transmission(
 Transmission::~Transmission(){}
 
 shared_ptr<Function> Transmission::speedF() const {
-    auto gearBoxF = gearbox->rotationSpeedF();
-    return make_shared<Identity>(ROTATING_SPEED) / make_shared<Constant>(0);
+    auto gearboxF = gearbox->rotationSpeedF();
+    auto diffF = diff->rotationSpeedF()->substitute(ROTATING_SPEED, "diff");
+    auto leftTyreF = leftTyre->speedF()->substitute(ROTATING_SPEED, "left");
+    auto rightTyreF = rightTyre->speedF()->substitute(ROTATING_SPEED, "right");
+    auto leftSpeedF = leftTyreF->compose(diffF, "left")->compose(gearboxF, "diff");
+    auto rightSpeedF = rightTyreF->compose(diffF, "right")->compose(gearboxF, "diff");
+    return leftSpeedF + rightSpeedF / make_shared<Constant>(2);
 }

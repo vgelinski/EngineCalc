@@ -106,5 +106,6 @@ TEST_F(FunctionTest, variables) {
     ASSERT_EQ(xyOfY->variables(), fvariables_t({"x"}));
     ASSERT_EQ(x->substitute("x", "test")->variables(), fvariables_t({"test"}));
     ASSERT_EQ(zy->substitute("x", "test")->variables(), fvariables_t({"y", "z"}));
+    ASSERT_EQ(zy->substitute("y", "y")->variables(), fvariables_t({"y", "z"}));
     ASSERT_EQ(zy->substitute("y", "test")->variables(), fvariables_t({"test", "z"}));
 }
