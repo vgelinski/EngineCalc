@@ -27,11 +27,11 @@ void calculateSpeed() {
     auto transmission = make_shared<Transmission>(
             tyre,
             tyre,
-            CommonDifferentials::VAZ::VAZ_2103(),
-            CommonGearboxes::VAZ::VAZ_2105()
+            CommonDifferentials::VAZ::VAZ_2102(),
+            CommonGearboxes::VAZ::VAZ_2101()
     );
 
-    transmission->gearbox->shiftToGear(5);
+    transmission->gearbox->shiftToGear(1);
 
     auto v_ptr = transmission->speedF();
     auto& v = * v_ptr;
@@ -40,8 +40,8 @@ void calculateSpeed() {
     auto& rpm = * rpm_ptr;
 
     fparams_t params;
-    params["rotationSpeed"] = make_shared<Value>(5600, CommonUnits::Speed::rpm)->convertToSi()->value;
-    params["speed"] = make_shared<Value>(170, CommonUnits::Speed::KmPh)->convertToSi()->value;
+    params["rotationSpeed"] = make_shared<Value>(950, CommonUnits::Speed::rpm)->convertToSi()->value;
+    params["speed"] = make_shared<Value>(130, CommonUnits::Speed::KmPh)->convertToSi()->value;
 
     cout << "Skorostta e " << make_shared<Value>(v(params), CommonUnits::Speed::mPs)->convertTo(CommonUnits::Speed::KmPh)->value << endl;
     cout << "Oborotite sa " << make_shared<Value>(rpm(params), CommonUnits::Speed::radPs)->convertTo(CommonUnits::Speed::rpm)->value << endl;
