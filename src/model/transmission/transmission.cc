@@ -9,6 +9,7 @@ using namespace engc::model;
 
 
 const string Transmission::ROTATING_SPEED = "rotationSpeed";
+const string Transmission::SPEED = "speed";
 
 Transmission::Transmission(
         const shared_ptr<Tyre> leftTyre,
@@ -31,4 +32,14 @@ shared_ptr<Function> Transmission::speedF() const {
     auto leftSpeedF = leftTyreF->compose(diffF, "left")->compose(gearboxF, "diff");
     auto rightSpeedF = rightTyreF->compose(diffF, "right")->compose(gearboxF, "diff");
     return (leftSpeedF + rightSpeedF) / make_shared<Constant>(2);
+}
+
+shared_ptr<Function> Transmission::rotationF() const {
+    auto leftRotF = leftTyre->rotationF();
+    auto rightRotF = rightTyre->rotationF();
+    auto diffRotF = (leftRotF + rightRotF) / make_shared<Constant>(2);
+    auto gearRotF = diff->rotationSpeedReverseF()->compose(diffRotF, ROTATING_SPEED);
+    auto engineRotF = gearbox->rotationSpeedReverseF()->compose(gearRotF, ROTATING_SPEED);
+
+    return engineRotF;
 }

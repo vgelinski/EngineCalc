@@ -14,6 +14,7 @@ private:
     const std::shared_ptr<Differential> diff;
 
     static const std::string ROTATING_SPEED;
+    static const std::string SPEED;
 
 public:
     const std::shared_ptr<Gearbox> gearbox; //public to allow shifting gears
@@ -27,6 +28,7 @@ public:
     virtual ~Transmission();
 
     virtual std::shared_ptr<math::Function> speedF() const;
+    virtual std::shared_ptr<math::Function> rotationF() const;
 
 };
 };

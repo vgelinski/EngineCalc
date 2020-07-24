@@ -17,3 +17,7 @@ Differential::~Differential(){}
 shared_ptr<Function> Differential::rotationSpeedF() const {
     return make_shared<Identity>(ROTATING_SPEED) / make_shared<Constant>(ratio);
 }
+
+shared_ptr<Function> Differential::rotationSpeedReverseF() const {
+    return make_shared<Identity>(ROTATING_SPEED) * make_shared<Constant>(ratio);
+}

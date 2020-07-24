@@ -18,6 +18,7 @@ public:
     virtual ~Differential();
 
     virtual std::shared_ptr<math::Function> rotationSpeedF() const;
+    virtual std::shared_ptr<math::Function> rotationSpeedReverseF() const;
 
 };
 

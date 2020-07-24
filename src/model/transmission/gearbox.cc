@@ -19,6 +19,10 @@ shared_ptr<Function> Gearbox::rotationSpeedF() const {
     return make_shared<Identity>(ROTATING_SPEED) / make_shared<Constant>(gearRatios[currentGear]);
 }
 
+shared_ptr<Function> Gearbox::rotationSpeedReverseF() const {
+    return make_shared<Identity>(ROTATING_SPEED) * make_shared<Constant>(gearRatios[currentGear]);
+}
+
 void Gearbox::shiftToGear(const uint_fast8_t& gear) {
     currentGear = gear;
 }
