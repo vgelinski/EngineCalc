@@ -15,6 +15,7 @@ private:
     static const std::string WIDTH;
     static const std::string HEIGHT;
     static const std::string ROTATING_SPEED;
+    static const std::string SPEED;
 
     const VAL diameter;
     const VAL width;
@@ -26,6 +27,11 @@ public:
     virtual ~Tyre();
 
     virtual std::shared_ptr<math::Function> speedF() const;
+    virtual std::shared_ptr<math::Function> rotationF() const;
+
+private:
+
+    virtual std::shared_ptr<math::Function> radiusF() const;
 
 };
 

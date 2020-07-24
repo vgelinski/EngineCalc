@@ -16,6 +16,7 @@ const string Tyre::DIAMETER = "D";
 const string Tyre::WIDTH = "width";
 const string Tyre::HEIGHT = "height";
 const string Tyre::ROTATING_SPEED = "rotationSpeed";
+const string Tyre::SPEED = "speed";
 
 Tyre::Tyre(const math::fret_t& widthMM, const math::fret_t& heightPerc, const math::fret_t& diameterInch)
         : diameter(make_shared<Value>(diameterInch, CommonUnits::Length::Inch)),
@@ -26,7 +27,15 @@ Tyre::Tyre(const math::fret_t& widthMM, const math::fret_t& heightPerc, const ma
 Tyre::~Tyre(){}
 
 shared_ptr<Function> Tyre::speedF() const {
-    auto radiusF = make_shared<Constant>(diameter->convertToSi()->value / 2.0L + height->convertToSi()->value);
     auto rotSpeedF = make_shared<Identity>(ROTATING_SPEED); // rad/s
-    return radiusF * rotSpeedF;
+    return radiusF() * rotSpeedF;
+}
+
+shared_ptr<Function> Tyre::rotationF() const {
+    auto speedF = make_shared<Identity>(SPEED); // m/s
+    return speedF / radiusF();
+}
+
+shared_ptr<Function> Tyre::radiusF() const {
+    return make_shared<Constant>(diameter->convertToSi()->value / 2.0L + height->convertToSi()->value);
 }
