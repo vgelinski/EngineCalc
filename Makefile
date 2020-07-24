@@ -61,6 +61,7 @@ test/math/identity_test.cc\
 test/math/implicit_function_test.cc\
 test/math/integral_test.cc\
 test/math/polynomial/monomial_test.cc\
+test/math/polynomial/polynomial_test.cc\
 test/model/engine/common_engines_test.cc\
 test/model/transmission/transmission_test.cc\
 test/model/transmission/tyre_test.cc\
