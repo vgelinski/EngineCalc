@@ -4,7 +4,7 @@
 #include "../function.h"
 
 namespace engc::math {
-class Monomial : public Function  {
+class Monomial : public Function {
 private:
     std::unordered_map<std::string, uint_fast8_t> powers;
     fret_t multiplier;

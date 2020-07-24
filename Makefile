@@ -26,6 +26,7 @@ src/math/identity.cc\
 src/math/implicit_function.cc\
 src/math/integral.cc\
 src/math/polynomial/monomial.cc\
+src/math/polynomial/polynomial.cc\
 src/model/engine/common_engines.cc\
 src/model/engine/engine.cc\
 src/model/transmission/common_gearboxes.cc\
