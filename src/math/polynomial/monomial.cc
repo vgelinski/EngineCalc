@@ -32,8 +32,16 @@ fvariables_t Monomial::variables() const {
     );
 }
 
+const unordered_map<string, uint_fast8_t>& Monomial::getPowers() const {
+    return powers;
+}
+
 void Monomial::setMultiplier(const fret_t& multiplier) {
     this->multiplier = multiplier;
+}
+
+fret_t Monomial::getMultiplier() const {
+    return multiplier;
 }
 
 void Monomial::addVariable(const std::string& name, const uint_fast8_t& power) {

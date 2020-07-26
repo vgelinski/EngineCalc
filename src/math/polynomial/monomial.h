@@ -18,7 +18,10 @@ public:
 
     virtual fvariables_t variables() const override;
 
+    virtual const std::unordered_map<std::string, uint_fast8_t>& getPowers() const;
+
     virtual void setMultiplier(const fret_t& multiplier);
+    virtual fret_t getMultiplier() const;
     virtual void addVariable(const std::string& name, const uint_fast8_t& power);
 };
 };
