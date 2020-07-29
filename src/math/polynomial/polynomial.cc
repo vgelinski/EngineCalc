@@ -51,7 +51,7 @@ fvariables_t Polynomial::variables() const {
     );
 }
 
-void Polynomial::addMonomial(shared_ptr<Monomial> monomial) {
+void Polynomial::add(shared_ptr<Monomial> monomial) {
     auto currMonom = monomials[monomial->getPowers()];
     monomial->setMultiplier(
             monomial->getMultiplier()

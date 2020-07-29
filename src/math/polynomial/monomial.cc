@@ -53,7 +53,9 @@ fret_t Monomial::getMultiplier() const {
 }
 
 void Monomial::addVariable(const std::string& name, const uint_fast8_t& power) {
-    powers[name] += power;
+    if (power != 0) {
+        powers[name] += power;
+    }
 }
 
 

@@ -20,3 +20,15 @@ TEST (MonomialTest, common) {
     ASSERT_EQ(monomial.variables(), fvariables_t({"x", "y", "z"}));
     ASSERT_DOUBLE_EQ(monomial(params), 7 * 2 * 2 * 3 * 4 * 4 * 4);
 }
+
+TEST (MonomialTest, zeroDegree) {
+auto monomialPtr = make_shared<Monomial>("x", 0, 7);
+
+const auto& monomial = * monomialPtr;
+
+fparams_t params;
+params["x"] = 2.0;
+
+ASSERT_EQ(monomial.variables(), fvariables_t({}));
+ASSERT_DOUBLE_EQ(monomial(params), 7);
+}

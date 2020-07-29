@@ -23,7 +23,7 @@ public:
 
     virtual fvariables_t variables() const override;
 
-    virtual void addMonomial(std::shared_ptr<Monomial> monomial);
+    virtual void add(std::shared_ptr<Monomial> monomial);
 
 private:
 

@@ -35,9 +35,9 @@ shared_ptr<Monomial> getMonomial3() {
 
 TEST (PolynomialTest, common) {
     auto polynomial = make_shared<Polynomial>();
-    polynomial->addMonomial(getMonomial1());
-    polynomial->addMonomial(getMonomial2());
-    polynomial->addMonomial(getMonomial3());
+    polynomial->add(getMonomial1());
+    polynomial->add(getMonomial2());
+    polynomial->add(getMonomial3());
 
 
     fparams_t params;
