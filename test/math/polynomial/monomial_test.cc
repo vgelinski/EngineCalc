@@ -6,11 +6,9 @@ using namespace std;
 using namespace engc::math;
 
 TEST (MonomialTest, common) {
-    auto monomialPtr = make_shared<Monomial>();
-    monomialPtr->addVariable("x", 2);
-    monomialPtr->addVariable("y", 1);
-    monomialPtr->addVariable("z", 3);
-    monomialPtr->setMultiplier(7);
+    auto monomialPtr = make_shared<Monomial>("x", 2, 7)
+            ->multiply(make_shared<Monomial>("y", 1))
+            ->multiply(make_shared<Monomial>("z", 3));
 
     const auto& monomial = * monomialPtr;
 

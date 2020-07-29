@@ -14,11 +14,15 @@ protected:
 
 public:
     Monomial();
+    Monomial(const std::string& name, const uint_fast8_t& power, const fret_t& multiplier = 1.0L);
     virtual ~Monomial();
 
     virtual fvariables_t variables() const override;
 
+    virtual std::shared_ptr<Monomial> multiply(const std::shared_ptr<const Monomial>& other) const;
+
     virtual const std::unordered_map<std::string, uint_fast8_t>& getPowers() const;
+    virtual void setPowers(const std::unordered_map<std::string, uint_fast8_t>& powers);
 
     virtual void setMultiplier(const fret_t& multiplier);
     virtual fret_t getMultiplier() const;
