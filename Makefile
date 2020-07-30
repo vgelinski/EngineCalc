@@ -25,6 +25,7 @@ src/math/function.cc\
 src/math/identity.cc\
 src/math/implicit_function.cc\
 src/math/integral.cc\
+src/math/max_function.cc\
 src/math/polynomial/lagrange_polynom_builder.cc\
 src/math/polynomial/monomial.cc\
 src/math/polynomial/polynomial.cc\
