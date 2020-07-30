@@ -103,6 +103,19 @@ shared_ptr<Polynomial> Polynomial::multiply(shared_ptr<const Polynomial> other) 
     return ret;
 }
 
+shared_ptr<Polynomial> Polynomial::multiply(const fret_t& m) const {
+    auto monomsthis = getMonomials();
+    auto ret = make_shared<Polynomial>();
+    for_each(
+            monomsthis.begin(),
+            monomsthis.end(),
+            [this, ret, m](const shared_ptr<const Monomial>& monom) -> void {
+                ret->add(monom->multiply(make_shared<Monomial>(m)));
+            }
+    );
+    return ret;
+}
+
 list<shared_ptr<const Monomial>> Polynomial::getMonomials() const {
     return std::accumulate(
             monomials.begin(),

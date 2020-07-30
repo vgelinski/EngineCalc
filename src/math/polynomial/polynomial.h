@@ -27,6 +27,7 @@ public:
     virtual std::shared_ptr<Polynomial> add(std::shared_ptr<const Polynomial> other) const;
     virtual std::shared_ptr<Polynomial> multiply(std::shared_ptr<const Monomial> monomial) const;
     virtual std::shared_ptr<Polynomial> multiply(std::shared_ptr<const Polynomial> other) const;
+    virtual std::shared_ptr<Polynomial> multiply(const fret_t& m) const;
 
 private:
 
