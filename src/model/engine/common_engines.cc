@@ -8,17 +8,23 @@ using namespace engc::model;
 using namespace engc::physics;
 
 #define CE CommonEngines
+#define PISTON_MASS make_shared<Value>(315, CommonUnits::Mass::g)
+#define SMALL_CYLINDER_BORE make_shared<Value>(76, CommonUnits::Length::mm)
+#define BIG_CYLINDER_BORE make_shared<Value>(79, CommonUnits::Length::mm)
+#define ROD_LENGTH make_shared<Value>(76, CommonUnits::Length::mm)
+#define SMALL_STROKE make_shared<Value>(66, CommonUnits::Length::mm)
+#define BIG_STROKE make_shared<Value>(80, CommonUnits::Length::mm)
 
 shared_ptr<Engine> CE::VAZ::VAZ_2101() {
     auto engine = make_shared<Engine>()
-            ->setPistonMass(make_shared<Value>(315, CommonUnits::Mass::g))
-            ->setCylinderBore(make_shared<Value>(76, CommonUnits::Length::mm))
-            ->setStrokeLength(make_shared<Value>(66, CommonUnits::Length::mm))
-            ->setRodLength(make_shared<Value>(136, CommonUnits::Length::mm))
+            ->setPistonMass(PISTON_MASS)
+            ->setCylinderBore(SMALL_CYLINDER_BORE)
+            ->setStrokeLength(SMALL_STROKE)
+            ->setRodLength(ROD_LENGTH)
             ->setCombustionRatio(8.8);
     auto pmb = make_shared<PrecalculatedMomentumBuilder>();
-    pmb->setMaxMomentum(make_shared<Value>(3400, CommonUnits::Speed::rpm), make_shared<Value>(89, CommonUnits::Torque::Nm));
-    pmb->setMaxPower(make_shared<Value>(5600, CommonUnits::Speed::rpm), make_shared<Value>(64, CommonUnits::Power::HP));
+    pmb->setMaxMomentum(make_shared<Value>(3400, CommonUnits::Speed::rpm), make_shared<Value>(87.3, CommonUnits::Torque::Nm));
+    pmb->setMaxPower(make_shared<Value>(5600, CommonUnits::Speed::rpm), make_shared<Value>(47.2, CommonUnits::Power::KW));
     engine->precalculatedMomentumF = pmb->calculateMomentum();
     engine->precalculatedPowerF = pmb->calculatePower();
     return engine;
@@ -26,14 +32,14 @@ shared_ptr<Engine> CE::VAZ::VAZ_2101() {
 
 shared_ptr<Engine> CE::VAZ::VAZ_21011() {
     auto engine = make_shared<Engine>()
-            ->setPistonMass(make_shared<Value>(315, CommonUnits::Mass::g))
-            ->setCylinderBore(make_shared<Value>(79, CommonUnits::Length::mm))
-            ->setStrokeLength(make_shared<Value>(66, CommonUnits::Length::mm))
-            ->setRodLength(make_shared<Value>(136, CommonUnits::Length::mm))
+            ->setPistonMass(PISTON_MASS)
+            ->setCylinderBore(BIG_CYLINDER_BORE)
+            ->setStrokeLength(SMALL_STROKE)
+            ->setRodLength(ROD_LENGTH)
             ->setCombustionRatio(8.5);
     auto pmb = make_shared<PrecalculatedMomentumBuilder>();
-    pmb->setMaxMomentum(make_shared<Value>(3400, CommonUnits::Speed::rpm), make_shared<Value>(96, CommonUnits::Torque::Nm));
-    pmb->setMaxPower(make_shared<Value>(5600, CommonUnits::Speed::rpm), make_shared<Value>(69, CommonUnits::Power::HP));
+    pmb->setMaxMomentum(make_shared<Value>(3400, CommonUnits::Speed::rpm), make_shared<Value>(94.1, CommonUnits::Torque::Nm));
+    pmb->setMaxPower(make_shared<Value>(5600, CommonUnits::Speed::rpm), make_shared<Value>(50.88, CommonUnits::Power::KW));
     engine->precalculatedMomentumF = pmb->calculateMomentum();
     engine->precalculatedPowerF = pmb->calculatePower();
     return engine;
@@ -41,14 +47,14 @@ shared_ptr<Engine> CE::VAZ::VAZ_21011() {
 
 shared_ptr<Engine> CE::VAZ::VAZ_2103() {
     auto engine = make_shared<Engine>()
-            ->setPistonMass(make_shared<Value>(315, CommonUnits::Mass::g))
-            ->setCylinderBore(make_shared<Value>(76, CommonUnits::Length::mm))
-            ->setStrokeLength(make_shared<Value>(80, CommonUnits::Length::mm))
-            ->setRodLength(make_shared<Value>(136, CommonUnits::Length::mm))
+            ->setPistonMass(PISTON_MASS)
+            ->setCylinderBore(SMALL_CYLINDER_BORE)
+            ->setStrokeLength(BIG_STROKE)
+            ->setRodLength(ROD_LENGTH)
             ->setCombustionRatio(8.5);
     auto pmb = make_shared<PrecalculatedMomentumBuilder>();
-    pmb->setMaxMomentum(make_shared<Value>(3400, CommonUnits::Speed::rpm), make_shared<Value>(104, CommonUnits::Torque::Nm));
-    pmb->setMaxPower(make_shared<Value>(5600, CommonUnits::Speed::rpm), make_shared<Value>(75, CommonUnits::Power::HP));
+    pmb->setMaxMomentum(make_shared<Value>(3400, CommonUnits::Speed::rpm), make_shared<Value>(110.9, CommonUnits::Torque::Nm));
+    pmb->setMaxPower(make_shared<Value>(5600, CommonUnits::Speed::rpm), make_shared<Value>(53, CommonUnits::Power::KW));
     engine->precalculatedMomentumF = pmb->calculateMomentum();
     engine->precalculatedPowerF = pmb->calculatePower();
     return engine;
@@ -56,14 +62,14 @@ shared_ptr<Engine> CE::VAZ::VAZ_2103() {
 
 shared_ptr<Engine> CE::VAZ::VAZ_2105() {
     auto engine = make_shared<Engine>()
-            ->setPistonMass(make_shared<Value>(315, CommonUnits::Mass::g))
-            ->setCylinderBore(make_shared<Value>(79, CommonUnits::Length::mm))
-            ->setStrokeLength(make_shared<Value>(66, CommonUnits::Length::mm))
-            ->setRodLength(make_shared<Value>(136, CommonUnits::Length::mm))
+            ->setPistonMass(PISTON_MASS)
+            ->setCylinderBore(BIG_CYLINDER_BORE)
+            ->setStrokeLength(SMALL_STROKE)
+            ->setRodLength(ROD_LENGTH)
             ->setCombustionRatio(8.5);
     auto pmb = make_shared<PrecalculatedMomentumBuilder>();
-    pmb->setMaxMomentum(make_shared<Value>(3400, CommonUnits::Speed::rpm), make_shared<Value>(92, CommonUnits::Torque::Nm));
-    pmb->setMaxPower(make_shared<Value>(5600, CommonUnits::Speed::rpm), make_shared<Value>(63, CommonUnits::Power::HP));
+    pmb->setMaxMomentum(make_shared<Value>(3500, CommonUnits::Speed::rpm), make_shared<Value>(94, CommonUnits::Torque::Nm));
+    pmb->setMaxPower(make_shared<Value>(5500, CommonUnits::Speed::rpm), make_shared<Value>(46.8, CommonUnits::Power::KW));
     engine->precalculatedMomentumF = pmb->calculateMomentum();
     engine->precalculatedPowerF = pmb->calculatePower();
     return engine;
@@ -71,14 +77,14 @@ shared_ptr<Engine> CE::VAZ::VAZ_2105() {
 
 shared_ptr<Engine> CE::VAZ::VAZ_2106() {
     auto engine = make_shared<Engine>()
-            ->setPistonMass(make_shared<Value>(315, CommonUnits::Mass::g))
-            ->setCylinderBore(make_shared<Value>(79, CommonUnits::Length::mm))
-            ->setStrokeLength(make_shared<Value>(80, CommonUnits::Length::mm))
-            ->setRodLength(make_shared<Value>(136, CommonUnits::Length::mm))
+            ->setPistonMass(PISTON_MASS)
+            ->setCylinderBore(BIG_CYLINDER_BORE)
+            ->setStrokeLength(BIG_STROKE)
+            ->setRodLength(ROD_LENGTH)
             ->setCombustionRatio(8.5);
     auto pmb = make_shared<PrecalculatedMomentumBuilder>();
-    pmb->setMaxMomentum(make_shared<Value>(3000, CommonUnits::Speed::rpm), make_shared<Value>(116, CommonUnits::Torque::Nm));
-    pmb->setMaxPower(make_shared<Value>(5400, CommonUnits::Speed::rpm), make_shared<Value>(75, CommonUnits::Power::HP));
+    pmb->setMaxMomentum(make_shared<Value>(3500, CommonUnits::Speed::rpm), make_shared<Value>(120, CommonUnits::Torque::Nm));
+    pmb->setMaxPower(make_shared<Value>(5430, CommonUnits::Speed::rpm), make_shared<Value>(54.8, CommonUnits::Power::KW));
     engine->precalculatedMomentumF = pmb->calculateMomentum();
     engine->precalculatedPowerF = pmb->calculatePower();
     return engine;

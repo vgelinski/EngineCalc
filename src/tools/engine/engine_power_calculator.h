@@ -6,6 +6,7 @@ class EnginePowerCalculator {
 public:
     static void plotPowerByRodLength();
     static void plotMomentumAndPower();
+    static void plotPowerBySpeed();
 };
 };
 

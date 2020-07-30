@@ -1,16 +1,24 @@
 \documentclass{minimal}
 \usepackage{pgfplots}
-\pgfplotsset{width=10cm,compat=1.9}
+\pgfplotsset{width=15cm,compat=1.3}
 
 \begin{document}
 \begin{tikzpicture}
 \begin{axis}[
-    axis lines = left,
+    axis y line* = left,
     xlabel = $rpm$,
-    ylabel = {$momentum and power$},
+    ylabel = {$momentum$},
 ]
-\addplot table [col sep=semicolon,trim cells=true,y=momentum,mark=none] {data.csv};
-\addplot table [col sep=semicolon,trim cells=true,y=power,mark=none] {data.csv};
+\addplot[red] table [col sep=semicolon,trim cells=true,y=momentum1,mark=none] {data.csv};
+\addplot[blue] table [col sep=semicolon,trim cells=true,y=momentum2,mark=none] {data.csv};
+\end{axis}
+\begin{axis}[
+    axis y line* = right,
+    xlabel = $rpm$,
+    ylabel = {power},
+]
+\addplot[red] table [col sep=semicolon,trim cells=true,y=power1,mark=none] {data.csv};
+\addplot[blue] table [col sep=semicolon,trim cells=true,y=power2,mark=none] {data.csv};
 \end{axis}
 \end{tikzpicture}
 \end{document}
