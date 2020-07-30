@@ -31,6 +31,7 @@ fret_t LPB::y_i(const size_t& i) const {
 
 shared_ptr<Polynomial> LPB::l_i(const size_t& i) const {
     auto ret = make_shared<Polynomial>();
+    ret->add(make_shared<Monomial>(1));
     for (size_t j = 0; j < points.size(); j++) {
         if (j == i) { continue; }
         auto tmp = make_shared<Polynomial>();

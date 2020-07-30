@@ -27,7 +27,7 @@ shared_ptr<Function> PMB::calculateMomentum() const {
     return make_shared<LagrangePolynomBuilder>("rotationSpeed")
             ->addPoint(0, 0)
             ->addPoint(maxMomentumRpm->convertToSi()->value, maxMomentum->convertToSi()->value)
-            ->addPoint(maxPowerRpm->convertToSi()->value, maxPowerRpm->convertToSi()->value / maxPowerRpm->convertToSi()->value)
+            ->addPoint(maxPowerRpm->convertToSi()->value, maxPower->convertToSi()->value / maxPowerRpm->convertToSi()->value)
             ->build();
 }
 

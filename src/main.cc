@@ -21,6 +21,7 @@ static const int EXIT = 0;
 static const int PLOT_ENGINE_POWER_BY_ROD_LENGTH = 1;
 static const int CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS = 2;
 static const int CALCULATE_SPEED = 3;
+static const int PLOT_MOMENTUM_AND_POWER = 4;
 
 void calculateSpeed() {
     auto tyre = make_shared<Tyre>(185, 80, 13);
@@ -56,6 +57,8 @@ void calculate(int what) {
             break;
         case CALCULATE_SPEED: calculateSpeed();
             break;
+        case PLOT_MOMENTUM_AND_POWER: EnginePowerCalculator::plotMomentumAndPower();
+            break;
         case EXIT:
             return;
         default: cout << "Unknown option, exiting" << endl;
@@ -66,6 +69,7 @@ void calculate(int what) {
 void printUsage() {
     cout << "To plot Engine power by Rod length, enter " << PLOT_ENGINE_POWER_BY_ROD_LENGTH << endl;
     cout << "To calculate optimum rear suspension bars lengths, enter " << CALCULATE_OPTIMUM_REAR_SUSPENSION_BAR_LENGTHS << endl;
+    cout << "To plot momentym and power by RPM, enter " << PLOT_MOMENTUM_AND_POWER << endl;
     cout << "To Cancel, enter " << EXIT << endl;
 }
 

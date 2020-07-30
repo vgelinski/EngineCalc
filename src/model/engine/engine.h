@@ -35,8 +35,8 @@ public:
     virtual math::fparams_t getParams() const;
 
 
-    virtual std::shared_ptr<math::Function> precalculatedMomentumF;
-    virtual std::shared_ptr<math::Function> precalculatedPowerF;
+    std::shared_ptr<math::Function> precalculatedMomentumF;
+    std::shared_ptr<math::Function> precalculatedPowerF;
 
     /**
      * @brief Метод, изчисляващ механичната загуба в двигателя

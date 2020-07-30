@@ -70,6 +70,7 @@ public:
         CU Kgf;
     };
     class Torque {
+    public:
         CU Nm;
     };
     class Work {

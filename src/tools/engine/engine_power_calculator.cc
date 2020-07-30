@@ -41,3 +41,28 @@ void EPC::plotPowerByRodLength() {
             ->build()
             ->plot();
 }
+
+void EPC::plotMomentumAndPower() {
+
+    auto vaz2101 = CommonEngines::VAZ::VAZ_2101();
+    auto momentumF = vaz2101->precalculatedMomentumF;
+    auto powerF = vaz2101->precalculatedPowerF;
+
+    auto start = make_shared<Value>(0, CommonUnits::Speed::rpm);
+    auto end = make_shared<Value>(7000, CommonUnits::Speed::rpm);
+    auto step = make_shared<Value>(100, CommonUnits::Speed::rpm);
+
+    fparams_t p = vaz2101->getParams();
+
+    make_shared<PlotBuilder2D>()
+            ->setFilename("plot/engine_momentum_power_by_rpm/data.csv")
+            ->addLine(momentumF, CommonUnits::Torque::Nm, "momentum")
+            ->addLine(powerF, CommonUnits::Power::HP, "power")
+            ->setStart(start)
+            ->setEnd(end)
+            ->setStep(step)
+            ->setParams(p)
+            ->setParamToPlot("rotationSpeed")
+            ->build()
+            ->plot();
+}
