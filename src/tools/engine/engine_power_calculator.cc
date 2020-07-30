@@ -44,12 +44,12 @@ void EPC::plotPowerByRodLength() {
 
 void EPC::plotMomentumAndPower() {
 
-    auto engine = CommonEngines::VAZ::VAZ_2101();
+    auto engine = CommonEngines::VAZ::VAZ_2105();
     auto momentumF = engine->precalculatedMomentumF;
     auto powerF = engine->precalculatedPowerF;
 
     auto start = make_shared<Value>(0, CommonUnits::Speed::rpm);
-    auto end = make_shared<Value>(7000, CommonUnits::Speed::rpm);
+    auto end = make_shared<Value>(8000, CommonUnits::Speed::rpm);
     auto step = make_shared<Value>(100, CommonUnits::Speed::rpm);
 
     fparams_t p = engine->getParams();
