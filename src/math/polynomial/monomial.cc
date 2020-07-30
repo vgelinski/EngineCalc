@@ -11,6 +11,9 @@ Monomial::Monomial(const string& name, const uint_fast8_t& power, const fret_t& 
     addVariable(name, power);
     setMultiplier(multiplier);
 }
+Monomial::Monomial(const fret_t& multiplier) : Monomial() {
+    setMultiplier(multiplier);
+}
 Monomial::~Monomial() {}
 
 fret_t Monomial::value(const fparams_t& params) const {

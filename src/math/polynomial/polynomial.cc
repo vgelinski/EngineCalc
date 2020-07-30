@@ -51,13 +51,56 @@ fvariables_t Polynomial::variables() const {
     );
 }
 
-void Polynomial::add(shared_ptr<Monomial> monomial) {
-    auto currMonom = monomials[monomial->getPowers()];
-    monomial->setMultiplier(
-            monomial->getMultiplier()
-            + (currMonom == nullptr ? 0.0L : currMonom->getMultiplier())
+void Polynomial::add(shared_ptr<const Monomial> monomial) {
+    auto pwrs = monomial->getPowers();
+    auto currMonom = monomials[pwrs];
+    auto multiplier = monomial->getMultiplier()
+                      + (currMonom == nullptr ? 0.0L : currMonom->getMultiplier());
+    auto newMonom = make_shared<Monomial>();
+    newMonom->setPowers(pwrs);
+    newMonom->setMultiplier(multiplier);
+    monomials[pwrs] = newMonom;
+}
+
+shared_ptr<Polynomial> Polynomial::add(shared_ptr<const Polynomial> other) const {
+    auto monomsOther = other->getMonomials();
+    auto monomsThis = this->getMonomials();
+    monomsOther.splice(monomsOther.end(), monomsThis);
+    auto ret = make_shared<Polynomial>();
+    for_each(
+            monomsOther.begin(),
+            monomsOther.end(),
+            [ret](const shared_ptr<const Monomial>& monom) -> void {
+                ret->add(monom);
+            }
     );
-    monomials[monomial->getPowers()] = monomial;
+    return ret;
+}
+
+shared_ptr<Polynomial> Polynomial::multiply(shared_ptr<const Monomial> monomial) const {
+    auto ret = make_shared<Polynomial>();
+    ret->add(monomial);
+    return multiply(ret);
+}
+
+shared_ptr<Polynomial> Polynomial::multiply(shared_ptr<const Polynomial> other) const {
+    auto monomsthis = getMonomials();
+    auto monomsOther = other->getMonomials();
+    auto ret = make_shared<Polynomial>();
+    for_each(
+            monomsthis.begin(),
+            monomsthis.end(),
+            [this, monomsOther, ret](const shared_ptr<const Monomial>& monom1) -> void {
+                for_each(
+                        monomsOther.begin(),
+                        monomsOther.end(),
+                        [this, monom1, ret](const shared_ptr<const Monomial>& monom2) -> void {
+                            ret->add(monom1->multiply(monom2));
+                        }
+                );
+            }
+    );
+    return ret;
 }
 
 list<shared_ptr<const Monomial>> Polynomial::getMonomials() const {

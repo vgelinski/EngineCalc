@@ -23,7 +23,10 @@ public:
 
     virtual fvariables_t variables() const override;
 
-    virtual void add(std::shared_ptr<Monomial> monomial);
+    virtual void add(std::shared_ptr<const Monomial> monomial);
+    virtual std::shared_ptr<Polynomial> add(std::shared_ptr<const Polynomial> other) const;
+    virtual std::shared_ptr<Polynomial> multiply(std::shared_ptr<const Monomial> monomial) const;
+    virtual std::shared_ptr<Polynomial> multiply(std::shared_ptr<const Polynomial> other) const;
 
 private:
 

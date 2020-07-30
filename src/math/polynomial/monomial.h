@@ -14,7 +14,8 @@ protected:
 
 public:
     Monomial();
-    Monomial(const std::string& name, const uint_fast8_t& power, const fret_t& multiplier = 1.0L);
+    Monomial(const std::string& name, const uint_fast8_t& power = 1, const fret_t& multiplier = 1.0L);
+    Monomial(const fret_t& multiplier);
     virtual ~Monomial();
 
     virtual fvariables_t variables() const override;
