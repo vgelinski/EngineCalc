@@ -20,14 +20,14 @@ using namespace engc::util;
 
 void EPC::plotPowerByRodLength() {
 
-    auto vaz2101 = CommonEngines::VAZ::VAZ_2101();
-    auto lossF= vaz2101->mechanicalLossF();
+    auto engine = CommonEngines::VAZ::VAZ_2101();
+    auto lossF= engine->mechanicalLossF();
 
-    auto start = vaz2101->getRodLength();
+    auto start = engine->getRodLength();
     auto end = make_shared<Value>(start->convertTo(CommonUnits::Length::mm)->value + 200, CommonUnits::Length::mm);
     auto step = make_shared<Value>(10, CommonUnits::Length::mm);
 
-    fparams_t p = vaz2101->getParams();
+    fparams_t p = engine->getParams();
     p["rotationSpeed"] = make_shared<Value>(5600, CommonUnits::Speed::rpm)->convertToSi()->value;
 
     make_shared<PlotBuilder2D>()
@@ -44,15 +44,15 @@ void EPC::plotPowerByRodLength() {
 
 void EPC::plotMomentumAndPower() {
 
-    auto vaz2101 = CommonEngines::VAZ::VAZ_2101();
-    auto momentumF = vaz2101->precalculatedMomentumF;
-    auto powerF = vaz2101->precalculatedPowerF;
+    auto engine = CommonEngines::VAZ::VAZ_2101();
+    auto momentumF = engine->precalculatedMomentumF;
+    auto powerF = engine->precalculatedPowerF;
 
     auto start = make_shared<Value>(0, CommonUnits::Speed::rpm);
     auto end = make_shared<Value>(7000, CommonUnits::Speed::rpm);
     auto step = make_shared<Value>(100, CommonUnits::Speed::rpm);
 
-    fparams_t p = vaz2101->getParams();
+    fparams_t p = engine->getParams();
 
     make_shared<PlotBuilder2D>()
             ->setFilename("plot/engine_momentum_power_by_rpm/data.csv")
