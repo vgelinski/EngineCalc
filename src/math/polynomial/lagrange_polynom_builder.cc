@@ -8,8 +8,9 @@ using namespace engc::math;
 LPB::LPB(const string& param) : param(param) {}
 LPB::~LPB() {}
 
-void LPB::addPoint(const fret_t& x, const fret_t& y) {
+shared_ptr<LPB> LPB::addPoint(const fret_t& x, const fret_t& y) {
     points.push_back(pair(x, y));
+    return shared_from_this();
 }
 
 shared_ptr<Polynomial> LPB::build() const {

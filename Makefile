@@ -30,6 +30,7 @@ src/math/polynomial/monomial.cc\
 src/math/polynomial/polynomial.cc\
 src/model/engine/common_engines.cc\
 src/model/engine/engine.cc\
+src/model/engine/precalculated_momentum_builder.cc\
 src/model/transmission/common_gearboxes.cc\
 src/model/transmission/common_differentials.cc\
 src/model/transmission/differential.cc\

@@ -4,7 +4,7 @@
 #include "polynomial.h"
 
 namespace engc::math {
-class LagrangePolynomBuilder {
+class LagrangePolynomBuilder : public std::enable_shared_from_this<LagrangePolynomBuilder> {
 private:
     std::vector<std::pair<fret_t, fret_t>> points;
     const std::string param;
@@ -21,7 +21,7 @@ public:
     LagrangePolynomBuilder(const std::string& param);
     virtual ~LagrangePolynomBuilder();
 
-    virtual void addPoint(const fret_t& x, const fret_t& y);
+    virtual std::shared_ptr<LagrangePolynomBuilder> addPoint(const fret_t& x, const fret_t& y);
     virtual std::shared_ptr<Polynomial> build() const;
 
 private:
