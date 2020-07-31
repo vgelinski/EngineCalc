@@ -1,6 +1,7 @@
 #include "engine_power_calculator.h"
 
 #include "../../math/constant.h"
+#include "../../math/custom_function.h"
 #include "../../math/identity.h"
 #include "../../math/max_function.h"
 #include "../../model/engine/common_engines.h"
@@ -77,39 +78,59 @@ void EPC::plotMomentumAndPower() {
             ->plot();
 }
 
+shared_ptr<Function> preparePowerBySpeed(
+        const shared_ptr<Engine>& engine,
+        const shared_ptr<Transmission>& transmission,
+        const int& gearCount,
+        const shared_ptr<Value>& cutterRpm = nullptr) {
+
+
+    auto powerF = engine->precalculatedPowerF;
+    auto powerCutF = cutterRpm == nullptr ? powerF : make_shared<CustomFunction>(
+            [powerF, cutterRpm](const fparams_t& cfp) -> fret_t {
+                auto rpm = cfp.at("rotationSpeed");
+                if (rpm < cutterRpm->convertToSi()->value) {
+                    return (*powerF)(cfp);
+                } else {
+                    return 0;
+                }
+            },
+            powerF->variables()
+    );
+    auto maxF = make_shared<MaxFunction>();
+
+    for (int i = 1; i <= gearCount; i++) {
+        transmission->gearbox->shiftToGear(i);
+        maxF->addFunction(powerCutF->compose(transmission->rotationF(), "rotationSpeed"));
+    }
+    return maxF;
+}
+
 void EPC::plotPowerBySpeed() {
 
-    auto engine1 = CommonEngines::VAZ::VAZ_2106();
-    auto powerF1 = engine1->precalculatedPowerF;
     auto tyre1 = make_shared<Tyre>(185, 80, 13);
-    auto transmission1 = make_shared<Transmission>(
-            tyre1,
-            tyre1,
-            CommonDifferentials::VAZ::VAZ_2103(),
-            CommonGearboxes::VAZ::VAZ_2105()
+    auto maxF1 = preparePowerBySpeed(
+            CommonEngines::VAZ::VAZ_2106(),
+            make_shared<Transmission>(
+                    tyre1,
+                    tyre1,
+                    CommonDifferentials::VAZ::VAZ_2103(),
+                    CommonGearboxes::VAZ::VAZ_2105()
+            ),
+            5
     );
-    auto maxF1 = make_shared<MaxFunction>();
-
-    for (int i = 1; i <= 5; i++) {
-        transmission1->gearbox->shiftToGear(i);
-        maxF1->addFunction(powerF1->compose(transmission1->rotationF(), "rotationSpeed"));
-    }
-
-    auto engine2 = CommonEngines::VAZ::VAZ_2106();
-    auto powerF2 = engine2->precalculatedPowerF;
     auto tyre2 = make_shared<Tyre>(185, 80, 13);
-    auto transmission2 = make_shared<Transmission>(
-            tyre2,
-            tyre2,
-            CommonDifferentials::VAZ::VAZ_2102(),
-            CommonGearboxes::VAZ::R1()
+    auto maxF2 = preparePowerBySpeed(
+            CommonEngines::VAZ::VAZ_2106(),
+            make_shared<Transmission>(
+                    tyre2,
+                    tyre2,
+                    CommonDifferentials::VAZ::VAZ_2103(),
+                    CommonGearboxes::VAZ::VAZ_2105()
+            ),
+            5,
+            make_shared<Value>(5500, CommonUnits::Speed::rpm)
     );
-    auto maxF2 = make_shared<MaxFunction>();
-
-    for (int i = 1; i <= 5; i++) {
-        transmission2->gearbox->shiftToGear(i);
-        maxF2->addFunction(powerF2->compose(transmission2->rotationF(), "rotationSpeed"));
-    }
 
     auto start = make_shared<Value>(0, CommonUnits::Speed::KmPh);
     auto end = make_shared<Value>(250, CommonUnits::Speed::KmPh);

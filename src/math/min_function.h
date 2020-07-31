@@ -1,10 +1,10 @@
-#ifndef ENGINECALC_MAX_FUNCTION_H
-#define ENGINECALC_MAX_FUNCTION_H
+#ifndef ENGINECALC_MIN_FUNCTION_H
+#define ENGINECALC_MIN_FUNCTION_H
 
 #include "function.h"
 
 namespace engc::math {
-class MaxFunction : public Function {
+class MinFunction : public Function {
 private:
     std::unordered_set<std::shared_ptr<Function>> functions;
 
@@ -12,8 +12,8 @@ protected:
     virtual fret_t value(const fparams_t& params) const override;
 
 public:
-    MaxFunction();
-    virtual ~MaxFunction();
+    MinFunction();
+    virtual ~MinFunction();
 
     virtual fvariables_t variables() const override;
     virtual void addFunction(const std::shared_ptr<Function>& f);
@@ -21,5 +21,4 @@ public:
 };
 };
 
-
-#endif //ENGINECALC_MAX_FUNCTION_H
+#endif //ENGINECALC_MIN_FUNCTION_H
