@@ -52,14 +52,33 @@ shared_ptr<Function> Function::derive(const std::string& paramName, engc::math::
 Function::Aggregation::Aggregation(
 		const shared_ptr<Function>& f1,
 		const operator_t& op,
-		const shared_ptr<Function>& f2
-		) : f1(f1), f2(f2), op(op){}
+		const shared_ptr<Function>& f2,
+		const string& operatorRepresentation
+) : f1(f1), f2(f2), op(op), operatorRepresentation(operatorRepresentation) {}
 
 Function::Aggregation::~Aggregation() {}
 
 fret_t Function::Aggregation::value(const fparams_t& p) const {
     return op(f1->value(p), f2->value(p));
 }
+
+string Function::Aggregation::toStringImpl() const {
+    if (operatorRepresentation != "/") {
+        return "\\left("
+                + f1->toStringImpl()
+                + " "
+                + operatorRepresentation
+                + " "
+                + f2->toStringImpl()
+                + "\\right)";
+    } else {
+        return "\\left(\\frac{"
+                + f1->toStringImpl()
+                + "}{"
+                + f2->toStringImpl()
+                + "}\\right\\";
+    };
+};
 
 fvariables_t Function::Aggregation::variables() const {
     fvariables_t ret;
@@ -101,7 +120,9 @@ shared_ptr<Function> engc::math::operator+(const shared_ptr<Function> lhs, const
 	return make_shared<Function::Aggregation>(
 			lhs,
 			[](const fret_t& a, const fret_t& b) {return a + b;},
-			rhs);
+			rhs,
+			"+"
+	);
 }
 
 
@@ -109,20 +130,26 @@ shared_ptr<Function> engc::math::operator-(const shared_ptr<Function> lhs, const
 	return make_shared<Function::Aggregation>(
 			lhs,
 			[](const fret_t& a, const fret_t& b) {return a - b;},
-			rhs);
+			rhs,
+            "-"
+    );
 }
 
 shared_ptr<Function> engc::math::operator*(const shared_ptr<Function> lhs, const shared_ptr<Function> rhs) {
 	return make_shared<Function::Aggregation>(
 			lhs,
 			[](const fret_t& a, const fret_t& b) {return a * b;},
-			rhs);
+			rhs,
+            "*"
+    );
 }
 
 shared_ptr<Function> engc::math::operator/(const shared_ptr<Function> lhs, const shared_ptr<Function> rhs) {
 	return make_shared<Function::Aggregation>(
 			lhs,
 			[](const fret_t& a, const fret_t& b) {return a / b;},
-			rhs);
+			rhs,
+            "/"
+    );
 }
 

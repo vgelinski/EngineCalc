@@ -144,17 +144,20 @@ private:
     const std::shared_ptr<const Function> f1;
     const std::shared_ptr<const Function> f2;
     const operator_t op;
+    const std::string operatorRepresentation;
 
 protected:
 
     fret_t value(const fparams_t& p) const override;
+    virtual std::string toStringImpl() const override;
 
 public:
 
     Aggregation(
         const std::shared_ptr<Function>& f1,
         const operator_t& op,
-        const std::shared_ptr<Function>& f2
+        const std::shared_ptr<Function>& f2,
+        const std::string& operatorRepresentation
     );
 
     virtual ~Aggregation();
