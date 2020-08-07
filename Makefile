@@ -104,7 +104,8 @@ gtest: $(GTESTDIR)/src/gtest-all.cc create_dirs
             -c $(TEST_CFLAGS) ${GTESTDIR}/src/gtest-all.cc -o $(ODIR)/gtest-all.o
 	ar -rv $(LIBDIR)/libgtest.a $(ODIR)/gtest-all.o
 
-test: create_dirs gtest testRunner
+test: create_dirs
+	$(MAKE) gtest && $(MAKE) testRunner
 	@echo DONE
 
 testRunner: $(TEST_OBJ)
