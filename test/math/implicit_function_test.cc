@@ -59,7 +59,7 @@ TEST_F (ImplicitFunctionTest, valueTest1) {
     params["x"] = -20.0;
     ASSERT_NEAR(val1(-20), (*impl)(params), ERR_BOUND);
 
-    ASSERT_STREQ(impl->toString().c_str(), "\\left{ = 0, solve for x\\right}");
+    ASSERT_STREQ(impl->toString().c_str(), "\\left\\{\\left(\\left(\\left(\\left(x * x\\right) - \\left(3 * x\\right)\\right) + 8\\right) - y\\right) = 0 \\textrm{, solve for }y\\right\\}");
 }
 
 TEST_F (ImplicitFunctionTest, valueTest2) {

@@ -22,6 +22,14 @@ fret_t IF::value(const fparams_t& params) const {
     return solveFor(start, end, mutableParams);
 }
 
+string ImplicitFunction::toStringImpl() const {
+    return "\\left\\{"
+            + F->toString()
+            + " = 0 \\textrm{, solve for }"
+            + pName
+            + "\\right\\}";
+};
+
 fvariables_t IF::variables() const {
     auto vars = F->variables();
     vars.erase(pName);
