@@ -38,9 +38,7 @@ protected:
      */
     virtual fret_t value(const fparams_t& params) const = 0;
 
-    virtual std::string toStringImpl() const {
-        return "";
-    }
+    virtual std::string toStringImpl() const = 0;
 
 public:
 
