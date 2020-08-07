@@ -14,7 +14,8 @@ fret_t Constant::value(const fparams_t& params) const {
 string Constant::toStringImpl() const {
     char buffer[1024];
     sprintf(buffer, "%Lg", val);
-    return string(buffer);
+    auto valStr = string(buffer);
+    return val >= 0 ? valStr : "\\left(" + valStr + "\\right)";
 };
 
 fvariables_t Constant::variables() const {
