@@ -8,7 +8,7 @@ using namespace std;
 using namespace engc::math;
 
 TEST (CustomFunctionTest, valueTest) {
-    const CustomFunction sinx([](const fparams_t& params){ return sin(params.at("x")); }, fvariables_t({"x"}));
+    const CustomFunction sinx([](const fparams_t& params){ return sin(params.at("x")); }, fvariables_t({"x"}), "sin(x)");
     const CustomFunction cosy([](const fparams_t& params){ return cos(params.at("y")); }, fvariables_t({"y"}));
     fparams_t params;
     params["x"] = 2.0;
