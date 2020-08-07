@@ -104,6 +104,15 @@ fret_t Function::Composition::value(const fparams_t& params) const {
     return superF->value(mParams);
 }
 
+string Function::Composition::toStringImpl() const {
+    auto superStr = superF->toStringImpl();
+    auto subStr = subF->toStringImpl();
+    for (auto it = superStr.find(paramName); it != string::npos; it = superStr.find(paramName)) {
+        superStr.replace(it, paramName.size(), subStr);
+    }
+    return superStr;
+};
+
 fvariables_t Function::Composition::variables() const {
     fvariables_t p1 = superF->variables();
     p1.erase(paramName);

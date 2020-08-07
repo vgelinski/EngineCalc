@@ -186,6 +186,7 @@ private:
 protected:
 
     fret_t value(const fparams_t& params) const override;
+    virtual std::string toStringImpl() const override;
 
 public:
 

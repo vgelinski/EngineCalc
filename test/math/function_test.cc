@@ -39,7 +39,7 @@ TEST_F(FunctionTest, substitution) {
     params["y"] = -3.14;
     ASSERT_DOUBLE_EQ(subst(params), pow(-3.14, 3));
 
-    ASSERT_STREQ(subst.toString().c_str(), "\\left(y * y * y\\right)");
+    ASSERT_STREQ(subst.toString().c_str(), "\\left(\\left(y * y\\right) * y\\right)");
 }
 
 TEST_F (FunctionTest, aggregation) {
@@ -67,7 +67,7 @@ TEST_F (FunctionTest, aggregation) {
     
     ASSERT_EQ(total(params), totalAggVal(-20.0, 3.14, 0.002));
 
-    ASSERT_EQ(total.toString().c_str(), "\\frac{\\left(x + \\left(y * z\\right\\right))}{\\left(5 - 3\\right)}");
+    ASSERT_STREQ(total.toString().c_str(), "\\left(\\frac{\\left(x + \\left(y * z\\right)\\right)}{\\left(5 - 3\\right)}\\right)");
 }
 
 TEST_F(FunctionTest, compositon) {
@@ -92,7 +92,7 @@ TEST_F(FunctionTest, compositon) {
     params["y"] = -3.14;
     ASSERT_EQ(comp(params), totalCompVal(-3.14));
 
-    ASSERT_EQ(comp.toString().c_str(), "\\left(\\left(y - 2\\right) * \\left(y - 2\\right) * \\left(y - 2\\right)\\right)");
+    ASSERT_STREQ(comp.toString().c_str(), "\\left(\\left(\\left(y - 2\\right) * \\left(y - 2\\right)\\right) * \\left(y - 2\\right)\\right)");
 
 }
 
