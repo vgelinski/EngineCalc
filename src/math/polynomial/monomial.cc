@@ -27,6 +27,26 @@ fret_t Monomial::value(const fparams_t& params) const {
     );
 }
 
+string Monomial::toStringImpl() const {
+    char buffer[1024];
+    sprintf(buffer, "%Lg", multiplier);
+    auto ret = string(buffer);
+    return (multiplier > 0 && powers.size() == 0 ? "" : "\\left(" )
+            + std::accumulate(
+                    powers.begin(),
+                    powers.end(),
+                    ret,
+                    [this](string& acc, const pair<string, uint_fast8_t>& entry) -> string& {
+                        auto power = entry.second;
+                        auto powerStr = power == 1 ?
+                                        "" :
+                                        (power < 10 ? "^" + to_string(power) : "^{" + to_string(power) + "}");
+                        return acc.append(entry.first + powerStr);
+                    }
+            )
+            + (multiplier > 0 && powers.size() == 0 ? "" : "\\right)" );
+};
+
 fvariables_t Monomial::variables() const {
     return std::accumulate(
             powers.begin(),

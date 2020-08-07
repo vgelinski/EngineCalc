@@ -43,8 +43,7 @@ string Polynomial::toStringImpl() const {
                 if (index == 0) {
                     acc.append(monomial->toString());
                 } else {
-                    auto sign = monomial->getMultiplier() > 0 ? " + " : " "; // "-" is printed from monomial
-                    acc.append(sign + monomial->toString());
+                    acc.append(" + " + monomial->toString());
                 }
                 return index + 1;
             }

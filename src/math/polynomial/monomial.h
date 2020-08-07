@@ -12,6 +12,8 @@ private:
 protected:
     virtual fret_t value(const fparams_t& params) const override;
 
+    virtual std::string toStringImpl() const override;
+
 public:
     Monomial();
     Monomial(const std::string& name, const uint_fast8_t& power = 1, const fret_t& multiplier = 1.0L);
