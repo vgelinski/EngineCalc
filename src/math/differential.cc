@@ -34,6 +34,10 @@ fret_t DC::Differential::value(const fparams_t& params) const {
     return newResult;
 }
 
+string DC::Differential::toStringImpl() const {
+    return "\\frac{d" + function->toString() + "}{d" + param + "}";
+};
+
 fvariables_t DC::Differential::variables() const {
     return function->variables();
 }

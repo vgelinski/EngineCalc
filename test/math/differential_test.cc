@@ -49,7 +49,7 @@ TEST_F (DifferentialTest, deriving) {
 
     ASSERT_EQ(dx.variables(), fvariables_t({"x", "y"}));
 
-    ASSERT_STREQ(dx.toString().c_str(), "\\frac{{d\\left(\\left(\\frac{\\left(x * x\\right)}{2}\\right) + y\\right)}}{dx}");
+    ASSERT_STREQ(dx.toString().c_str(), "\\frac{d\\left(\\left(\\frac{\\left(x * x\\right)}{2}\\right) + y\\right)}{dx}");
 }
 
 TEST_F (DifferentialTest, deriving2) {
