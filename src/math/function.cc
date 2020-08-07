@@ -76,7 +76,7 @@ string Function::Aggregation::toStringImpl() const {
                 + f1->toStringImpl()
                 + "}{"
                 + f2->toStringImpl()
-                + "}\\right\\";
+                + "}\\right)";
     };
 };
 

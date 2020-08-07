@@ -14,11 +14,12 @@ namespace engc::math {
 class Identity : public Function {
 private:
 
-    std::string paramName;
+            std::string paramName;
 
 protected:
 
     virtual fret_t value(const fparams_t& params) const override;
+    virtual std::string toStringImpl() const override;
 
 public:
 
