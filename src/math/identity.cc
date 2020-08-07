@@ -12,7 +12,7 @@ fret_t Identity::value(const fparams_t& params) const {
 };
 
 string Identity::toStringImpl() const {
-    return paramName;
+    return paramName.size() == 1 ? paramName : "\\mathit{" + paramName + "}";
 };
 
 fvariables_t Identity::variables() const {
