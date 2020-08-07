@@ -50,6 +50,22 @@ fret_t IC::MTI::value(const fparams_t& params) const {
     return result;
 }
 
+string IC::MTI::toStringImpl() const {
+    char buffer[1024];
+    sprintf(buffer, "%Lg", start);
+    auto startStr = string(buffer);
+    sprintf(buffer, "%Lg", end);
+    auto endStr = string(buffer);
+    return "\\int_{"
+           + startStr
+           + "}^{"
+           + endStr
+           + "}"
+           + function->toString()
+           + "\\,d"
+           + param;
+};
+
 fvariables_t IC::MTI::variables() const {
     fvariables_t vars = function->variables();
     vars.erase(param);
