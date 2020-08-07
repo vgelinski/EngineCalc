@@ -11,7 +11,7 @@ using namespace engc::physics;
 #define PISTON_MASS make_shared<Value>(315, CommonUnits::Mass::g)
 #define SMALL_CYLINDER_BORE make_shared<Value>(76, CommonUnits::Length::mm)
 #define BIG_CYLINDER_BORE make_shared<Value>(79, CommonUnits::Length::mm)
-#define ROD_LENGTH make_shared<Value>(76, CommonUnits::Length::mm)
+#define ROD_LENGTH make_shared<Value>(136, CommonUnits::Length::mm)
 #define SMALL_STROKE make_shared<Value>(66, CommonUnits::Length::mm)
 #define BIG_STROKE make_shared<Value>(80, CommonUnits::Length::mm)
 

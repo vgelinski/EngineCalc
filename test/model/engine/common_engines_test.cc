@@ -12,8 +12,8 @@ TEST (CommonEnginesTest, parameters) {
 
     ASSERT_DOUBLE_EQ(params["n"], 4.0l);
     ASSERT_DOUBLE_EQ(params["pistonMass"], 0.315l);
-    ASSERT_DOUBLE_EQ(params["cylinderBore"], 0.072l);
+    ASSERT_DOUBLE_EQ(params["cylinderBore"], 0.076l);
     ASSERT_DOUBLE_EQ(params["strokeLength"], 0.066);
     ASSERT_DOUBLE_EQ(params["rodLength"], 0.136l);
-    ASSERT_DOUBLE_EQ(params["combustionChamberVolume"], 0.000034451188361212376);
+    ASSERT_DOUBLE_EQ(params["combustionChamberVolume"], 0.000038385429007400208);
 }
