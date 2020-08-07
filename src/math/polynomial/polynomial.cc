@@ -32,6 +32,27 @@ fret_t Polynomial::value(const fparams_t& params) const {
     );
 }
 
+string Polynomial::toStringImpl() const {
+    auto monos = getMonomials();
+    string acc = "\\left(";
+    std::accumulate(
+            monos.begin(),
+            monos.end(),
+            0,
+            [&acc](int index, const shared_ptr<const Monomial>& monomial) -> int {
+                if (index == 0) {
+                    acc.append(monomial->toString());
+                } else {
+                    auto sign = monomial->getMultiplier() > 0 ? " + " : " "; // "-" is printed from monomial
+                    acc.append(sign + monomial->toString());
+                }
+                return index + 1;
+            }
+    );
+    acc.append("\\right)");
+    return acc;
+};
+
 fvariables_t Polynomial::variables() const {
     auto monos = getMonomials();
     return std::accumulate(

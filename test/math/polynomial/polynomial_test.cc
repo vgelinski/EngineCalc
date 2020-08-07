@@ -51,7 +51,7 @@ TEST (PolynomialTest, common) {
 
     ASSERT_EQ(polynomial->variables(), fvariables_t({"x", "y", "z", "t", "u", "v", "w"}));
     ASSERT_DOUBLE_EQ(( * polynomial)(params), 4 * 2 * 2 * 3 * 4 * 4 * 4 + 16);
-    ASSERT_EQ(polynomial->toString().c_str(), "\\left(7x^2yz^3 - 3t^2uv^3+2x^2tw^{30}\\right)");
+    ASSERT_STREQ(polynomial->toString().c_str(), "\\left(7x^2yz^3 -3t^2uv^3+2x^2tw^{30}\\right)");
 }
 
 TEST (PolynomialTest, arithmetics) {
