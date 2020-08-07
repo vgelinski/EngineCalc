@@ -15,6 +15,11 @@ fret_t Function::operator()(const fparams_t& params) const {
     return value(params); //TODO optimize
 }
 
+string Function::toString() const {
+    //TODO optimize/simplify expression
+    return toStringImpl();
+}
+
 shared_ptr<Function> Function::compose(
         const shared_ptr<const Function> other, const string& paramName) const {
 

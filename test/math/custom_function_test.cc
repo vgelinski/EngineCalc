@@ -18,4 +18,7 @@ TEST (CustomFunctionTest, valueTest) {
 
     ASSERT_EQ(sinx.variables(), fvariables_t({"x"}));
     ASSERT_EQ(cosy.variables(), fvariables_t({"y"}));
+
+    ASSERT_STREQ(sinx.toString().c_str(), "sin(x)");
+    ASSERT_STREQ(cosy.toString().c_str(), "unknown_custom_function");
 }

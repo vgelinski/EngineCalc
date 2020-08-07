@@ -16,4 +16,7 @@ TEST (IdentityTest, valueTest) {
 
     ASSERT_EQ(x.variables(), fvariables_t({"x"}));
     ASSERT_EQ(y.variables(), fvariables_t({"y"}));
+
+    ASSERT_EQ(x.toString().c_str(), "x");
+    ASSERT_EQ(y.toString().c_str(), "y");
 }

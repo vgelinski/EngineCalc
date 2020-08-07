@@ -38,6 +38,10 @@ protected:
      */
     virtual fret_t value(const fparams_t& params) const = 0;
 
+    virtual std::string toStringImpl() const {
+        return "";
+    }
+
 public:
 
     virtual ~Function();
@@ -55,6 +59,12 @@ public:
     * на другите аргументи, функцията приема различни стойности.
     */
     virtual fvariables_t variables() const = 0;
+
+    /** \brief Връща запис на функцията
+    *
+    * Връща функцията във вид, в който може да се компилира в LaTeX.
+    */
+    virtual std::string toString() const;
 
     /** \brief Връща субституция на дадения аргумент с новото му име
     *

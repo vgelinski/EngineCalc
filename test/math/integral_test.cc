@@ -81,4 +81,10 @@ TEST_F (IntegralTest, integration) {
     ASSERT_EQ(integralX.variables(), fvariables_t({"y", "z"}));
     ASSERT_EQ(integralY.variables(), fvariables_t({"x", "z"}));
     ASSERT_EQ(integralZ.variables(), fvariables_t({}));
+
+    auto f = string("\\frac{\\left(x + \\left(y * z\\right)\\right)}{\\left(5 - 3\\right)}");
+
+    ASSERT_STREQ(integralX.toString().c_str(), ("\\int_{-2}^{7}\\left(" + f + "\\right)\\,dx").c_str());
+    ASSERT_STREQ(integralY.toString().c_str(), ("\\int_{3.14}^{-18.4}\\left(" + f + "\\right)\\,dy").c_str());
+    ASSERT_STREQ(integralZ.toString().c_str(), ("\\int_{-2}^{7}\\left(" + f + "\\right)\\,dz").c_str());
 }
