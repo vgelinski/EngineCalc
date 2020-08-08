@@ -5,10 +5,10 @@ BIN=bin
 LIBDIR=lib
 
 CC=g++
-CFLAGS=-std=c++17 -Wall -pthread -Ofast
+CFLAGS=-std=c++20 -Wall -pthread -Ofast
 DEPS=.
 
-TEST_CFLAGS=-std=c++17 -Wall -pthread -fprofile-arcs -ftest-coverage -pg -g
+TEST_CFLAGS=-std=c++20 -Wall -pthread -fprofile-arcs -ftest-coverage -pg -g
 
 ifdef FULL_TEST
       TEST_CFLAGS += -DFULL_TEST

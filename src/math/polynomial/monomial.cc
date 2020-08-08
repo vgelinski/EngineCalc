@@ -36,7 +36,7 @@ string Monomial::toStringImpl() const {
                     powers.begin(),
                     powers.end(),
                     ret,
-                    [this](string& acc, const pair<string, uint_fast8_t>& entry) -> string& {
+                    [this](string acc, const pair<string, uint_fast8_t>& entry) -> string& {
                         auto power = entry.second;
                         auto powerStr = power == 1 ?
                                         "" :
@@ -52,7 +52,7 @@ fvariables_t Monomial::variables() const {
             powers.begin(),
             powers.end(),
             fvariables_t({}),
-            [this](fvariables_t& acc, const pair<string, uint_fast8_t>& entry) -> fvariables_t {
+            [this](fvariables_t acc, const pair<string, uint_fast8_t>& entry) -> fvariables_t {
                 acc.insert(entry.first);
                 return acc;
             }

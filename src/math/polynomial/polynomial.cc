@@ -141,7 +141,7 @@ list<shared_ptr<const Monomial>> Polynomial::getMonomials() const {
             monomials.begin(),
             monomials.end(),
             list<shared_ptr<const Monomial>>(),
-            [](list<shared_ptr<const Monomial>>& acc, const pair<unordered_map<string, uint_fast8_t>, shared_ptr<const Monomial>>& entry) -> list<shared_ptr<const Monomial>>& {
+            [](list<shared_ptr<const Monomial>> acc, const pair<unordered_map<string, uint_fast8_t>, shared_ptr<const Monomial>>& entry) -> list<shared_ptr<const Monomial>> {
                 acc.push_back(entry.second);
                 return acc;
             }

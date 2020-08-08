@@ -1,13 +1,13 @@
 #include "file_io.h"
 
-#include <experimental/filesystem> //TODO fix after migrating to gcc 8.0
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 
 #define FIO FileIO
 
 using namespace std;
-using namespace std::experimental::filesystem;
+using namespace std::filesystem;
 using namespace engc::util;
 
 void FIO::writeToFile(const std::string& filename, const std::string& content) {

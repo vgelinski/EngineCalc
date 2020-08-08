@@ -29,8 +29,7 @@ shared_ptr<Function> Function::compose(
 shared_ptr<const Function> Function::substitute(
         const string& oldName, const string& newName) const {
 
-    //TODO use contains after migrating to C++20
-    if (variables().count(oldName) == 0 || oldName == newName) {
+    if (!variables().contains(oldName) || oldName == newName) {
         return shared_from_this();
     }
 
