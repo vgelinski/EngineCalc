@@ -114,4 +114,4 @@ testRunner: $(TEST_OBJ)
 
 
 clean:
-	rm -rf $(BIN) $(ODIR) $(TEST_ODIR) $(LIBDIR) *.gcno *.gcda
+	rm -rf $(BIN) $(ODIR) $(TEST_ODIR) $(LIBDIR) coverage *.gcov

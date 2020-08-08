@@ -46,6 +46,7 @@ docs/
 #coverage and profiling
 *.gcda
 *.gcno
+*.gcov
 
 #pdflatex output
 *.aux
