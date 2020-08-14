@@ -81,7 +81,6 @@ void EPC::plotMomentumAndPower() {
 shared_ptr<Function> preparePowerBySpeed(
         const shared_ptr<Engine>& engine,
         const shared_ptr<Transmission>& transmission,
-        const int& gearCount,
         const shared_ptr<Value>& cutterRpm = nullptr) {
 
 
@@ -99,7 +98,7 @@ shared_ptr<Function> preparePowerBySpeed(
     );
     auto maxF = make_shared<MaxFunction>();
 
-    for (int i = 1; i <= gearCount; i++) {
+    for (int i = 1; i <= transmission->gearbox->gearCount(); i++) {
         transmission->gearbox->shiftToGear(i);
         maxF->addFunction(powerCutF->compose(transmission->rotationF(), "rotationSpeed"));
     }
@@ -116,8 +115,7 @@ void EPC::plotPowerBySpeed() {
                     tyre1,
                     CommonDifferentials::VAZ::VAZ_2103(),
                     CommonGearboxes::VAZ::VAZ_2105()
-            ),
-            5
+            )
     );
     auto tyre2 = make_shared<Tyre>(185, 80, 13);
     auto maxF2 = preparePowerBySpeed(
@@ -128,7 +126,6 @@ void EPC::plotPowerBySpeed() {
                     CommonDifferentials::VAZ::VAZ_2103(),
                     CommonGearboxes::VAZ::VAZ_2105()
             ),
-            5,
             make_shared<Value>(5500, CommonUnits::Speed::rpm)
     );
 

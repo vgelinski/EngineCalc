@@ -21,6 +21,7 @@ public:
 
     virtual std::shared_ptr<math::Function> rotationSpeedF() const;
     virtual std::shared_ptr<math::Function> rotationSpeedReverseF() const;
+    virtual int gearCount() const;
     virtual void shiftToGear(const uint_fast8_t& gear);
     virtual void shiftToReverse();
 };

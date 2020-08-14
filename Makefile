@@ -67,6 +67,7 @@ test/math/integral_test.cc\
 test/math/polynomial/monomial_test.cc\
 test/math/polynomial/polynomial_test.cc\
 test/model/engine/common_engines_test.cc\
+test/model/transmission/gearbox_test.cc\
 test/model/transmission/transmission_test.cc\
 test/model/transmission/tyre_test.cc\
 test/physics/units_test.cc\
