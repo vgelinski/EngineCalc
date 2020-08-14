@@ -75,6 +75,7 @@ string CU::toString() const {
 }
 
 string CU::toDebugString() const {
+    //TODO check for segfault here if for example 1/s
     set<string> numerator, denominator;
     for (auto p: units) {
         string str = p.first->toString();

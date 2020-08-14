@@ -23,22 +23,16 @@ fret_t MF::value(const fparams_t& params) const {
 }
 
 string MF::toStringImpl() const {
-    string ret = "max\\left(";
-    std::accumulate(
-            functions.begin(),
-            functions.end(),
-            0,
-            [&ret](int index, const shared_ptr<Function>& f) -> int {
-                if (index == 0) {
-                    ret.append(f->toString());
-                } else {
-                    ret.append(", " + f->toString());
-                }
-                return index + 1;
-            }
-    );
-    ret.append("\\right)");
-    return ret;
+    return "max\\left("
+            + std::accumulate(
+                    functions.begin(),
+                    functions.end(),
+                    string(),
+                    [](const string& acc, const shared_ptr<Function>& f) -> string {
+                        return acc + (acc.length() == 0 ? "" : ", ") + f->toString();
+                    }
+            )
+            + "\\right)";
 };
 
 fvariables_t MF::variables() const {

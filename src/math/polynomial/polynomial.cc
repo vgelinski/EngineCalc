@@ -11,7 +11,7 @@ size_t Polynomial::Hash::operator()(const unordered_map<string, uint_fast8_t>& k
             key.end(),
             0,
             [](size_t acc, const pair<string, uint_fast8_t>& entry) -> size_t {
-                return acc + std::hash<string>{}(entry.first) * entry.second;
+                return 31 * acc + std::hash<string>{}(entry.first) * entry.second;
             }
     );
 }
@@ -34,22 +34,16 @@ fret_t Polynomial::value(const fparams_t& params) const {
 
 string Polynomial::toStringImpl() const {
     auto monos = getMonomials();
-    string acc = "\\left(";
-    std::accumulate(
-            monos.begin(),
-            monos.end(),
-            0,
-            [&acc](int index, const shared_ptr<const Monomial>& monomial) -> int {
-                if (index == 0) {
-                    acc.append(monomial->toString());
-                } else {
-                    acc.append(" + " + monomial->toString());
-                }
-                return index + 1;
-            }
-    );
-    acc.append("\\right)");
-    return acc;
+    return  "\\left("
+            + std::accumulate(
+                    monos.begin(),
+                    monos.end(),
+                    string(),
+                    [](const string& acc, const shared_ptr<const Monomial>& monomial) -> string {
+                        return acc + (acc.length() == 0 ? "" : " + ") + monomial->toString();
+                    }
+            )
+            + "\\right)";
 };
 
 fvariables_t Polynomial::variables() const {

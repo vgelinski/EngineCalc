@@ -36,27 +36,28 @@ string Monomial::toStringImpl() const {
                     powers.begin(),
                     powers.end(),
                     ret,
-                    [this](string acc, const pair<string, uint_fast8_t>& entry) -> string& {
+                    [](const string& acc, const pair<string, uint_fast8_t>& entry) -> string {
                         auto power = entry.second;
                         auto powerStr = power == 1 ?
                                         "" :
                                         (power < 10 ? "^" + to_string(power) : "^{" + to_string(power) + "}");
-                        return acc.append(entry.first + powerStr);
+                        return acc + (entry.first + powerStr);
                     }
             )
             + (multiplier > 0 && powers.size() == 0 ? "" : "\\right)" );
 };
 
 fvariables_t Monomial::variables() const {
-    return std::accumulate(
+    fvariables_t ret;
+    std::transform(
             powers.begin(),
             powers.end(),
-            fvariables_t({}),
-            [this](fvariables_t acc, const pair<string, uint_fast8_t>& entry) -> fvariables_t {
-                acc.insert(entry.first);
-                return acc;
+            std::inserter(ret, ret.end()),
+            [](const pair<string, uint_fast8_t>& entry) -> string {
+                return entry.first;
             }
     );
+    return ret;
 }
 
 const unordered_map<string, uint_fast8_t>& Monomial::getPowers() const {
