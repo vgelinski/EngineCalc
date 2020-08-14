@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../../src/math/constant.h"
+#include "../../../src/math/function/constant.h"
 
 using namespace std;
 using namespace engc::math;

@@ -1,7 +1,7 @@
 #ifndef EXTREMUM_CALCULATOR_H
 #define EXTREMUM_CALCULATOR_H
 
-#include "function.h"
+#include "function/function.h"
 
 namespace engc::math {
 

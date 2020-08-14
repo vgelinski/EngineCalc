@@ -1,7 +1,7 @@
 #ifndef ENGINECALC_TYRE_H
 #define ENGINECALC_TYRE_H
 
-#include "../../math/function.h"
+#include "../../math/function/function.h"
 #include "../../physics/value.h"
 
 namespace engc::model {

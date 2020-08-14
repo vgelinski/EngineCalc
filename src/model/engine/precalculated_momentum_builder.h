@@ -1,7 +1,7 @@
 #ifndef ENGINECALC_PRECALCULATED_MOMENTUM_BUILDER_H
 #define ENGINECALC_PRECALCULATED_MOMENTUM_BUILDER_H
 
-#include "../../math/function.h"
+#include "../../math/function/function.h"
 #include "../../physics/value.h"
 
 namespace engc::model {

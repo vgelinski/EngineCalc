@@ -1,7 +1,7 @@
 #include "gearbox.h"
 
-#include "../../math/constant.h"
-#include "../../math/identity.h"
+#include "../../math/function/constant.h"
+#include "../../math/function/identity.h"
 
 
 using namespace std;

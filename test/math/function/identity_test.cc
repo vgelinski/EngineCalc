@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../../src/math/identity.h"
+#include "../../../src/math/function/identity.h"
 
 using namespace std;
 using namespace engc::math;

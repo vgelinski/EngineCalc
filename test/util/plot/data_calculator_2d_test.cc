@@ -2,8 +2,8 @@
 
 #include "../../../src/util/plot/data_calculator_2d.h"
 
-#include "../../../src/math/constant.h"
-#include "../../../src/math/identity.h"
+#include "../../../src/math/function/constant.h"
+#include "../../../src/math/function/identity.h"
 #include "../../../src/physics/common_units.h"
 
 using namespace std;

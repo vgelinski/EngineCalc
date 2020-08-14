@@ -1,7 +1,7 @@
 #include "precalculated_momentum_builder.h"
 
-#include "../../math/identity.h"
-#include "../../math/polynomial/lagrange_polynom_builder.h"
+#include "../../math/function/identity.h"
+#include "../../math/function/polynomial/lagrange_polynom_builder.h"
 
 using namespace std;
 using namespace engc::math;

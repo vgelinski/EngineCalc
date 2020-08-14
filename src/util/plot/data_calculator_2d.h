@@ -1,7 +1,7 @@
 #ifndef DATA_CALCULATOR_2D_H
 #define DATA_CALCULATOR_2D_H
 
-#include "../../math/function.h"
+#include "../../math/function/function.h"
 #include "../../physics/value.h"
 
 namespace engc::util {

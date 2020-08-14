@@ -1,7 +1,7 @@
 #ifndef ENGINECALC_GEARBOX_H
 #define ENGINECALC_GEARBOX_H
 
-#include "../../math/function.h"
+#include "../../math/function/function.h"
 
 #include <cstdint>
 #include <vector>

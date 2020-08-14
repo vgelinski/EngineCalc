@@ -2,10 +2,10 @@
 
 #include <cmath>
 
-#include "../../src/math/constant.h"
-#include "../../src/math/function.h"
-#include "../../src/math/identity.h"
-#include "../../src/math/implicit_function.h"
+#include "../../../src/math/function/constant.h"
+#include "../../../src/math/function/function.h"
+#include "../../../src/math/function/identity.h"
+#include "../../../src/math/function/implicit_function.h"
 
 using namespace std;
 using namespace engc::math;

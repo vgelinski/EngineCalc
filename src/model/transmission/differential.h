@@ -1,7 +1,7 @@
 #ifndef ENGINECALC_DIFFERENTIAL_H
 #define ENGINECALC_DIFFERENTIAL_H
 
-#include "../../math/function.h"
+#include "../../math/function/function.h"
 
 namespace engc::model {
 class Differential {

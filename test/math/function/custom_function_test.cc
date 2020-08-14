@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../../src/math/custom_function.h"
+#include "../../../src/math/function/custom_function.h"
 
 #include <cmath>
 

@@ -4,7 +4,7 @@
 #include "differential.h"
 #include "gearbox.h"
 #include "tyre.h"
-#include "../../math/function.h"
+#include "../../math/function/function.h"
 
 namespace engc::model {
 class Transmission {

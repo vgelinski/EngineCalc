@@ -2,9 +2,9 @@
 
 #include <algorithm>
 
-#include "differential.h"
+#include "../differential.h"
 #include "identity.h"
-#include "integral.h"
+#include "../integral.h"
 
 using namespace std;
 using namespace engc::math;

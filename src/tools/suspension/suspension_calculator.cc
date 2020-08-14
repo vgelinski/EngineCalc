@@ -4,10 +4,10 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "../../math/constant.h"
-#include "../../math/custom_function.h"
-#include "../../math/identity.h"
-#include "../../math/implicit_function.h"
+#include "../../math/function/constant.h"
+#include "../../math/function/custom_function.h"
+#include "../../math/function/identity.h"
+#include "../../math/function/implicit_function.h"
 #include "../../math/extremum_calculator.h"
 #include "../../physics/common_units.h"
 

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../../../src/math/polynomial/monomial.h"
+#include "../../../../src/math/function/polynomial/monomial.h"
 
 using namespace std;
 using namespace engc::math;

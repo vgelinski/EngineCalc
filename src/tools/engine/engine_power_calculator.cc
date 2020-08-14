@@ -1,9 +1,9 @@
 #include "engine_power_calculator.h"
 
-#include "../../math/constant.h"
-#include "../../math/custom_function.h"
-#include "../../math/identity.h"
-#include "../../math/max_function.h"
+#include "../../math/function/constant.h"
+#include "../../math/function/custom_function.h"
+#include "../../math/function/identity.h"
+#include "../../math/function/max_function.h"
 #include "../../model/engine/common_engines.h"
 #include "../../model/transmission/common_differentials.h"
 #include "../../model/transmission/common_gearboxes.h"

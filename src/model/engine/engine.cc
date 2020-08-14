@@ -2,9 +2,9 @@
 
 #include <cmath>
 
-#include "../../math/constant.h"
-#include "../../math/custom_function.h"
-#include "../../math/identity.h"
+#include "../../math/function/constant.h"
+#include "../../math/function/custom_function.h"
+#include "../../math/function/identity.h"
 #include "../../physics/common_units.h"
 
 using namespace std;

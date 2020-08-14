@@ -17,19 +17,19 @@ endif
 LDFLAGS=-lstdc++fs
 TEST_LDFLAGS=-lgcov -pg -no-pie -lstdc++fs
 
-PROJECT_SRCS=src/math/constant.cc\
-src/math/custom_function.cc\
-src/math/differential.cc\
+PROJECT_SRCS=src/math/differential.cc\
 src/math/extremum_calculator.cc\
-src/math/function.cc\
-src/math/identity.cc\
-src/math/implicit_function.cc\
+src/math/function/constant.cc\
+src/math/function/custom_function.cc\
+src/math/function/function.cc\
+src/math/function/identity.cc\
+src/math/function/implicit_function.cc\
+src/math/function/max_function.cc\
+src/math/function/min_function.cc\
+src/math/function/polynomial/lagrange_polynom_builder.cc\
+src/math/function/polynomial/monomial.cc\
+src/math/function/polynomial/polynomial.cc\
 src/math/integral.cc\
-src/math/max_function.cc\
-src/math/min_function.cc\
-src/math/polynomial/lagrange_polynom_builder.cc\
-src/math/polynomial/monomial.cc\
-src/math/polynomial/polynomial.cc\
 src/model/engine/common_engines.cc\
 src/model/engine/engine.cc\
 src/model/engine/precalculated_momentum_builder.cc\
@@ -56,16 +56,16 @@ src/main.cc
 
 TEST_SRCS=$(PROJECT_SRCS)\
 test/test_runner.cc\
-test/math/constant_test.cc\
-test/math/custom_function_test.cc\
 test/math/differential_test.cc\
 test/math/extremum_calculator_test.cc\
-test/math/function_test.cc\
-test/math/identity_test.cc\
-test/math/implicit_function_test.cc\
+test/math/function/constant_test.cc\
+test/math/function/custom_function_test.cc\
+test/math/function/function_test.cc\
+test/math/function/identity_test.cc\
+test/math/function/implicit_function_test.cc\
+test/math/function/polynomial/monomial_test.cc\
+test/math/function/polynomial/polynomial_test.cc\
 test/math/integral_test.cc\
-test/math/polynomial/monomial_test.cc\
-test/math/polynomial/polynomial_test.cc\
 test/model/engine/common_engines_test.cc\
 test/model/transmission/gearbox_test.cc\
 test/model/transmission/transmission_test.cc\

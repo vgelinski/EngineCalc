@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "../math/function.h"
+#include "../math/function/function.h"
 #include "units.h"
 
 namespace engc::physics {

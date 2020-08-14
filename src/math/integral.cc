@@ -4,7 +4,7 @@
 #include <future>
 #include <vector>
 
-#include "constant.h"
+#include "function/constant.h"
 
 using namespace std;
 using namespace engc::math;
