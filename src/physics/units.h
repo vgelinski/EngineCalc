@@ -8,9 +8,9 @@
 #include <unordered_map>
 #include <vector>
 
-namespace engc::physics {
+#include "../common/types.h"
 
-typedef std::optional<std::string> uname_t;
+namespace engc::physics {
 
 enum class SimpleUnitType {
     Length, Mass, Time, Temperature, Angle,

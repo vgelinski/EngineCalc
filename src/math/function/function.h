@@ -7,12 +7,9 @@
 #include <string>
 #include <unordered_set>
 
-namespace engc::math {
+#include "../../common/types.h"
 
-typedef long double fret_t;
-typedef std::function<fret_t(const fret_t& p1, const fret_t& p2)> operator_t;
-typedef std::unordered_map<std::string, fret_t> fparams_t;
-typedef std::unordered_set<std::string> fvariables_t;
+namespace engc::math {
 
 /** \brief Клас, моделиращ математическа функция
  *
