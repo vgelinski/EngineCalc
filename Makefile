@@ -1,8 +1,8 @@
 ODIR=obj
 TEST_ODIR=tobj
-GTESTDIR=test/googletest/googletest
+GTESTDIR=lib/googletest/googletest
 BIN=bin
-LIBDIR=lib
+LIBDIR=$(BIN)/lib
 
 CC=g++
 CFLAGS=-std=c++20 -Wall -pthread -Ofast
