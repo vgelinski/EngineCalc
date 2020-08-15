@@ -50,6 +50,7 @@ TEST (UnitsTest, testUniqueness) {
 
 TEST (UnitsTest, testSiUnit) {
 
+    ASSERT_GT(SUV::values().size(), 0);
     for (auto val : SUV::values()) {
         ASSERT_NE(val->siUnit(), nullptr);
     }
