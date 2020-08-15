@@ -9,24 +9,34 @@ using namespace std;
 
 #define SUT SimpleUnitType
 #define SU SimpleUnit
+#define SUV SimpleUnitValues
 #define CU CompoundUnit
 
-const vector<SU const *>& SU::values() {
-    return SU::vals;
+const vector<SU const *>& SUV::values() {
+    return SUV::Get()->vals;
+}
+
+SimpleUnit * SU::constructorWrapper(
+        const long double& multiplier,
+        const SUT type,
+        const string& name,
+        vector<const SimpleUnit *>& vals) {
+    return new SU(multiplier, type, name, vals);
 }
 
 SU::SU(
         const long double& multiplier,
         const SUT type,
-        const string& name)
+        const string& name,
+        vector<const SimpleUnit *>& vals)
         : multiplier(multiplier), type(type), name(name) {
-    SU::vals.push_back(this);
+    vals.push_back(this);
 }
 
 SU::~SU() {}
 
 const SU * const SU::siUnit() const {
-    for (auto u : vals) {
+    for (auto u : SUV::values()) {
         if (u->multiplier == 1 && u->type == type) return u;
     }
     return nullptr;

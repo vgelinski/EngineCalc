@@ -27,7 +27,7 @@ TEST (TransmissionTest, speed) {
     auto& v = * v_ptr;
 
     fparams_t params;
-    params["rotationSpeed"] = make_shared<Value>(4500, CommonUnits::Speed::rpm)->convertToSi()->value;
+    params["rotationSpeed"] = make_shared<Value>(4500, CommonUnits::Get()->Speed->rpm)->convertToSi()->value;
 
     ASSERT_EQ(v.variables(), fvariables_t({"rotationSpeed"}));
     ASSERT_DOUBLE_EQ(v(params), ((185.0L/1000.0L) * 0.8L + 13.0L * 0.0254L / 2) * 2 * M_PI * (4500 / (0.801L * 4.1L * 60))); // m/s
@@ -48,7 +48,7 @@ TEST (TransmissionTest, rotation) {
     auto& v = * v_ptr;
 
     fparams_t params;
-    params["speed"] = make_shared<Value>(170, CommonUnits::Speed::KmPh)->convertToSi()->value;
+    params["speed"] = make_shared<Value>(170, CommonUnits::Get()->Speed->KmPh)->convertToSi()->value;
 
     ASSERT_EQ(v.variables(), fvariables_t({"speed"}));
     ASSERT_DOUBLE_EQ(v(params), 170 * 0.801L * 4.1L / (3.6L * ((185.0L/1000.0L) * 0.8L + 13.0L * 0.0254L / 2))); // rad/s

@@ -81,7 +81,7 @@ shared_ptr<Function> Engine::mechanicalLossF() const {
         }, velocityF->variables());
     auto fVF = fFrF * absVelocityF;
     auto lossF = make_shared<CustomFunction>([fVF, rotSpeedF](const fparams_t& params){
-        auto rotSpeedRPS = make_shared<Value>((*rotSpeedF)(params), CommonUnits::Speed::radPs)->convertTo(CommonUnits::Angle::round / CommonUnits::Time::s)->value;
+        auto rotSpeedRPS = make_shared<Value>((*rotSpeedF)(params), CommonUnits::Get()->Speed->radPs)->convertTo(CommonUnits::Get()->Angle->round / CommonUnits::Get()->Time->s)->value;
         auto roundTimeS = 1 / rotSpeedRPS;
         auto roundWorkF = fVF->integrate(0, roundTimeS, "t", 0.001);
         auto  roundWork = (*roundWorkF)(params);
@@ -123,6 +123,6 @@ shared_ptr<Engine> Engine::setCombustionRatio(const long double &ratio) {
     auto boreSi = cylinderBore->convertToSi()->value;
     auto displacementSi = strokeLength->convertToSi()->value * M_PI * boreSi * boreSi / 4;
     auto combChambVolSi = displacementSi / (ratio - 1.0L);
-    combustionChamberVolume = make_shared<Value>(combChambVolSi, CommonUnits::Volume::m3);
+    combustionChamberVolume = make_shared<Value>(combChambVolSi, CommonUnits::Get()->Volume->m3);
     return shared_from_this();
 }

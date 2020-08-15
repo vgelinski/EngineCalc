@@ -16,47 +16,69 @@ enum class SimpleUnitType {
     Length, Mass, Time, Temperature, Angle,
 };
 
+class SimpleUnitValues;
+
 class SimpleUnit {
 private:
-    static std::vector<const SimpleUnit *> vals;
+
+    friend class SimpleUnitValues;
+
+    static SimpleUnit * constructorWrapper(
+            const long double& multiplier,
+            const SimpleUnitType type,
+            const std::string& name,
+            std::vector<const SimpleUnit *>& vals
+    );
 
     SimpleUnit(
             const long double& multiplier,
             const SimpleUnitType type,
-            const std::string& name
+            const std::string& name,
+            std::vector<const SimpleUnit *>& vals
     );
 
 public:
-
-    static const SimpleUnit * const HundredthMilliMeters;
-    static const SimpleUnit * const MilliMeters;
-    static const SimpleUnit * const Meters;
-    static const SimpleUnit * const KiloMeters;
-
-    static const SimpleUnit * const Grams;
-    static const SimpleUnit * const Kilograms;
-
-    static const SimpleUnit * const MilliSeconds;
-    static const SimpleUnit * const Seconds;
-    static const SimpleUnit * const Minutes;
-    static const SimpleUnit * const Hours;
-
-    static const SimpleUnit * const Kelvins;
-
-    static const SimpleUnit * const Radians;
-    static const SimpleUnit * const Degrees;
-    static const SimpleUnit * const Rounds;
 
     const long double multiplier;
     const SimpleUnitType type;
     const std::string name;
 
-    static const std::vector<SimpleUnit const *>& values();
-
     virtual ~SimpleUnit();
 
     virtual const SimpleUnit * const siUnit() const;
     virtual std::string toString() const;
+};
+
+class SimpleUnitValues {
+private:
+
+    SimpleUnitValues();
+
+    std::vector<const SimpleUnit *> vals;
+public:
+
+     const SimpleUnit * const HundredthMilliMeters;
+     const SimpleUnit * const MilliMeters;
+     const SimpleUnit * const Meters;
+     const SimpleUnit * const KiloMeters;
+
+     const SimpleUnit * const Grams;
+     const SimpleUnit * const Kilograms;
+
+     const SimpleUnit * const MilliSeconds;
+     const SimpleUnit * const Seconds;
+     const SimpleUnit * const Minutes;
+     const SimpleUnit * const Hours;
+
+     const SimpleUnit * const Kelvins;
+
+     const SimpleUnit * const Radians;
+     const SimpleUnit * const Degrees;
+     const SimpleUnit * const Rounds;
+
+    static const SimpleUnitValues * Get();
+
+    static const std::vector<SimpleUnit const *>& values();
 };
 
 class CompoundUnit {

@@ -3,76 +3,98 @@
 using namespace std;
 using namespace engc::physics;
 
-#define SU SimpleUnit
+#define SU SimpleUnitValues
 #define CMN CommonUnits
 
-#define LENGTH const shared_ptr<CompoundUnit> CommonUnits::Length
-#define AREA const shared_ptr<CompoundUnit> CommonUnits::Area
-#define VOLUME const shared_ptr<CompoundUnit> CommonUnits::Volume
-#define MASS const shared_ptr<CompoundUnit> CommonUnits::Mass
-#define TIME const shared_ptr<CompoundUnit> CommonUnits::Time
-#define TEMPERATURE const shared_ptr<CompoundUnit> CommonUnits::Temperature
-#define ANGLE const shared_ptr<CompoundUnit> CommonUnits::Angle
-#define SPEED const shared_ptr<CompoundUnit> CommonUnits::Speed
-#define ACC const shared_ptr<CompoundUnit> CommonUnits::Acceleration
-#define FORCE const shared_ptr<CompoundUnit> CommonUnits::Force
-#define TORQUE const shared_ptr<CompoundUnit> CommonUnits::Torque
-#define WORK const shared_ptr<CompoundUnit> CommonUnits::Work
-#define POWER const shared_ptr<CompoundUnit> CommonUnits::Power
-#define ENERGY const shared_ptr<CompoundUnit> CommonUnits::Energy
 #define MK_UNIT make_shared<CompoundUnit>
 
-LENGTH::Hundredthmm = MK_UNIT(SU::HundredthMilliMeters);
-LENGTH::mm = MK_UNIT(SU::MilliMeters);
-LENGTH::cm = CMN::Length::mm->withName("cm", 10);
-LENGTH::m = MK_UNIT(SU::Meters);
-LENGTH::Km = MK_UNIT(SU::KiloMeters);
-LENGTH::Inch = CMN::Length::mm->withName("in", 25.4L);
+const CommonUnits * CommonUnits::Get() {
+    static auto instance = new CommonUnits();
+    return instance;
+}
 
-AREA::mm2 = CMN::Length::mm * CMN::Length::mm;
-AREA::m2 = CMN::Length::m * CMN::Length::m;
+CMN::CMN() : Length(new LengthUnits()),
+             Area(new AreaUnits(Length)),
+             Volume(new VolumeUnits(Length, Area)),
+             Mass(new MassUnits()),
+             Time(new TimeUnits()),
+             Temperature(new TemperatureUnits()),
+             Angle(new AngleUnits()),
+             Speed(new SpeedUnits(Length, Angle, Time)),
+             Acceleration(new AccelerationUnits(Length, Time)),
+             Force(new ForceUnits(Acceleration, Mass)),
+             Torque(new TorqueUnits(Length, Force)),
+             Work(new WorkUnits(Length, Force)),
+             Power(new PowerUnits(Work, Time)),
+             Energy(new EnergyUnits(Length, Force, Power, Time)) {}
 
-VOLUME::mm3 = CMN::Area::mm2 * CMN::Length::mm;
-VOLUME::cm3 = (CMN::Length::cm * CMN::Length::cm * CMN::Length::cm)->withName("cm3");
-VOLUME::l = CMN::Volume::cm3->withName("l", 1000);
-VOLUME::m3 = CMN::Area::m2 * CMN::Length::m;
 
-MASS::g = MK_UNIT(SU::Grams);
-MASS::Kg = MK_UNIT(SU::Kilograms);
+CMN::LengthUnits::LengthUnits() : 
+    Hundredthmm(MK_UNIT(SU::Get()->HundredthMilliMeters)),
+    mm(MK_UNIT(SU::Get()->MilliMeters)),
+    cm(mm->withName("cm", 10)),
+    m(MK_UNIT(SU::Get()->Meters)),
+    Km(MK_UNIT(SU::Get()->KiloMeters)),
+    Inch(mm->withName("in", 25.4L)) {}
 
-TIME::ms = MK_UNIT(SU::MilliSeconds);
-TIME::s = MK_UNIT(SU::Seconds);
-TIME::min = MK_UNIT(SU::Minutes);
-TIME::h = MK_UNIT(SU::Hours);
+CMN::AreaUnits::AreaUnits(const LengthUnits* Length) :
+    mm2(Length->mm * Length->mm),
+    m2(Length->m * Length->m) {}
 
-TEMPERATURE::K = MK_UNIT(SU::Kelvins);
+CMN::VolumeUnits::VolumeUnits(const LengthUnits* Length, const AreaUnits * Area) :
+    mm3(Area->mm2 * Length->mm),
+    cm3((Length->cm * Length->cm * Length->cm)->withName("cm3")),
+    l(cm3->withName("l", 1000)),
+    m3(Area->m2 * Length->m) {}
 
-ANGLE::rad = MK_UNIT(SU::Radians);
-ANGLE::deg = MK_UNIT(SU::Degrees);
-ANGLE::round = MK_UNIT(SU::Rounds);
+CMN::MassUnits::MassUnits() :
+    g(MK_UNIT(SU::Get()->Grams)),
+    Kg(MK_UNIT(SU::Get()->Kilograms)) {}
 
-SPEED::KmPh = CMN::Length::Km / CMN::Time::h;
-SPEED::mPs = CMN::Length::m / CMN::Time::s;
-SPEED::radPs = CMN::Angle::rad / CMN::Time::s;
-SPEED::rpm = (CMN::Angle::round / CMN::Time::min)->withName("rpm");
+CMN::TimeUnits::TimeUnits() :
+    ms(MK_UNIT(SU::Get()->MilliSeconds)),
+    s(MK_UNIT(SU::Get()->Seconds)),
+    min(MK_UNIT(SU::Get()->Minutes)),
+    h(MK_UNIT(SU::Get()->Hours)) {}
 
-ACC::mps2 = CMN::Length::m / (CMN::Time::s * CMN::Time::s);
-ACC::g = CMN::Acceleration::mps2->withName("g", 9.8l);
+CMN::TemperatureUnits::TemperatureUnits() :
+    K(MK_UNIT(SU::Get()->Kelvins)) {}
 
-FORCE::N = (CMN::Acceleration::mps2 * CMN::Mass::Kg)->withName("N");
-FORCE::KN = CMN::Force::N->withName("KN", 1000);
-FORCE::Kgf = (CMN::Acceleration::g * CMN::Mass::Kg)->withName("Kgf");
+CMN::AngleUnits::AngleUnits() :
+    rad(MK_UNIT(SU::Get()->Radians)),
+    deg(MK_UNIT(SU::Get()->Degrees)),
+    round(MK_UNIT(SU::Get()->Rounds)) {}
 
-TORQUE::Nm = CMN::Force::N * CMN::Length::m;
+CMN::SpeedUnits::SpeedUnits(const LengthUnits* Length, const AngleUnits * Angle, const TimeUnits * Time) :
+    KmPh(Length->Km / Time->h),
+    mPs(Length->m / Time->s),
+    radPs(Angle->rad / Time->s),
+    rpm((Angle->round / Time->min)->withName("rpm")) {}
 
-WORK::J = CMN::Force::N * CMN::Length::m;
-WORK::KJ = CMN::Work::J->withName("KJ", 1000);
+CMN::AccelerationUnits::AccelerationUnits(const LengthUnits* Length, const TimeUnits * Time) :
+    mps2(Length->m / (Time->s * Time->s)),
+    g(mps2->withName("g", 9.8l)) {}
 
-POWER::W = CMN::Work::J / CMN::Time::s;
-POWER::KW = CMN::Power::W->withName("KW", 1000);
-POWER::HP = CMN::Power::KW->withName("HP", 0.745699872L);
+CMN::ForceUnits::ForceUnits(const AccelerationUnits * Acceleration, const MassUnits * Mass) :
+    N((Acceleration->mps2 * Mass->Kg)->withName("N")),
+    KN(N->withName("KN", 1000)),
+    Kgf((Acceleration->g * Mass->Kg)->withName("Kgf")) {}
 
-ENERGY::J = CMN::Force::N * CMN::Length::m;
-ENERGY::KJ = CMN::Energy::J->withName("KJ", 1000);
-ENERGY::Wh = (CMN::Power::W * CMN::Time::h)->withName("Wh");
-ENERGY::KWh = CMN::Energy::Wh->withName("KWh", 1000);
+CMN::TorqueUnits::TorqueUnits(const LengthUnits* Length, const ForceUnits * Force) :
+    Nm(Force->N * Length->m) {}
+
+CMN::WorkUnits::WorkUnits(const LengthUnits* Length, const ForceUnits * Force) :
+    J(Force->N * Length->m),
+    KJ(J->withName("KJ", 1000)) {}
+
+CMN::PowerUnits::PowerUnits(const WorkUnits * Work, const TimeUnits * Time) :
+    W(Work->J / Time->s),
+    KW(W->withName("KW", 1000)),
+    HP(KW->withName("HP", 0.745699872L)) {}
+
+CMN::EnergyUnits::EnergyUnits(const LengthUnits* Length, const ForceUnits * Force, const PowerUnits * Power, const TimeUnits * Time) :
+    J(Force->N * Length->m),
+    KJ(J->withName("KJ", 1000)),
+    Wh((Power->W * Time->h)->withName("Wh")),
+    KWh(Wh->withName("KWh", 1000)) {}
+

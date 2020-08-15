@@ -19,9 +19,9 @@ const string Tyre::ROTATING_SPEED = "rotationSpeed";
 const string Tyre::SPEED = "speed";
 
 Tyre::Tyre(const math::fret_t& widthMM, const math::fret_t& heightPerc, const math::fret_t& diameterInch)
-        : diameter(make_shared<Value>(diameterInch, CommonUnits::Length::Inch)),
-          width(make_shared<Value>(widthMM, CommonUnits::Length::mm)),
-          height(make_shared<Value>((heightPerc * widthMM) / 100.0L, CommonUnits::Length::mm))
+        : diameter(make_shared<Value>(diameterInch, CommonUnits::Get()->Length->Inch)),
+          width(make_shared<Value>(widthMM, CommonUnits::Get()->Length->mm)),
+          height(make_shared<Value>((heightPerc * widthMM) / 100.0L, CommonUnits::Get()->Length->mm))
 {}
 
 Tyre::~Tyre(){}

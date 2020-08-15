@@ -29,15 +29,15 @@ void EPC::plotPowerByRodLength() {
     auto lossF= engine->mechanicalLossF();
 
     auto start = engine->getRodLength();
-    auto end = make_shared<Value>(start->convertTo(CommonUnits::Length::mm)->value + 200, CommonUnits::Length::mm);
-    auto step = make_shared<Value>(10, CommonUnits::Length::mm);
+    auto end = make_shared<Value>(start->convertTo(CommonUnits::Get()->Length->mm)->value + 200, CommonUnits::Get()->Length->mm);
+    auto step = make_shared<Value>(10, CommonUnits::Get()->Length->mm);
 
     fparams_t p = engine->getParams();
-    p["rotationSpeed"] = make_shared<Value>(5600, CommonUnits::Speed::rpm)->convertToSi()->value;
+    p["rotationSpeed"] = make_shared<Value>(5600, CommonUnits::Get()->Speed->rpm)->convertToSi()->value;
 
     make_shared<PlotBuilder2D>()
             ->setFilename("plot/sandbox.csv")
-            ->addLine(lossF, CommonUnits::Power::HP, "phi")
+            ->addLine(lossF, CommonUnits::Get()->Power->HP, "phi")
             ->setStart(start)
             ->setEnd(end)
             ->setStep(step)
@@ -57,18 +57,18 @@ void EPC::plotMomentumAndPower() {
     auto momentumF2 = engine2->precalculatedMomentumF;
     auto powerF2 = engine2->precalculatedPowerF;
 
-    auto start = make_shared<Value>(0, CommonUnits::Speed::rpm);
-    auto end = make_shared<Value>(8000, CommonUnits::Speed::rpm);
-    auto step = make_shared<Value>(100, CommonUnits::Speed::rpm);
+    auto start = make_shared<Value>(0, CommonUnits::Get()->Speed->rpm);
+    auto end = make_shared<Value>(8000, CommonUnits::Get()->Speed->rpm);
+    auto step = make_shared<Value>(100, CommonUnits::Get()->Speed->rpm);
 
     fparams_t p;
 
     make_shared<PlotBuilder2D>()
             ->setFilename("plot/engine_momentum_power_by_rpm/data.csv")
-            ->addLine(momentumF1, CommonUnits::Torque::Nm, "momentum1")
-            ->addLine(powerF1, CommonUnits::Power::HP, "power1")
-            ->addLine(momentumF2, CommonUnits::Torque::Nm, "momentum2")
-            ->addLine(powerF2, CommonUnits::Power::HP, "power2")
+            ->addLine(momentumF1, CommonUnits::Get()->Torque->Nm, "momentum1")
+            ->addLine(powerF1, CommonUnits::Get()->Power->HP, "power1")
+            ->addLine(momentumF2, CommonUnits::Get()->Torque->Nm, "momentum2")
+            ->addLine(powerF2, CommonUnits::Get()->Power->HP, "power2")
             ->setStart(start)
             ->setEnd(end)
             ->setStep(step)
@@ -126,19 +126,19 @@ void EPC::plotPowerBySpeed() {
                     CommonDifferentials::VAZ::VAZ_2103(),
                     CommonGearboxes::VAZ::VAZ_2105()
             ),
-            make_shared<Value>(5500, CommonUnits::Speed::rpm)
+            make_shared<Value>(5500, CommonUnits::Get()->Speed->rpm)
     );
 
-    auto start = make_shared<Value>(0, CommonUnits::Speed::KmPh);
-    auto end = make_shared<Value>(250, CommonUnits::Speed::KmPh);
-    auto step = make_shared<Value>(1, CommonUnits::Speed::KmPh);
+    auto start = make_shared<Value>(0, CommonUnits::Get()->Speed->KmPh);
+    auto end = make_shared<Value>(250, CommonUnits::Get()->Speed->KmPh);
+    auto step = make_shared<Value>(1, CommonUnits::Get()->Speed->KmPh);
 
     fparams_t p;
 
     make_shared<PlotBuilder2D>()
             ->setFilename("plot/engine_power_by_speed/data.csv")
-            ->addLine(maxF1, CommonUnits::Power::HP, "power1")
-            ->addLine(maxF2, CommonUnits::Power::HP, "power2")
+            ->addLine(maxF1, CommonUnits::Get()->Power->HP, "power1")
+            ->addLine(maxF2, CommonUnits::Get()->Power->HP, "power2")
             ->setStart(start)
             ->setEnd(end)
             ->setStep(step)

@@ -3,13 +3,15 @@
 
 #include "units.h"
 
-#define CU static const std::shared_ptr<CompoundUnit>
+#define CU const std::shared_ptr<CompoundUnit>
 
 namespace engc::physics {
 class CommonUnits {
-public:
-    class Length {
     public:
+    CommonUnits();
+    class LengthUnits {
+    public:
+        LengthUnits();
         CU Hundredthmm;
         CU mm;
         CU cm;
@@ -17,80 +19,108 @@ public:
         CU Km;
         CU Inch;
     };
-    class Area {
+    const LengthUnits * Length;
+    class AreaUnits {
     public:
+        AreaUnits(const LengthUnits* Length);
         CU mm2;
         CU m2;
     };
-    class Volume {
+    const AreaUnits * Area;
+    class VolumeUnits {
     public:
+        VolumeUnits(const LengthUnits* Length, const AreaUnits * Area);
         CU mm3;
         CU cm3;
         CU l;
         CU m3;
     };
-    class Mass {
+    const VolumeUnits * Volume;
+    class MassUnits {
     public:
+        MassUnits();
         CU g;
         CU Kg;
     };
-    class Time {
+    const MassUnits * Mass;
+    class TimeUnits {
     public:
+        TimeUnits();
         CU ms;
         CU s;
         CU min;
         CU h;
     };
-    class Temperature {
+    const TimeUnits * Time;
+    class TemperatureUnits {
     public:
+        TemperatureUnits();
         CU K;
     };
-    class Angle {
+    const TemperatureUnits * Temperature;
+    class AngleUnits {
     public:
+        AngleUnits();
         CU rad;
         CU deg;
         CU round;
     };
-    class Speed {
+    const AngleUnits * Angle;
+    class SpeedUnits {
     public:
+        SpeedUnits(const LengthUnits* Length, const AngleUnits * Angle, const TimeUnits * Time);
         CU KmPh;
         CU mPs;
         CU radPs;
         CU rpm;
     };
-    class Acceleration {
+    const SpeedUnits * Speed;
+    class AccelerationUnits {
     public:
+        AccelerationUnits(const LengthUnits* Length, const TimeUnits * Time);
         CU mps2;
         CU g;
     };
-    class Force {
+    const AccelerationUnits * Acceleration;
+    class ForceUnits {
     public:
+        ForceUnits(const AccelerationUnits * Acceleration, const MassUnits * Mass);
         CU N;
         CU KN;
         CU Kgf;
     };
-    class Torque {
+    const ForceUnits * Force;
+    class TorqueUnits {
     public:
+        TorqueUnits(const LengthUnits* Length, const ForceUnits * Force);
         CU Nm;
     };
-    class Work {
+    const TorqueUnits * Torque;
+    class WorkUnits {
     public:
+        WorkUnits(const LengthUnits* Length, const ForceUnits * Force);
         CU J;
         CU KJ;
     };
-    class Power {
+    const WorkUnits * Work;
+    class PowerUnits {
     public:
+        PowerUnits(const WorkUnits * Work, const TimeUnits * Time);
         CU W;
         CU KW;
         CU HP;
     };
-    class Energy {
+    const PowerUnits * Power;
+    class EnergyUnits {
     public:
+        EnergyUnits(const LengthUnits* Length, const ForceUnits * Force, const PowerUnits * Power, const TimeUnits * Time);
         CU J;
         CU KJ;
         CU Wh;
         CU KWh;
     };
+    const EnergyUnits * Energy;
+    static const CommonUnits * Get();
 };
 }; //end namespace
 #undef CU

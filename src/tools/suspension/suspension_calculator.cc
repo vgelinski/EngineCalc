@@ -19,16 +19,16 @@ using namespace engc::tools;
 #define SC SuspensionCalculator
 #define CU CommonUnits
 
-const shared_ptr<Value> SC::CD = make_shared<Value>(130.0L, CU::Length::mm);
-const shared_ptr<Value> SC::Xd = make_shared<Value>(330.0L, CU::Length::mm);
-const shared_ptr<Value> SC::Yd = make_shared<Value>(85.0L, CU::Length::mm);
-const shared_ptr<Value> SC::Ya_MIN = make_shared<Value>(-120.0L, CU::Length::mm);
-const shared_ptr<Value> SC::Ya_MAX = make_shared<Value>(-20.0L, CU::Length::mm);
-const shared_ptr<Value> SC::R_MIN = make_shared<Value>(595.0L, CU::Length::mm);
-const shared_ptr<Value> SC::R_MAX = make_shared<Value>(615.0L, CU::Length::mm);
-const shared_ptr<Value> SC::r_MIN = make_shared<Value>(290.0L, CU::Length::mm);
-const shared_ptr<Value> SC::r_MAX = make_shared<Value>(310.0L, CU::Length::mm);
-const shared_ptr<Value> SC::ERR_BOUND = make_shared<Value>(1.0L, CU::Length::Hundredthmm);
+const shared_ptr<Value> SC::CD = make_shared<Value>(130.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::Xd = make_shared<Value>(330.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::Yd = make_shared<Value>(85.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::Ya_MIN = make_shared<Value>(-120.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::Ya_MAX = make_shared<Value>(-20.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::R_MIN = make_shared<Value>(595.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::R_MAX = make_shared<Value>(615.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::r_MIN = make_shared<Value>(290.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::r_MAX = make_shared<Value>(310.0L, CU::Get()->Length->mm);
+const shared_ptr<Value> SC::ERR_BOUND = make_shared<Value>(1.0L, CU::Get()->Length->Hundredthmm);
 
 shared_ptr<Function> SC::sq(const shared_ptr <Function>& f) {
     return f * f;
@@ -52,8 +52,8 @@ void SC::calculateRearSuspensionOptimalBarLengths() {
     auto fF = sq(xBF - xAF) + sq(yBF_xBF - yAF) - sq(cdF);
     auto xBFExplicit = make_shared<ImplicitFunction>(fF,
             "xb",
-            make_shared<Value>(605.0L, CU::Length::mm)->convertToSi()->value,
-            make_shared<Value>(645.0L, CU::Length::mm)->convertToSi()->value,
+            make_shared<Value>(605.0L, CU::Get()->Length->mm)->convertToSi()->value,
+            make_shared<Value>(645.0L, CU::Get()->Length->mm)->convertToSi()->value,
             ERR_BOUND->convertToSi()->value * 1800 //TODO debug why so big errBound is needed
             );
     auto xCF = (xAF + xBFExplicit) / make_shared<Constant>(2.0L);
@@ -73,12 +73,12 @@ void SC::calculateRearSuspensionOptimalBarLengths() {
     calc->calculate();
 
     cout << "Optimal lengths are as follows:" <<  endl;
-    cout << "\tR min: " << make_shared<Value>(calc->minAt()["R"], CU::Length::m)->convertTo(CU::Length::mm)->value << "mm" <<  endl;
-    cout << "\tR max: " << make_shared<Value>(calc->maxAt()["R"], CU::Length::m)->convertTo(CU::Length::mm)->value << "mm" <<  endl;
-    cout << "\tr min: " << make_shared<Value>(calc->minAt()["r"], CU::Length::m)->convertTo(CU::Length::mm)->value << "mm" <<  endl;
-    cout << "\tr max: " << make_shared<Value>(calc->maxAt()["r"], CU::Length::m)->convertTo(CU::Length::mm)->value << "mm" <<  endl;
-    cout << "\tmax: " << make_shared<Value>(calc->maxVal(), CU::Length::m)->convertTo(CU::Length::mm)->value << "mm" <<  endl;
-    cout << "\tmin: " << make_shared<Value>(calc->minVal(), CU::Length::m)->convertTo(CU::Length::mm)->value << "mm" <<  endl;
-//    cout << "\tR: " << make_shared<Value>(calc->maxAt()["R"], CU::Length::m)->convertTo(CU::Length::mm)->toString() <<  endl;
-//    cout << "\tr: " << make_shared<Value>(calc->maxAt()["r"], CU::Length::m)->convertTo(CU::Length::mm)->toString() <<  endl;
+    cout << "\tR min: " << make_shared<Value>(calc->minAt()["R"], CU::Get()->Length->m)->convertTo(CU::Get()->Length->mm)->value << "mm" <<  endl;
+    cout << "\tR max: " << make_shared<Value>(calc->maxAt()["R"], CU::Get()->Length->m)->convertTo(CU::Get()->Length->mm)->value << "mm" <<  endl;
+    cout << "\tr min: " << make_shared<Value>(calc->minAt()["r"], CU::Get()->Length->m)->convertTo(CU::Get()->Length->mm)->value << "mm" <<  endl;
+    cout << "\tr max: " << make_shared<Value>(calc->maxAt()["r"], CU::Get()->Length->m)->convertTo(CU::Get()->Length->mm)->value << "mm" <<  endl;
+    cout << "\tmax: " << make_shared<Value>(calc->maxVal(), CU::Get()->Length->m)->convertTo(CU::Get()->Length->mm)->value << "mm" <<  endl;
+    cout << "\tmin: " << make_shared<Value>(calc->minVal(), CU::Get()->Length->m)->convertTo(CU::Get()->Length->mm)->value << "mm" <<  endl;
+//    cout << "\tR: " << make_shared<Value>(calc->maxAt()["R"], CU::Get()->Length->m)->convertTo(CU::Get()->Length->mm)->toString() <<  endl;
+//    cout << "\tr: " << make_shared<Value>(calc->maxAt()["r"], CU::Get()->Length->m)->convertTo(CU::Get()->Length->mm)->toString() <<  endl;
 }

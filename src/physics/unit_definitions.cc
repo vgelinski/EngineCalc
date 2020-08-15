@@ -7,25 +7,32 @@ using namespace std;
 
 #define SUT SimpleUnitType
 #define SU  SimpleUnit
+#define SUV  SimpleUnitValues
 
-vector<SU const *> SU::vals;
+const SUV * SUV::Get() {
+    static auto instance = new SUV();
+    return instance;
+}
 
-const SU * const SU::HundredthMilliMeters = new SU(0.01L * 0.001L, SUT::Length, "mm/100");
-const SU * const SU::MilliMeters = new SU(0.001L, SUT::Length, "mm");
-const SU * const SU::Meters = new SU(1.0L, SUT::Length, "m");
-const SU * const SU::KiloMeters = new SU(1000.0L, SUT::Length, "km");
+SUV::SUV() :
+    vals(),
 
-const SU * const SU::Grams = new SU(0.001L, SUT::Mass, "g");
-const SU * const SU::Kilograms = new SU(1.0L, SUT::Mass, "kg");
+    HundredthMilliMeters(SU::constructorWrapper(0.01L * 0.001L, SUT::Length, "mm/100", vals)),
+    MilliMeters(SU::constructorWrapper(0.001L, SUT::Length, "mm", vals)),
+    Meters(SU::constructorWrapper(1.0L, SUT::Length, "m", vals)),
+    KiloMeters(SU::constructorWrapper(1000.0L, SUT::Length, "km", vals)),
 
-const SU * const SU::MilliSeconds = new SU(0.001L, SUT::Time, "ms");
-const SU * const SU::Seconds = new SU(1.0L, SUT::Time, "s");
-const SU * const SU::Minutes = new SU(60.0L, SUT::Time, "min");
-const SU * const SU::Hours = new SU(60.0L * 60.0L, SUT::Time, "h");
+    Grams(SU::constructorWrapper(0.001L, SUT::Mass, "g", vals)),
+    Kilograms(SU::constructorWrapper(1.0L, SUT::Mass, "kg", vals)),
 
-const SU * const SU::Kelvins = new SU(1.0L, SUT::Temperature, "K°");
+    MilliSeconds(SU::constructorWrapper(0.001L, SUT::Time, "ms", vals)),
+    Seconds(SU::constructorWrapper(1.0L, SUT::Time, "s", vals)),
+    Minutes(SU::constructorWrapper(60.0L, SUT::Time, "min", vals)),
+    Hours(SU::constructorWrapper(60.0L * 60.0L, SUT::Time, "h", vals)),
 
-const SU * const SU::Radians = new SU(1.0L, SUT::Angle , "rad");
-const SU * const SU::Degrees = new SU(2.0L * M_PI/ 360.0L, SUT::Angle , "deg");
-const SU * const SU::Rounds = new SU(2.0L * M_PI, SUT::Angle , "r");
+    Kelvins(SU::constructorWrapper(1.0L, SUT::Temperature, "K°", vals)),
+
+    Radians(SU::constructorWrapper(1.0L, SUT::Angle , "rad", vals)),
+    Degrees(SU::constructorWrapper(2.0L * M_PI/ 360.0L, SUT::Angle , "deg", vals)),
+    Rounds(SU::constructorWrapper(2.0L * M_PI, SUT::Angle , "r", vals)) {}
 

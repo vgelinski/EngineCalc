@@ -42,11 +42,11 @@ void calculateSpeed() {
     auto& rpm = * rpm_ptr;
 
     fparams_t params;
-    params["rotationSpeed"] = make_shared<Value>(950, CommonUnits::Speed::rpm)->convertToSi()->value;
-    params["speed"] = make_shared<Value>(130, CommonUnits::Speed::KmPh)->convertToSi()->value;
+    params["rotationSpeed"] = make_shared<Value>(950, CommonUnits::Get()->Speed->rpm)->convertToSi()->value;
+    params["speed"] = make_shared<Value>(130, CommonUnits::Get()->Speed->KmPh)->convertToSi()->value;
 
-    cout << "Skorostta e " << make_shared<Value>(v(params), CommonUnits::Speed::mPs)->convertTo(CommonUnits::Speed::KmPh)->value << endl;
-    cout << "Oborotite sa " << make_shared<Value>(rpm(params), CommonUnits::Speed::radPs)->convertTo(CommonUnits::Speed::rpm)->value << endl;
+    cout << "Skorostta e " << make_shared<Value>(v(params), CommonUnits::Get()->Speed->mPs)->convertTo(CommonUnits::Get()->Speed->KmPh)->value << endl;
+    cout << "Oborotite sa " << make_shared<Value>(rpm(params), CommonUnits::Get()->Speed->radPs)->convertTo(CommonUnits::Get()->Speed->rpm)->value << endl;
 
 }
 

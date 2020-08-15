@@ -23,14 +23,14 @@ TEST (DataCalculator2DTest, calculate) {
 
     auto energyF = massF * speedF * speedF / make_shared<Constant>(2);
 
-    auto start = make_shared<Value>(0, CommonUnits::Time::min);
-    auto end = make_shared<Value>(2, CommonUnits::Time::min);
-    auto step = make_shared<Value>(1, CommonUnits::Time::min);
+    auto start = make_shared<Value>(0, CommonUnits::Get()->Time->min);
+    auto end = make_shared<Value>(2, CommonUnits::Get()->Time->min);
+    auto step = make_shared<Value>(1, CommonUnits::Get()->Time->min);
 
     vector<line_t> lines = {
-        pair(speedF, CommonUnits::Speed::KmPh),
-        pair(massF, CommonUnits::Mass::g),
-        pair(energyF, CommonUnits::Energy::J)
+        pair(speedF, CommonUnits::Get()->Speed->KmPh),
+        pair(massF, CommonUnits::Get()->Mass->g),
+        pair(energyF, CommonUnits::Get()->Energy->J)
     };
     fparams_t p;
     p["m"] = mass;

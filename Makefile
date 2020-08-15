@@ -17,62 +17,14 @@ endif
 LDFLAGS=-lstdc++fs
 TEST_LDFLAGS=-lgcov -pg -no-pie -lstdc++fs
 
-PROJECT_SRCS=src/math/differential.cc\
-src/math/extremum_calculator.cc\
-src/math/function/constant.cc\
-src/math/function/custom_function.cc\
-src/math/function/function.cc\
-src/math/function/identity.cc\
-src/math/function/implicit_function.cc\
-src/math/function/max_function.cc\
-src/math/function/min_function.cc\
-src/math/function/polynomial/lagrange_polynom_builder.cc\
-src/math/function/polynomial/monomial.cc\
-src/math/function/polynomial/polynomial.cc\
-src/math/integral.cc\
-src/model/engine/common_engines.cc\
-src/model/engine/engine.cc\
-src/model/engine/precalculated_momentum_builder.cc\
-src/model/transmission/common_gearboxes.cc\
-src/model/transmission/common_differentials.cc\
-src/model/transmission/differential.cc\
-src/model/transmission/gearbox.cc\
-src/model/transmission/transmission.cc\
-src/model/transmission/tyre.cc\
-src/physics/unit_definitions.cc\
-src/physics/common_units.cc\
-src/physics/units.cc\
-src/physics/value.cc\
-src/tools/engine/engine_power_calculator.cc\
-src/tools/suspension/suspension_calculator.cc\
-src/util/exceptions/illegal_argument_exception.cc\
-src/util/files/file_io.cc\
-src/util/plot/data_calculator_2d.cc\
-src/util/plot/plot_builder_2d.cc\
-src/util/plot/simple_2d_plotter.cc
+PROJECT_SRCS=$(shell find src -name "*.cc"|grep -v main.cc)
 
 SRCS=$(PROJECT_SRCS)\
 src/main.cc
 
 TEST_SRCS=$(PROJECT_SRCS)\
-test/test_runner.cc\
-test/math/differential_test.cc\
-test/math/extremum_calculator_test.cc\
-test/math/function/constant_test.cc\
-test/math/function/custom_function_test.cc\
-test/math/function/function_test.cc\
-test/math/function/identity_test.cc\
-test/math/function/implicit_function_test.cc\
-test/math/function/polynomial/monomial_test.cc\
-test/math/function/polynomial/polynomial_test.cc\
-test/math/integral_test.cc\
-test/model/engine/common_engines_test.cc\
-test/model/transmission/gearbox_test.cc\
-test/model/transmission/transmission_test.cc\
-test/model/transmission/tyre_test.cc\
-test/physics/units_test.cc\
-test/physics/value_test.cc\
-test/util/plot/data_calculator_2d_test.cc
+$(shell find test -name "*_test.cc")\
+test/test_runner.cc
 
 _OBJ=$(SRCS:.cc=.o)
 _TEST_OBJ=$(TEST_SRCS:.cc=.o)
