@@ -8,5 +8,6 @@ mkdir -p $COV_DIR
 find tobj/|grep gcno|while read FILE; do cp $FILE coverage/; done
 find tobj/|grep gcda|while read FILE; do cp $FILE coverage/; done
 pwd
+ls
 lcov --directory $COV_DIR --capture --output-file $LCOV_OUT
 genhtml $LCOV_OUT --output-directory $COV_DIR
