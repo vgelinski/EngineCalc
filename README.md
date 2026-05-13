@@ -6,6 +6,7 @@ Application for calculating different parameters of internal combustion engine.
 Here is a list of dependencies you need to install to build/run this project
 
   * `build-essential` - tool that is used to compile the project
+  * `cmake` (>= 3.26) - build system
   * `lcov` - tool for generating code coverage
   * `doxygen` - tool for generating documentation
   * `graphviz` - tool, required by `doxygen` to draw class hierarchy
@@ -14,8 +15,10 @@ Here is a list of dependencies you need to install to build/run this project
 
 ### Build
 
-  * run `make test` to compile the unit tests, thant run `./bin/test` to run them
-  * run `make` to build the main program
+  * `cmake -B build` to configure the build tree
+  * `cmake --build build` to compile `engineCalc` and the test runner
+  * `./build/engineCalc` to run the main program
+  * `./build/testRunner` (or `ctest --test-dir build`) to run the unit tests
 
 ### Coverage
 

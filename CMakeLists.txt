@@ -1,81 +1,45 @@
-cmake_minimum_required(VERSION 3.26.0)
+cmake_minimum_required(VERSION 3.26)
 
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+project(EngineCalc LANGUAGES CXX)
 
-project(EngineCalc)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_library(Main
-	"src/common/types.h"
-	"src/math/differential.cc"
-	"src/math/differential.h"
-	"src/math/extremum_calculator.cc"
-	"src/math/extremum_calculator.h"
-	"src/math/function/constant.cc"
-	"src/math/function/constant.h"
-	"src/math/function/custom_function.cc"
-	"src/math/function/custom_function.h"
-	"src/math/function/function.cc"
-	"src/math/function/function.h"
-	"src/math/function/identity.cc"
-	"src/math/function/identity.h"
-	"src/math/function/implicit_function.cc"
-	"src/math/function/implicit_function.h"
-	"src/math/function/max_function.cc"
-	"src/math/function/max_function.h"
-	"src/math/function/min_function.cc"
-	"src/math/function/min_function.h"
-	"src/math/function/polynomial/lagrange_polynom_builder.cc"
-	"src/math/function/polynomial/lagrange_polynom_builder.h"
-	"src/math/function/polynomial/monomial.cc"
-	"src/math/function/polynomial/monomial.h"
-	"src/math/function/polynomial/polynomial.cc"
-	"src/math/function/polynomial/polynomial.h"
-	"src/math/integral.cc"
-	"src/math/integral.h"
-	"src/model/engine/common_engines.cc"
-	"src/model/engine/common_engines.h"
-	"src/model/engine/engine.cc"
-	"src/model/engine/engine.h"
-	"src/model/engine/precalculated_momentum_builder.cc"
-	"src/model/engine/precalculated_momentum_builder.h"
-	"src/model/transmission/common_differentials.cc"
-	"src/model/transmission/common_differentials.h"
-	"src/model/transmission/common_gearboxes.cc"
-	"src/model/transmission/common_gearboxes.h"
-	"src/model/transmission/differential.cc"
-	"src/model/transmission/differential.h"
-	"src/model/transmission/gearbox.cc"
-	"src/model/transmission/gearbox.h"
-	"src/model/transmission/transmission.cc"
-	"src/model/transmission/transmission.h"
-	"src/model/transmission/tyre.cc"
-	"src/model/transmission/tyre.h"
-	"src/physics/common_units.cc"
-	"src/physics/common_units.h"
-	"src/physics/unit_definitions.cc"
-	"src/physics/units.cc"
-	"src/physics/units.h"
-	"src/physics/value.cc"
-	"src/physics/value.h"
-	"src/tools/engine/engine_power_calculator.cc"
-	"src/tools/engine/engine_power_calculator.h"
-	"src/tools/suspension/suspension_calculator.cc"
-	"src/tools/suspension/suspension_calculator.h"
-	"src/util/exceptions/illegal_argument_exception.cc"
-	"src/util/exceptions/illegal_argument_exception.h"
-	"src/util/files/file_io.cc"
-	"src/util/files/file_io.h"
-	"src/util/plot/data_calculator_2d.cc"
-	"src/util/plot/data_calculator_2d.h"
-	"src/util/plot/plot_builder_2d.cc"
-	"src/util/plot/plot_builder_2d.h"
-	"src/util/plot/simple_2d_plotter.cc"
-	"src/util/plot/simple_2d_plotter.h"
-)
+find_package(Threads REQUIRED)
 
+file(GLOB_RECURSE MAIN_SOURCES CONFIGURE_DEPENDS "src/*.cc")
+list(REMOVE_ITEM MAIN_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cc")
 
-add_executable(engineCalc
-	src/main.cc)
+add_library(Main STATIC ${MAIN_SOURCES})
+target_include_directories(Main PUBLIC src)
+target_compile_options(Main PRIVATE -Wall)
+target_link_libraries(Main PUBLIC Threads::Threads)
 
-target_link_libraries(engineCalc PUBLIC Main)
+add_executable(engineCalc src/main.cc)
+target_compile_options(engineCalc PRIVATE -Wall)
+target_link_libraries(engineCalc PRIVATE Main)
+
+option(ENGINECALC_BUILD_TESTS "Build the EngineCalc test suite" ON)
+
+if(ENGINECALC_BUILD_TESTS)
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG v1.14.0
+    )
+    set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
+
+    enable_testing()
+
+    file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS "test/*_test.cc")
+
+    add_executable(testRunner ${TEST_SOURCES} test/test_runner.cc)
+    target_compile_options(testRunner PRIVATE -Wall)
+    target_link_libraries(testRunner PRIVATE Main GTest::gtest)
+
+    include(GoogleTest)
+    gtest_discover_tests(testRunner)
+endif()
