@@ -8,13 +8,21 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(Threads REQUIRED)
 
+option(ENGINECALC_COVERAGE "Build with gcov coverage instrumentation" OFF)
+
+add_library(engc_coverage INTERFACE)
+if(ENGINECALC_COVERAGE)
+    target_compile_options(engc_coverage INTERFACE --coverage -O0 -g)
+    target_link_options(engc_coverage INTERFACE --coverage)
+endif()
+
 file(GLOB_RECURSE MAIN_SOURCES CONFIGURE_DEPENDS "src/*.cc")
 list(REMOVE_ITEM MAIN_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cc")
 
 add_library(Main STATIC ${MAIN_SOURCES})
 target_include_directories(Main PUBLIC src)
 target_compile_options(Main PRIVATE -Wall)
-target_link_libraries(Main PUBLIC Threads::Threads)
+target_link_libraries(Main PUBLIC Threads::Threads engc_coverage)
 
 add_executable(engineCalc src/main.cc)
 target_compile_options(engineCalc PRIVATE -Wall)

@@ -41,6 +41,7 @@
 
 bin/
 build/
+build-coverage/
 coverage/
 docs/
 
