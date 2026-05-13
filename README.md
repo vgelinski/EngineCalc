@@ -10,6 +10,8 @@ Here is a list of dependencies you need to install to build/run this project
   * `lcov` - tool for generating code coverage
   * `doxygen` - tool for generating documentation
   * `graphviz` - tool, required by `doxygen` to draw class hierarchy
+  * `texlive-latex-base` - provides `pdflatex`, required to compile the plot output (`plot/**/plot.tex` → `plot.pdf`)
+  * `texlive-pictures` - provides `pgfplots` and `tikz`, required by the plot `.tex` files
 
 ## How to use
 
@@ -19,6 +21,14 @@ Here is a list of dependencies you need to install to build/run this project
   * `cmake --build build` to compile `engineCalc` and the test runner
   * `./build/engineCalc` to run the main program
   * `./build/testRunner` (or `ctest --test-dir build`) to run the unit tests
+
+### Plots
+
+`engineCalc` writes plot data (CSV) into `plot/`. To render a PDF, run `pdflatex` against the matching `.tex` from inside the directory that holds the CSV:
+
+  * Option 1 (engine power by rod length) — `cd plot && pdflatex sandbox.tex` → `sandbox.pdf`
+  * Option 4 (momentum and power by rpm) — `cd plot/engine_momentum_power_by_rpm && pdflatex plot.tex` → `plot.pdf`
+  * Option 5 (power by speed) — `cd plot/engine_power_by_speed && pdflatex plot.tex` → `plot.pdf`
 
 ### Coverage
 
